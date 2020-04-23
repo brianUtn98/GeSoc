@@ -19,4 +19,10 @@ public class TestDummyDesign {
 		assertEquals(result,4);
 	}
 
+	@Test
+	public void testIntegrante1 () {
+		DummyDesign design = new DummyDesign();
+		int result = design.integrante1();
+		assertEquals(result,1);
+	}
 }
