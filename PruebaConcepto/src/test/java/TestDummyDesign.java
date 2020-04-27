@@ -22,7 +22,7 @@ public class TestDummyDesign {
 	public void testIntegrante3() {
 		DummyDesign design = new DummyDesign();
 		int result = design.integrante3();
-		assertEquals(result,4);
+		assertEquals(result,3);
 	}
 
 	@Test
