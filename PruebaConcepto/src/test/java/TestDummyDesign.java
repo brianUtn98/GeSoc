@@ -18,6 +18,12 @@ public class TestDummyDesign {
 		int result = design.integrante4();
 		assertEquals(result,4);
 	}
+	@Test
+	public void testIntegrante3() {
+		DummyDesign design = new DummyDesign();
+		int result = design.integrante3();
+		assertEquals(result,4);
+	}
 
 	@Test
 	public void testIntegrante2() {
