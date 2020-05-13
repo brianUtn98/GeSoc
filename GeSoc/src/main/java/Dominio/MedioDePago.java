@@ -1,19 +1,14 @@
 package Dominio;
 
+
 public class MedioDePago {
 	
 	private Integer numeroIdentificatorio;
-	enum TipoDeMedioDePago{
-		TarjetaDeCredito,
-		TarjetaDeDebito,
-		Efectivo,
-		CajeroAutomatico,
-		DineroEnCuenta
-	} 
-
+	private TipoDeMedioDePago tipoDeMedioDePago; 
 	
-	public MedioDePago(Integer numeroIdentificatorio) {
+	public MedioDePago(Integer numeroIdentificatorio, TipoDeMedioDePago tipoDeMedioDePago) {
 		this.numeroIdentificatorio = numeroIdentificatorio;
+		this.tipoDeMedioDePago = tipoDeMedioDePago;
 	}
 	
 	public Integer getNumeroIdentificatorio() {
@@ -23,4 +18,11 @@ public class MedioDePago {
 		this.numeroIdentificatorio = numeroIdentificatorio;
 	}
 
+	public TipoDeMedioDePago getTipoDeMedioDePago() {
+		return tipoDeMedioDePago;
+	}
+	
+	public void setTipoDeMedioDePago(TipoDeMedioDePago tipoDeMedioDePago) {
+		this.tipoDeMedioDePago = tipoDeMedioDePago;
+	}
 }

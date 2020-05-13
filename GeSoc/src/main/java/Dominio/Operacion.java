@@ -3,6 +3,8 @@ package Dominio;
 import java.sql.Date;
 import java.util.List;
 
+import javax.print.Doc;
+
 public class Operacion {
 
 	private Integer numeroDocumento;
@@ -10,22 +12,17 @@ public class Operacion {
 	private Date fecha;
 	private MedioDePago medioPago;
 	private List <ItemOperacion> detalle;
-	enum DocumentoComercial{
-		Factura,
-		ticket,
-		NC,
-		ND,
-		Remito
-	}
+	private DocumentoComercial documentoComercial;
 	
 	
 	public Operacion(Integer numeroDocumento, Provedor provedor, Date fecha, MedioDePago medioPago,
-			List<ItemOperacion> detalle) {
+			List<ItemOperacion> detalle, DocumentoComercial documentoComercial) {
 		this.numeroDocumento = numeroDocumento;
 		this.provedor = provedor;
 		this.fecha = fecha;
 		this.medioPago = medioPago;
 		this.detalle = detalle;
+		this.documentoComercial = documentoComercial;
 	}
 	
 	public Integer getNumeroDocumento() {
@@ -57,5 +54,13 @@ public class Operacion {
 	}
 	public void setDetalle(List<ItemOperacion> detalle) {
 		this.detalle = detalle;
+	}
+	
+	public DocumentoComercial getDocumentoComercial() {
+		return this.documentoComercial;
+	}
+	
+	public void setDocumentoComercial(DocumentoComercial documentoComercial) {
+		this.documentoComercial = documentoComercial;
 	}
 }

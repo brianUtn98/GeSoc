@@ -6,19 +6,16 @@ public class Provedor {
 	private String razonSocial;
 	private Integer numeroDocumento;
 	private String direccionPostal;
-	private enum TipoDocumento{
-		DNI,
-		CUIT,
-		CUIL
-	}
+	private TipoDocumento tipoDocumento;
 	
 	public Provedor(String nombre, String apellido, String razonSocial, Integer numeroDocumento,
-			String direccionPostal) {
+			String direccionPostal, TipoDocumento tipoDocumento) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.razonSocial = razonSocial;
 		this.numeroDocumento = numeroDocumento;
 		this.direccionPostal = direccionPostal;
+		this.tipoDocumento = tipoDocumento;
 	}
 	
 	public String getNombre() {
@@ -52,6 +49,13 @@ public class Provedor {
 		this.direccionPostal = direccionPostal;
 	}
 	
+	public TipoDocumento getTipoDocumento() {
+		return this.tipoDocumento;
+	}
+	
+	public void setTipoDocumento(TipoDocumento tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
+	}
 	
 
 }
