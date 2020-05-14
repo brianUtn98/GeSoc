@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public class ValidacionTop10000 implements ValidadorPassword{
-
+    //¿Podría ser un singleton?
     List<String> top10000=new ArrayList<String>();
     @Override
     public boolean esPasswordValida(String password) {

@@ -25,4 +25,10 @@ public class TestAlgo {
         assertFalse(validador.esPasswordValida("contrasenia"));
         assertTrue(validador.esPasswordValida("FranquitoCrack"));
     }
+
+    //@Test
+    //public void esPassInvalida2(){
+     //   ValidadorSecuencial validador=new ValidadorSecuencial();
+      //  assertTrue(validador.esPasswordValida("hola"));
+    //}
 }
