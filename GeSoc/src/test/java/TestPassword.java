@@ -1,19 +1,12 @@
-import org.junit.Test;
 import Dominio.*;
+import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class TestAlgo {
+public class TestPassword {
     @Test
-    public void testCategoria() {
-
-    	assertFalse(CategoriaDeEntidad.OSC.esEmpresa());
-    	assertTrue(CategoriaDeEntidad.Micro.esEmpresa());
-    	assertTrue(CategoriaDeEntidad.MedianaTramo2.esEmpresa());
-    }
-    @Test
-    public void esPassInvalida(){
-        ValidacionTop10000 validador=new ValidacionTop10000();
+    public void esPassInvalida() {
+        ValidacionTop10000 validador = new ValidacionTop10000();
         validador.agregarAlTop("holaMundo");
         validador.agregarAlTop("contrasenia");
         assertFalse(validador.esPasswordValida("holaMundo"));
@@ -23,7 +16,7 @@ public class TestAlgo {
 
     @Test
     public void passwordTieneCaracteresConsecutivosRepetidos(){
-        ValidadorSecuencial validador=new ValidadorSecuencial();
+        ValidadorPassword validador = new ValidadorSecuencial();
         assertTrue(validador.esPasswordValida("hola"));
         assertFalse(validador.esPasswordValida("aa"));
         assertFalse(validador.esPasswordValida("aaa"));
