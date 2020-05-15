@@ -5,11 +5,6 @@ import static org.junit.Assert.*;
 
 public class TestAlgo {
     @Test
-    public void testPrenda() {
-        assertEquals(5, 5);
-    }
-    
-    @Test
     public void testCategoria() {
 
     	assertFalse(CategoriaDeEntidad.OSC.esEmpresa());
@@ -34,5 +29,6 @@ public class TestAlgo {
         assertFalse(validador.esPasswordValida("aaa"));
         assertFalse(validador.esPasswordValida("foooo"));
         assertFalse(validador.esPasswordValida("lalalaaallaaa"));
+        assertFalse(validador.esPasswordValida("chau$$"));
     }
 }

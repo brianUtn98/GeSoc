@@ -8,8 +8,7 @@ public class ValidadorSecuencial implements ValidadorPassword{
     }
 
     public boolean NoTieneSecuencias(String password){
-        //int longitud=password.length();
-    	String regex = "(\\w)\\1";
+    	String regex = "(.)\\1";
         Pattern patron=Pattern.compile(regex,Pattern.CASE_INSENSITIVE);
         Matcher mach=patron.matcher(password);
         return !mach.find();
