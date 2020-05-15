@@ -2,20 +2,20 @@ package Dominio;
 
 import java.sql.Date;
 import java.util.List;
-
+import java.time.*;
 import javax.print.Doc;
 
 public class Operacion {
 
 	private Integer numeroDocumento;
 	private Provedor provedor;
-	private Date fecha;
+	private LocalDate fecha;
 	private MedioDePago medioPago;
 	private List <ItemOperacion> detalle;
 	private DocumentoComercial documentoComercial;
 	
 	
-	public Operacion(Integer numeroDocumento, Provedor provedor, Date fecha, MedioDePago medioPago,
+	public Operacion(Integer numeroDocumento, Provedor provedor, LocalDate fecha, MedioDePago medioPago,
 			List<ItemOperacion> detalle, DocumentoComercial documentoComercial) {
 		this.numeroDocumento = numeroDocumento;
 		this.provedor = provedor;
@@ -37,10 +37,10 @@ public class Operacion {
 	public void setProvedor(Provedor provedor) {
 		this.provedor = provedor;
 	}
-	public Date getFecha() {
+	public LocalDate getFecha() {
 		return fecha;
 	}
-	public void setFecha(Date fecha) {
+	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
 	public MedioDePago getMedioPago() {

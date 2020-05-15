@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 public class TestPassword {
     @Test
     public void esPassInvalida() {
-        ValidacionTop10000 validador = new ValidacionTop10000();
+        ValidadorTop10000 validador = new ValidadorTop10000();
         validador.agregarAlTop("holaMundo");
         validador.agregarAlTop("contrasenia");
         assertFalse(validador.esPasswordValida("holaMundo"));

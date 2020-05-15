@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.util.List;
 
 
-public class ValidacionTop10000 implements ValidadorPassword{
+public class ValidadorTop10000 implements ValidadorPassword{
     //¿Podría ser un singleton?
     List<String> top10000=new ArrayList<String>();
     @Override
