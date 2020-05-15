@@ -4,20 +4,21 @@ public class EntidadBase implements EntidadOrganizacional {
 	
 	private String nombreFicticio;
 	private String descripcion;
-	private EntidadJuridica entidadJuridica;
+	private EntidadOrganizacional entidadJuridica;
 	
 	public EntidadBase( String _nombreFicticio,String _descripcion)
 	{
 		this(_nombreFicticio,_descripcion, EntidadJuridica.EMPTY);
 	}
 	
-	public EntidadBase( String _nombreFicticio,String _descripcion, EntidadJuridica _entidadJuridica)
+	public EntidadBase( String _nombreFicticio,String _descripcion, EntidadOrganizacional _entidadJuridica)
 	{
 		nombreFicticio =_nombreFicticio;
 		descripcion = _descripcion;
 		entidadJuridica = _entidadJuridica;
 	}
 	
+	@Override
 	public String getNombreFicticio()
 	{
 		return nombreFicticio;
@@ -28,7 +29,7 @@ public class EntidadBase implements EntidadOrganizacional {
 		return descripcion;
 	}
 	
-	public EntidadJuridica getentidadJuridica()
+	public EntidadOrganizacional getentidadJuridica()
 	{
 		return entidadJuridica;
 	}

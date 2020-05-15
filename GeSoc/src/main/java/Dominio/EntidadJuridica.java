@@ -5,7 +5,7 @@ import java.util.List;
 
 public class EntidadJuridica implements EntidadOrganizacional {
 
-	public static final EntidadJuridica EMPTY = new EntidadJuridica("Entidad inexistente","",0,"",CategoriaDeEntidad.Pequenia,"");
+	public static final EntidadOrganizacional EMPTY = new EntidadJuridica("Entidad inexistente","",0,"",CategoriaDeEntidad.Pequenia,"");
 	private String nombreFicticio;
 	private String razonSocial;
 	private Integer cuit;
@@ -28,9 +28,12 @@ public class EntidadJuridica implements EntidadOrganizacional {
 	public String getRazonSocial() {
 		return razonSocial;
 	}
+	
+	@Override
 	public String getNombreFicticio() {
 		return nombreFicticio;
 	}
+	
 	public String getDireccionPostal() {
 		return direccionPostal;
 	}
