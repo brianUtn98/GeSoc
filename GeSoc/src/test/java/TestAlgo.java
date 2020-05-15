@@ -31,4 +31,11 @@ public class TestAlgo {
         assertFalse(validador.esPasswordValida("lalalaaallaaa"));
         assertFalse(validador.esPasswordValida("chau$$"));
     }
+
+    @Test
+    public void passwordLongitudMinma(){
+        ValidadorPassword validador = new ValidadorLongitud();
+        assertFalse(validador.esPasswordValida("hola"));
+        assertTrue(validador.esPasswordValida("abcdefgh"));
+    }
 }
