@@ -26,9 +26,13 @@ public class TestAlgo {
         assertTrue(validador.esPasswordValida("FranquitoCrack"));
     }
 
-    //@Test
-    //public void esPassInvalida2(){
-     //   ValidadorSecuencial validador=new ValidadorSecuencial();
-      //  assertTrue(validador.esPasswordValida("hola"));
-    //}
+    @Test
+    public void passwordTieneCaracteresConsecutivosRepetidos(){
+        ValidadorSecuencial validador=new ValidadorSecuencial();
+        assertTrue(validador.esPasswordValida("hola"));
+        assertFalse(validador.esPasswordValida("aa"));
+        assertFalse(validador.esPasswordValida("aaa"));
+        assertFalse(validador.esPasswordValida("foooo"));
+        assertFalse(validador.esPasswordValida("lalalaaallaaa"));
+    }
 }
