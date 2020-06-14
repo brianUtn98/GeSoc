@@ -5,9 +5,12 @@ import static org.junit.Assert.*;
 
 public class TestCategoria {
     @Test
-    public void testCategoria() {
-    	assertFalse(CategoriaDeEntidad.OSC.esEmpresa());
-    	assertTrue(CategoriaDeEntidad.Micro.esEmpresa());
+    public void testEsEmpresa() {
     	assertTrue(CategoriaDeEntidad.MedianaTramo2.esEmpresa());
+    }
+    
+    @Test
+    public void testNoEsEmpresa() {
+    	assertFalse(CategoriaDeEntidad.OSC.esEmpresa());
     }
 }
