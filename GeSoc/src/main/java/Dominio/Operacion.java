@@ -2,6 +2,7 @@ package Dominio;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 import java.time.*;
 import javax.print.Doc;
 
@@ -12,11 +13,11 @@ public class Operacion {
 	private LocalDate fecha;
 	private MedioDePago medioPago;
 	private List <ItemOperacion> detalle;
-	private DocumentoComercial documentoComercial;
+	private Optional<DocumentoComercial> documentoComercial;
 	
 	
 	public Operacion(Integer numeroDocumento, Provedor provedor, LocalDate fecha, MedioDePago medioPago,
-			List<ItemOperacion> detalle, DocumentoComercial documentoComercial) {
+			List<ItemOperacion> detalle, Optional<DocumentoComercial> documentoComercial) {
 		this.numeroDocumento = numeroDocumento;
 		this.provedor = provedor;
 		this.fecha = fecha;
@@ -56,11 +57,11 @@ public class Operacion {
 		this.detalle = detalle;
 	}
 	
-	public DocumentoComercial getDocumentoComercial() {
+	public Optional<DocumentoComercial> getDocumentoComercial() {
 		return this.documentoComercial;
 	}
 	
-	public void setDocumentoComercial(DocumentoComercial documentoComercial) {
+	public void setDocumentoComercial(Optional<DocumentoComercial> documentoComercial) {
 		this.documentoComercial = documentoComercial;
 	}
 }
