@@ -9,7 +9,6 @@ public class EntidadJuridica implements EntidadOrganizacional {
 	private String razonSocial;
 	private Integer cuit;
 	private String direccionPostal;
-	private List<EntidadBase> entidadesBase;
 	private CategoriaDeEntidad categoria;
 	private String codigoInscripcionIGJ;
 	
@@ -21,7 +20,6 @@ public class EntidadJuridica implements EntidadOrganizacional {
 		direccionPostal =_direccionPostal;
 		categoria =_categoria;
 		codigoInscripcionIGJ =_codigoInscripcionIGJ;
-		entidadesBase = Collections.emptyList();
 	}
 	
 	public String getRazonSocial() {
@@ -45,13 +43,5 @@ public class EntidadJuridica implements EntidadOrganizacional {
 	public CategoriaDeEntidad getCategoria() {
 		return categoria;
 	}
-	public List<EntidadBase> getEntidadesBase() {
-		return entidadesBase;
-	}
-	public void setEntidadesBase(List<EntidadBase> _entidades) 
-	{
-		entidadesBase = _entidades;
-	}
-	
 	
 }
