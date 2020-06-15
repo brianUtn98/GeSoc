@@ -1,17 +1,19 @@
 package Dominio;
 
+import java.util.Optional;
+
 public class EntidadBase implements EntidadOrganizacional {
 	
 	private String nombreFicticio;
 	private String descripcion;
-	private EntidadOrganizacional entidadJuridica;
+	private Optional<EntidadOrganizacional> entidadJuridica;
 	
 	public EntidadBase( String _nombreFicticio,String _descripcion)
 	{
-		this(_nombreFicticio,_descripcion, EntidadJuridica.EMPTY);
+		this(_nombreFicticio, _descripcion, Optional.empty());
 	}
 	
-	public EntidadBase( String _nombreFicticio,String _descripcion, EntidadOrganizacional _entidadJuridica)
+	public EntidadBase( String _nombreFicticio,String _descripcion, Optional<EntidadOrganizacional> _entidadJuridica)
 	{
 		nombreFicticio =_nombreFicticio;
 		descripcion = _descripcion;
@@ -29,7 +31,7 @@ public class EntidadBase implements EntidadOrganizacional {
 		return descripcion;
 	}
 	
-	public EntidadOrganizacional getentidadJuridica()
+	public Optional<EntidadOrganizacional> getentidadJuridica()
 	{
 		return entidadJuridica;
 	}

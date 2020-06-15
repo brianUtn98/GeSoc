@@ -5,7 +5,6 @@ import java.util.List;
 
 public class EntidadJuridica implements EntidadOrganizacional {
 
-	public static final EntidadOrganizacional EMPTY = new EntidadJuridica("Entidad inexistente","",0,"",CategoriaDeEntidad.Pequenia,"");
 	private String nombreFicticio;
 	private String razonSocial;
 	private Integer cuit;
