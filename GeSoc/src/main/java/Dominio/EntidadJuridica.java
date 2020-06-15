@@ -7,12 +7,12 @@ public class EntidadJuridica implements EntidadOrganizacional {
 
 	private String nombreFicticio;
 	private String razonSocial;
-	private Integer cuit;
+	private String cuit;
 	private String direccionPostal;
 	private CategoriaDeEntidad categoria;
 	private String codigoInscripcionIGJ;
 	
-	public EntidadJuridica(String _nombreFicticio,String _razonSocial,Integer _cuit,String _direccionPostal,CategoriaDeEntidad _categoria,String _codigoInscripcionIGJ) 
+	public EntidadJuridica(String _nombreFicticio,String _razonSocial,String _cuit,String _direccionPostal,CategoriaDeEntidad _categoria,String _codigoInscripcionIGJ) 
 	{
 		nombreFicticio =_nombreFicticio;
 		razonSocial =_razonSocial;
@@ -37,7 +37,7 @@ public class EntidadJuridica implements EntidadOrganizacional {
 	public String getCodigoInscripcionIGJ() {
 		return codigoInscripcionIGJ;
 	}
-	public Integer getCuit() {
+	public String getCuit() {
 		return cuit;
 	}
 	public CategoriaDeEntidad getCategoria() {
