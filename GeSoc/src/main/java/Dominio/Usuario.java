@@ -1,34 +1,32 @@
 package Dominio;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class Usuario {
 	private String nombre;
-	private String password;
-	private Boolean esAdministrador;
-	
-	public Usuario(String _nombre, String _password, Boolean _esAdministrador)
+	private String hashPassword;
+	private TipoDeUsuario tipoDeUsuario;
+	public Usuario(String _nombre, String _hashPassword, TipoDeUsuario _tipo)
 	{
 		nombre =_nombre;
-		password = _password;
-		esAdministrador = _esAdministrador;
+		hashPassword = _hashPassword;
+		tipoDeUsuario = _tipo;
 	}
 
 	public String getNombre() {
 		return nombre;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getHashPassword() {
+		return hashPassword;
 	}
 
-	public Boolean getEsAdministrador() {
-		return esAdministrador;
-	}
-	
-	public void setAdministrador(Boolean _esAdministrador) {
-		esAdministrador = _esAdministrador;
-	}
-	
-	public void setPassword(String _password) {
+	/*public void setPassword(String _password) {
 		password = _password;
-	}
+	} Lo comento porque quizás a futuro queramos cambiar la pass, pero por ahora lo dejamos en manos del builder*/
+
+
+
 }
