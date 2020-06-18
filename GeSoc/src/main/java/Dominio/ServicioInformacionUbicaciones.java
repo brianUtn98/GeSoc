@@ -1,9 +1,9 @@
 package Dominio;
 
-import Ubicacion.Ciudad;
-import Ubicacion.Moneda;
-import Ubicacion.Pais;
-import Ubicacion.Provincia;
+import Dominio.Ubicacion.Ciudad;
+import Dominio.Ubicacion.Moneda;
+import Dominio.Ubicacion.Pais;
+import Dominio.Ubicacion.Provincia;
 
 public interface ServicioInformacionUbicaciones {
 	public Pais getPais();

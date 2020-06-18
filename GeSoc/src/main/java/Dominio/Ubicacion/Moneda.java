@@ -1,4 +1,4 @@
-package Ubicacion;
+package Dominio.Ubicacion;
 
 public class Moneda {
 	private String codigo;

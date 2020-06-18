@@ -7,11 +7,11 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
-import Ubicacion.Ciudad;
-import Ubicacion.InformacionGeografica;
-import Ubicacion.Moneda;
-import Ubicacion.Pais;
-import Ubicacion.Provincia;
+import Dominio.Ubicacion.Ciudad;
+import Dominio.Ubicacion.InformacionGeografica;
+import Dominio.Ubicacion.Moneda;
+import Dominio.Ubicacion.Pais;
+import Dominio.Ubicacion.Provincia;
 
 public class ServicioMercadoLibre implements ServicioInformacionUbicaciones{
 	private Client cliente;//Combiene tenerlo aca o crearlo cada vez que se hace un request

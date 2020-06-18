@@ -1,8 +1,8 @@
 package Dominio;
 
-import Ubicacion.Ciudad;
-import Ubicacion.Pais;
-import Ubicacion.Provincia;
+import Dominio.Ubicacion.Ciudad;
+import Dominio.Ubicacion.Pais;
+import Dominio.Ubicacion.Provincia;
 
 public class DireccionPostal {
 	private String direccion;
