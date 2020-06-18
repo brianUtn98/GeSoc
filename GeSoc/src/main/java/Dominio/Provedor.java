@@ -5,11 +5,11 @@ public class Provedor {
 	private String apellido;
 	private String razonSocial;
 	private Integer numeroDocumento;
-	private String direccionPostal;
+	private DireccionPostal direccionPostal;
 	private TipoDocumento tipoDocumento;
 	
 	public Provedor(String nombre, String apellido, String razonSocial, Integer numeroDocumento,
-			String direccionPostal, TipoDocumento tipoDocumento) {
+			DireccionPostal direccionPostal, TipoDocumento tipoDocumento) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.razonSocial = razonSocial;
@@ -42,10 +42,10 @@ public class Provedor {
 	public void setNumeroDocumento(Integer numeroDocumento) {
 		this.numeroDocumento = numeroDocumento;
 	}
-	public String getDireccionPostal() {
+	public DireccionPostal getDireccionPostal() {
 		return direccionPostal;
 	}
-	public void setDireccionPostal(String direccionPostal) {
+	public void setDireccionPostal(DireccionPostal direccionPostal) {
 		this.direccionPostal = direccionPostal;
 	}
 	
