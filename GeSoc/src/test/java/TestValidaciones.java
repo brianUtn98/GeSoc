@@ -25,8 +25,8 @@ public class TestValidaciones {
 
     @Before
     public void init(){
-        proveedorHomero = new Provedor("Homero", "Thompson", "Pato feliz", 29256328, "Calle falsa 123", TipoDocumento.DNI);
-        proveedorBart = new Provedor("Bart", "Thompson", "Pato infeliz", 29256329, "Calle falsa 123", TipoDocumento.DNI);
+        proveedorHomero = new Provedor("Homero", "Thompson", "Pato feliz", 29256328,  new DireccionPostal("Calle falsa 123","Argentina","Capital Federal", "Capital Federal"), TipoDocumento.DNI);
+        proveedorBart = new Provedor("Bart", "Thompson", "Pato infeliz", 29256329,  new DireccionPostal("Calle falsa 123","Argentina","Capital Federal", "Capital Federal"), TipoDocumento.DNI);
 
         medioDePago = new DineroEnCuenta(352265652);
 

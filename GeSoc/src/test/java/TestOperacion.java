@@ -13,12 +13,13 @@ import Dominio.Pago.MedioDePago;
 import Dominio.Operacion;
 import Dominio.Provedor;
 import Dominio.TipoDocumento;
+import Dominio.DireccionPostal;
 
 public class TestOperacion {
 
 	@Test
 	public void testOperacionNoTieneDocumentoComercial() {
-		Provedor prov = new Provedor("Homero", "Thompson", "Pato feliz", 29256328, "Calle falsa 123", TipoDocumento.DNI);
+		Provedor prov = new Provedor("Homero", "Thompson", "Pato feliz", 29256328, new DireccionPostal("Calle falsa 123","Argentina","Capital Federal", "Capital Federal"), TipoDocumento.DNI);
 
 		MedioDePago medio = new DineroEnCuenta(352265652);
 		List<ItemOperacion> detalle = new ArrayList<>();
