@@ -35,8 +35,8 @@ public class TestValidaciones {
         List<ItemOperacion> detalleCaro = new ArrayList<>();
         detalleCaro.add(new ItemOperacion("Algo", 100));
 
-        operacionRequierePresupuesto = new Operacion(29256328, proveedorHomero, LocalDate.now(),  medioDePago, detalleBarato, null, true);
-        operacionNoRequierePresupuesto = new Operacion(29256328, proveedorHomero, LocalDate.now(),  medioDePago, detalleBarato, null, false);
+        operacionRequierePresupuesto = new Operacion(29256328, proveedorHomero, LocalDate.now(),  medioDePago, detalleBarato, null, true, true);
+        operacionNoRequierePresupuesto = new Operacion(29256328, proveedorHomero, LocalDate.now(),  medioDePago, detalleBarato, null, false, true);
 
         presupuestoBarato = new Presupuesto(proveedorHomero, detalleBarato);
         presupuestoCaro = new Presupuesto(proveedorBart, detalleCaro);

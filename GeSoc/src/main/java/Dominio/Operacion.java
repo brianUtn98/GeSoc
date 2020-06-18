@@ -19,10 +19,11 @@ public class Operacion {
 	private Optional<Presupuesto> presupuestoSeleccionado = Optional.empty();
 	private Optional<DocumentoComercial> documentoComercial;
 	private Boolean requierePresupuestos;
+	private Boolean criterioDeSeleccionMinimoValor;
 	
 	
 	public Operacion(Integer numeroDocumento, Provedor provedor, LocalDate fecha, MedioDePago medioPago,
-			List<ItemOperacion> detalle, Optional<DocumentoComercial> documentoComercial, Boolean requierePresupuestos) {
+			List<ItemOperacion> detalle, Optional<DocumentoComercial> documentoComercial, Boolean requierePresupuestos, Boolean criterio) {
 		this.numeroDocumento = numeroDocumento;
 		this.provedor = provedor;
 		this.fecha = fecha;
@@ -30,6 +31,7 @@ public class Operacion {
 		this.detalle = detalle;
 		this.documentoComercial = documentoComercial;
 		this.requierePresupuestos = requierePresupuestos;
+		this.criterioDeSeleccionMinimoValor = criterio;
 	}
 	
 	public Integer getNumeroDocumento() {
@@ -88,5 +90,9 @@ public class Operacion {
 	}
 	public void setPresupuestoSeleccionado(Presupuesto presupuesto) {
 		presupuestoSeleccionado = Optional.of(presupuesto);
+	}
+
+	public Boolean getCriterioDeSeleccionMinimoValor() {
+		return criterioDeSeleccionMinimoValor;
 	}
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class TestCrearUsuario {
     @Test(expected = PasswordInvalidaException.class)
-    public void contraseñaCorta () throws Exception{
+    public void contraseniaCorta () throws Exception{
         CreadorDeUsuario builder = new CreadorDeUsuario("Pepito Alcachofa");
         builder.setearTipoUsuario(new TipoEstandar());
         ValidadorLongitud validadorLongitud = new ValidadorLongitud();
@@ -20,7 +20,7 @@ public class TestCrearUsuario {
     }
 
     @Test(expected = PasswordInvalidaException.class)
-    public void contraseñaRepetitiva () throws Exception{
+    public void contraseniaRepetitiva () throws Exception{
         CreadorDeUsuario builder = new CreadorDeUsuario("Pepito Alcachofa");
         builder.setearTipoUsuario(new TipoEstandar());
         ValidadorLongitud validadorLongitud = new ValidadorLongitud();

@@ -22,7 +22,7 @@ public class TestOperacion {
 
 		MedioDePago medio = new DineroEnCuenta(352265652);
 		List<ItemOperacion> detalle = new ArrayList<>();
-		Operacion op = new Operacion(29256328, prov , LocalDate.now(),  medio, detalle, null, true);
+		Operacion op = new Operacion(29256328, prov , LocalDate.now(),  medio, detalle, null, true,true);
 
 		assertFalse(op.getDocumentoComercial() != null);
 	}
