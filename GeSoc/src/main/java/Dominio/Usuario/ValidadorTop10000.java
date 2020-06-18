@@ -1,8 +1,6 @@
-package Dominio;
+package Dominio.Usuario;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.List;
 
 

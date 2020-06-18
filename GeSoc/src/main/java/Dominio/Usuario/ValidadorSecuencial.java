@@ -1,4 +1,4 @@
-package Dominio;
+package Dominio.Usuario;
 import java.util.regex.*;
 public class ValidadorSecuencial implements ValidadorPassword{
     

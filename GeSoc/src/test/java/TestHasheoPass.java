@@ -1,5 +1,4 @@
-import Dominio.CreadorDeUsuario;
-import Dominio.GeneradorDeHash;
+import Dominio.Usuario.GeneradorDeHash;
 import org.junit.Assert;
 import org.junit.Test;
 

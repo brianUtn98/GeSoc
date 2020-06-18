@@ -1,4 +1,4 @@
-package Dominio;
+package Dominio.Pago;
 
 public class CajeroAutomatico implements MedioDePago {
 

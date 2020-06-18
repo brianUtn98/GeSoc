@@ -1,10 +1,10 @@
 package Dominio;
 
-import java.sql.Date;
+import Dominio.Pago.MedioDePago;
+
 import java.util.List;
 import java.util.Optional;
 import java.time.*;
-import javax.print.Doc;
 
 public class Operacion {
 

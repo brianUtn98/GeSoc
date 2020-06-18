@@ -7,9 +7,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import Dominio.DineroEnCuenta;
+import Dominio.Pago.DineroEnCuenta;
 import Dominio.ItemOperacion;
-import Dominio.MedioDePago;
+import Dominio.Pago.MedioDePago;
 import Dominio.Operacion;
 import Dominio.Provedor;
 import Dominio.TipoDocumento;

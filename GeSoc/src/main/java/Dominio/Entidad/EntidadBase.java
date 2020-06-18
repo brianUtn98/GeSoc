@@ -1,4 +1,4 @@
-package Dominio;
+package Dominio.Entidad;
 
 import java.util.Optional;
 

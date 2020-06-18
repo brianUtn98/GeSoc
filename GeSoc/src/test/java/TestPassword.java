@@ -1,4 +1,7 @@
-import Dominio.*;
+import Dominio.Usuario.ValidadorLongitud;
+import Dominio.Usuario.ValidadorPassword;
+import Dominio.Usuario.ValidadorSecuencial;
+import Dominio.Usuario.ValidadorTop10000;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

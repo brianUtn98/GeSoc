@@ -1,4 +1,4 @@
-package Dominio;
+package Dominio.Entidad;
 
 public class Empresa implements CategoriaDeEntidad {
     private TipoEmpresa tipo;

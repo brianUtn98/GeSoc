@@ -1,4 +1,4 @@
-package Dominio;
+package Dominio.Entidad;
 
 public interface EntidadOrganizacional {
 

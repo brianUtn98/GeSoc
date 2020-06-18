@@ -1,4 +1,4 @@
-import Dominio.*;
+import Dominio.Entidad.*;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

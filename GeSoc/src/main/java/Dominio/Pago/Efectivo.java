@@ -1,4 +1,4 @@
-package Dominio;
+package Dominio.Pago;
 
 import java.util.Date;
 

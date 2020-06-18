@@ -1,4 +1,4 @@
-package Dominio;
+package Dominio.Usuario;
 
 public enum TipoErrorPassword {
     SECUENCIAL {

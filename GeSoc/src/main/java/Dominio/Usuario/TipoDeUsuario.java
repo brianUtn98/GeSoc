@@ -1,4 +1,4 @@
-package Dominio;
+package Dominio.Usuario;
 
 public interface TipoDeUsuario {
 //A futuro tendrá métodos, pero actualmente es una interface vacía.

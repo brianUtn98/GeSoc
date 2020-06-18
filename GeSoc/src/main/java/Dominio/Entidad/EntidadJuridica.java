@@ -1,7 +1,4 @@
-package Dominio;
-
-import java.util.Collections;
-import java.util.List;
+package Dominio.Entidad;
 
 public class EntidadJuridica implements EntidadOrganizacional {
 

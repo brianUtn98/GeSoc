@@ -1,4 +1,4 @@
-package Dominio;
+package Dominio.Pago;
 
 public class TarjetaDeDebito implements MedioDePago {
 

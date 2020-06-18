@@ -1,8 +1,4 @@
-package Dominio;
-
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+package Dominio.Usuario;
 
 public class Usuario {
 	private String nombre;
