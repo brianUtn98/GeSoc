@@ -1,7 +1,9 @@
 package Dominio;
 
 import Dominio.Pago.MedioDePago;
+import Dominio.Presupuesto.Presupuesto;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.time.*;
@@ -13,17 +15,21 @@ public class Operacion {
 	private LocalDate fecha;
 	private MedioDePago medioPago;
 	private List <ItemOperacion> detalle;
+	private List<Presupuesto> presupuestos = new ArrayList<>();
+	private Optional<Presupuesto> presupuestoSeleccionado = Optional.empty();
 	private Optional<DocumentoComercial> documentoComercial;
+	private Boolean requierePresupuestos;
 	
 	
 	public Operacion(Integer numeroDocumento, Provedor provedor, LocalDate fecha, MedioDePago medioPago,
-			List<ItemOperacion> detalle, Optional<DocumentoComercial> documentoComercial) {
+			List<ItemOperacion> detalle, Optional<DocumentoComercial> documentoComercial, Boolean requierePresupuestos) {
 		this.numeroDocumento = numeroDocumento;
 		this.provedor = provedor;
 		this.fecha = fecha;
 		this.medioPago = medioPago;
 		this.detalle = detalle;
 		this.documentoComercial = documentoComercial;
+		this.requierePresupuestos = requierePresupuestos;
 	}
 	
 	public Integer getNumeroDocumento() {
@@ -63,5 +69,24 @@ public class Operacion {
 	
 	public void setDocumentoComercial(Optional<DocumentoComercial> documentoComercial) {
 		this.documentoComercial = documentoComercial;
+	}
+
+	public List<Presupuesto> getPresupuestos(){
+		return presupuestos;
+	}
+
+	public void addPresupusto(Presupuesto presupuesto) {
+		presupuestos.add(presupuesto);
+	}
+
+	public Boolean getRequierePresupuestos(){
+		return requierePresupuestos;
+	}
+
+	public Optional<Presupuesto> getPresupuestoSeleccionado() {
+		return presupuestoSeleccionado;
+	}
+	public void setPresupuestoSeleccionado(Presupuesto presupuesto) {
+		presupuestoSeleccionado = Optional.of(presupuesto);
 	}
 }

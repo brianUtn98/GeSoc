@@ -16,14 +16,14 @@ import Dominio.TipoDocumento;
 
 public class TestOperacion {
 
-	 @Test
-     public void testOperacionNoTieneDocumentoComercial() {
-		 Provedor prov = new Provedor("Homero", "Thompson", "Pato feliz", 29256328, "Calle falsa 123", TipoDocumento.DNI);
-		 
-		 MedioDePago medio = new DineroEnCuenta(352265652);
-		 List<ItemOperacion> detalle = new ArrayList<>();
-		 Operacion op = new Operacion(29256328, prov , LocalDate.now(),  medio, detalle, null );
-		  
-		 assertFalse(op.getDocumentoComercial() != null);
-     }
+	@Test
+	public void testOperacionNoTieneDocumentoComercial() {
+		Provedor prov = new Provedor("Homero", "Thompson", "Pato feliz", 29256328, "Calle falsa 123", TipoDocumento.DNI);
+
+		MedioDePago medio = new DineroEnCuenta(352265652);
+		List<ItemOperacion> detalle = new ArrayList<>();
+		Operacion op = new Operacion(29256328, prov , LocalDate.now(),  medio, detalle, null, true);
+
+		assertFalse(op.getDocumentoComercial() != null);
+	}
 }
