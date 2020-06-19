@@ -109,6 +109,10 @@ public class Operacion implements IOperacion{
 	public List<Usuario> getRevisores() {
 		return revisores;
 	}
+
+	public void agregarRevisor (Usuario usuario){
+		revisores.add(usuario);
+	}
 	
 	@Override
 	public void notificar(String mensaje) {
