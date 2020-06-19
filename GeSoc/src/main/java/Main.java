@@ -48,8 +48,8 @@ public class Main {
         operaciones.add(unEgreso);
         operaciones.add(otroEgreso);
 
-        unEgreso.agregarRevisor(unUsuario);
-        otroEgreso.agregarRevisor(unUsuario);
+        unEgreso.altaRevisor(unUsuario);
+        otroEgreso.altaRevisor(unUsuario);
 
 
         System.out.println("Para validar las operaciones, ingrese VALIDAR");

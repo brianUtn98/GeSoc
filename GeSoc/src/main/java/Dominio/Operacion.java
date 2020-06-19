@@ -109,10 +109,6 @@ public class Operacion{
 	public List<Usuario> getRevisores() {
 		return revisores;
 	}
-
-	public void agregarRevisor (Usuario usuario){
-		revisores.add(usuario);
-	}
 	
 	public void notificar(String mensaje) {
 		getRevisores().forEach(revisor->revisor.updateBandeja(mensaje));
