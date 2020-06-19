@@ -2,14 +2,13 @@ package Dominio;
 
 import Dominio.Pago.MedioDePago;
 import Dominio.Presupuesto.Presupuesto;
-import Dominio.Usuario.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.time.*;
 
-public class Operacion{
+public class Operacion {
 
 	private Integer numeroDocumento;
 	private Provedor provedor;
@@ -21,7 +20,6 @@ public class Operacion{
 	private Optional<DocumentoComercial> documentoComercial;
 	private Boolean requierePresupuestos;
 	private Boolean criterioDeSeleccionMinimoValor;
-	private List<Usuario> revisores = new ArrayList<>(); 
 	
 	
 	public Operacion(Integer numeroDocumento, Provedor provedor, LocalDate fecha, MedioDePago medioPago,
@@ -97,25 +95,4 @@ public class Operacion{
 	public Boolean getCriterioDeSeleccionMinimoValor() {
 		return criterioDeSeleccionMinimoValor;
 	}
-	
-	public void altaRevisor(Usuario revisor) {
-		revisores.add(revisor);
-	}
-	
-	public void bajarRevisor(Usuario revisor) {
-		revisores.remove(revisor);
-	}
-	
-	public List<Usuario> getRevisores() {
-		return revisores;
-	}
-
-	public void agregarRevisor (Usuario usuario){
-		revisores.add(usuario);
-	}
-	
-	public void notificar(String mensaje) {
-		getRevisores().forEach(revisor->revisor.updateBandeja(mensaje));
-	}
-
 }

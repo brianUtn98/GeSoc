@@ -1,17 +1,15 @@
 package Dominio.Entidad;
 
-import Dominio.DireccionPostal;
-
 public class EntidadJuridica implements EntidadOrganizacional {
 
 	private String nombreFicticio;
 	private String razonSocial;
 	private String cuit;
-	private DireccionPostal direccionPostal;
+	private String direccionPostal;
 	private CategoriaDeEntidad categoria;
 	private String codigoInscripcionIGJ;
 	
-	public EntidadJuridica(String _nombreFicticio,String _razonSocial,String _cuit,DireccionPostal _direccionPostal,CategoriaDeEntidad _categoria,String _codigoInscripcionIGJ) 
+	public EntidadJuridica(String _nombreFicticio,String _razonSocial,String _cuit,String _direccionPostal,CategoriaDeEntidad _categoria,String _codigoInscripcionIGJ) 
 	{
 		nombreFicticio =_nombreFicticio;
 		razonSocial =_razonSocial;
@@ -30,7 +28,7 @@ public class EntidadJuridica implements EntidadOrganizacional {
 		return nombreFicticio;
 	}
 	
-	public DireccionPostal getDireccionPostal() {
+	public String getDireccionPostal() {
 		return direccionPostal;
 	}
 	public String getCodigoInscripcionIGJ() {
