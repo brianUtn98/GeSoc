@@ -4,12 +4,11 @@ import Dominio.Pago.MedioDePago;
 import Dominio.Presupuesto.*;
 import Dominio.Usuario.CreadorDeUsuario;
 import Dominio.Usuario.TipoAdministrador;
-import Dominio.Usuario.TipoEstandar;
 import Dominio.Usuario.Usuario;
 import Dominio.Usuario.ValidadorLongitud;
 import Dominio.Usuario.ValidadorPassword;
 import Dominio.Usuario.ValidadorSecuencial;
-import junit.framework.*;
+
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,13 +17,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.junit.Assert;
 
 public class TestBandejaMensajes {
 
-    // Elementos comunes
     Provedor proveedorHomero;
     Provedor proveedorBart;
     MedioDePago medioDePago;
@@ -68,24 +64,76 @@ public class TestBandejaMensajes {
     }
 
     @Test
-    public void testNotificacionValidacionCantidadPresupuesto() {
+    public void testNotificacionValidacionCantidadPresupuestoDistinta() {
         operacionRequierePresupuesto.addPresupusto(presupuestoBarato);
  
         operacionRequierePresupuesto.altaRevisor(usuarioRevisor);
         
         Validacion validacion = new ValidacionCantidadPresupuestos(operacionRequierePresupuesto);
         
-        boolean resultado = validacion.validar();
-        assertTrue(!(usuarioRevisor.verBandejaMensajes().isEmpty())); // Solo agregamos un presupuesto, pero se esperan 2
+        validacion.validar();
+      //Se notifica al usuario que la cantidad de presupuesto no es la correcta
+        Assert.assertEquals("Validacion de cantidad de presupuestos: Fallo",usuarioRevisor.verBandejaMensajes().get(0));
     }
 
     @Test
-    public void testNotificacionValidacionCumplirPresupuesto() {
+    public void testNotificacionValidacionCantidadPresupuestoIgual() {
+        operacionRequierePresupuesto.addPresupusto(presupuestoBarato);
+        operacionRequierePresupuesto.addPresupusto(presupuestoCaro);
+        
+        operacionRequierePresupuesto.altaRevisor(usuarioRevisor);
+        
+        Validacion validacion = new ValidacionCantidadPresupuestos(operacionRequierePresupuesto);
+        
+        validacion.validar();
+        //Se notifica al usuario que la cantidad de presupuesto es la correcta 
+        Assert.assertEquals("Validacion de cantidad de presupuestos: OK",usuarioRevisor.verBandejaMensajes().get(0));
+    }
+    
+    
+    @Test
+    public void testNotificacionValidacionNoCumplePresupuesto() {
         operacionRequierePresupuesto.addPresupusto(presupuestoBarato);
 
+        operacionRequierePresupuesto.altaRevisor(usuarioRevisor);
+        
         Validacion validacion = new ValidacionCumplirPresupuesto(operacionRequierePresupuesto);
 
-        assertFalse(validacion.validar()); // No se selecciono un presupuesto para la compra
+        validacion.validar();
+        //  Se notifica al usuario que no se selecciono un presupuesto para la compra
+        Assert.assertEquals("Validacion egreso tiene presupuesto: Fallo",usuarioRevisor.verBandejaMensajes().get(0));
+    }
+
+    @Test
+    public void testNotificacionValidacionCumplePresupuesto() {
+        operacionRequierePresupuesto.addPresupusto(presupuestoBarato);
+        
+        operacionRequierePresupuesto.setPresupuestoSeleccionado(presupuestoBarato);
+        
+        operacionRequierePresupuesto.altaRevisor(usuarioRevisor);
+        
+        Validacion validacion = new ValidacionCumplirPresupuesto(operacionRequierePresupuesto);
+
+        validacion.validar();
+        // Se notifica al usuario que se selecciono un presupuesto para la compra
+        Assert.assertEquals("Validacion egreso tiene presupuesto: OK",usuarioRevisor.verBandejaMensajes().get(0));
+    }
+
+    
+    @Test
+    public void testNotificacionValidacionPresupuestoMasCaro() {
+        operacionRequierePresupuesto.addPresupusto(presupuestoBarato);
+        operacionRequierePresupuesto.addPresupusto(presupuestoCaro);
+
+        operacionRequierePresupuesto.setPresupuestoSeleccionado(presupuestoCaro);
+        operacionRequierePresupuesto.altaRevisor(usuarioRevisor);
+        
+        Validacion validacion = new ValidacionPresupuestoMenorValor(operacionRequierePresupuesto);
+
+        validacion.validar();
+        // Se notifica al usuario que el presupuesto elegido es el caro
+        Assert.assertEquals("Validacion de seleccion de presupuesto de menor valor: Fallo"
+        		,usuarioRevisor.verBandejaMensajes().get(0));
     }
 
     @Test
@@ -93,35 +141,14 @@ public class TestBandejaMensajes {
         operacionRequierePresupuesto.addPresupusto(presupuestoBarato);
         operacionRequierePresupuesto.addPresupusto(presupuestoCaro);
 
-        operacionRequierePresupuesto.setPresupuestoSeleccionado(presupuestoCaro);
-
+        operacionRequierePresupuesto.setPresupuestoSeleccionado(presupuestoBarato);
+        operacionRequierePresupuesto.altaRevisor(usuarioRevisor);
+        
         Validacion validacion = new ValidacionPresupuestoMenorValor(operacionRequierePresupuesto);
 
-        assertFalse(validacion.validar()); // El presupuesto elegido es el caro
-    }
-//
-//
-//    @Test
-//    public void testNoRequierePresupuesto() {
-//        List<Validacion> validaciones = new ArrayList<>();
-//        validaciones.add(new ValidacionCumplirPresupuesto(operacionNoRequierePresupuesto));
-//        validaciones.add(new ValidacionCantidadPresupuestos(operacionNoRequierePresupuesto));
-//
-//        assertTrue(validaciones.stream().allMatch(validacion -> validacion.validar())); // Las validaciones que se hacen sobre compras que requieren presupuestos pasan cuando no se requiere uno
-//    }
-//
-//    @Test
-//    public void testPasanTodasLasValidaciones() {
-//        operacionRequierePresupuesto.addPresupusto(presupuestoBarato);
-//        operacionRequierePresupuesto.addPresupusto(presupuestoCaro);
-//        operacionRequierePresupuesto.setPresupuestoSeleccionado(presupuestoBarato);
-//
-//        List<Validacion> validaciones = new ArrayList<>();
-//        validaciones.add(new ValidacionCumplirPresupuesto(operacionRequierePresupuesto)); // Deberia pasar porque el presupuesto seleccionado es uno de los que tiene la compra asociados
-//        validaciones.add(new ValidacionCantidadPresupuestos(operacionRequierePresupuesto)); // Deberia pasar porque tenemos 2 presupuestos (el minimo es 2)
-//        validaciones.add(new ValidacionPresupuestoMenorValor(operacionRequierePresupuesto)); // Deberia pasar porque de los 2 presupuestos elegimos el mas barato
-//
-//        assertTrue(validaciones.stream().allMatch(validacion -> validacion.validar())); // Las validaciones que se hacen sobre compras que requieren presupuestos pasan cuando no se requiere uno
-//    }
-
+        validacion.validar();
+        // Se notifica al usuario que el presupuesto elegido es el barato
+        Assert.assertEquals("Validacion de seleccion de presupuesto de menor valor: OK"
+        		,usuarioRevisor.verBandejaMensajes().get(0));
+    }    
 }
