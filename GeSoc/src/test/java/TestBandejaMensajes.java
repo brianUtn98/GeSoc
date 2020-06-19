@@ -70,8 +70,9 @@ public class TestBandejaMensajes {
         operacionRequierePresupuesto.altaRevisor(usuarioRevisor);
         
         Validacion validacion = new ValidacionCantidadPresupuestos(operacionRequierePresupuesto);
+        String mensaje = validacion.getNombre()+(validacion.validar()?"OK":"Fallo");
+        operacionRequierePresupuesto.notificar(mensaje); 
         
-        validacion.validar();
       //Se notifica al usuario que la cantidad de presupuesto no es la correcta
         Assert.assertEquals("Validacion de cantidad de presupuestos: Fallo",usuarioRevisor.verBandejaMensajes().get(0));
     }
@@ -84,8 +85,9 @@ public class TestBandejaMensajes {
         operacionRequierePresupuesto.altaRevisor(usuarioRevisor);
         
         Validacion validacion = new ValidacionCantidadPresupuestos(operacionRequierePresupuesto);
+        String mensaje = validacion.getNombre()+(validacion.validar()?"OK":"Fallo");
+        operacionRequierePresupuesto.notificar(mensaje);
         
-        validacion.validar();
         //Se notifica al usuario que la cantidad de presupuesto es la correcta 
         Assert.assertEquals("Validacion de cantidad de presupuestos: OK",usuarioRevisor.verBandejaMensajes().get(0));
     }
@@ -98,8 +100,9 @@ public class TestBandejaMensajes {
         operacionRequierePresupuesto.altaRevisor(usuarioRevisor);
         
         Validacion validacion = new ValidacionCumplirPresupuesto(operacionRequierePresupuesto);
-
-        validacion.validar();
+        String mensaje = validacion.getNombre()+(validacion.validar()?"OK":"Fallo");
+        operacionRequierePresupuesto.notificar(mensaje); 
+        
         //  Se notifica al usuario que no se selecciono un presupuesto para la compra
         Assert.assertEquals("Validacion egreso tiene presupuesto: Fallo",usuarioRevisor.verBandejaMensajes().get(0));
     }
@@ -113,8 +116,9 @@ public class TestBandejaMensajes {
         operacionRequierePresupuesto.altaRevisor(usuarioRevisor);
         
         Validacion validacion = new ValidacionCumplirPresupuesto(operacionRequierePresupuesto);
-
-        validacion.validar();
+        String mensaje = validacion.getNombre()+(validacion.validar()?"OK":"Fallo");
+        operacionRequierePresupuesto.notificar(mensaje);
+        
         // Se notifica al usuario que se selecciono un presupuesto para la compra
         Assert.assertEquals("Validacion egreso tiene presupuesto: OK",usuarioRevisor.verBandejaMensajes().get(0));
     }
@@ -129,8 +133,9 @@ public class TestBandejaMensajes {
         operacionRequierePresupuesto.altaRevisor(usuarioRevisor);
         
         Validacion validacion = new ValidacionPresupuestoMenorValor(operacionRequierePresupuesto);
+        String mensaje = validacion.getNombre()+(validacion.validar()?"OK":"Fallo");
+        operacionRequierePresupuesto.notificar(mensaje);
 
-        validacion.validar();
         // Se notifica al usuario que el presupuesto elegido es el caro
         Assert.assertEquals("Validacion de seleccion de presupuesto de menor valor: Fallo"
         		,usuarioRevisor.verBandejaMensajes().get(0));
@@ -145,8 +150,10 @@ public class TestBandejaMensajes {
         operacionRequierePresupuesto.altaRevisor(usuarioRevisor);
         
         Validacion validacion = new ValidacionPresupuestoMenorValor(operacionRequierePresupuesto);
+        String mensaje = validacion.getNombre()+(validacion.validar()?"OK":"Fallo");
+        operacionRequierePresupuesto.notificar(mensaje);
 
-        validacion.validar();
+        
         // Se notifica al usuario que el presupuesto elegido es el barato
         Assert.assertEquals("Validacion de seleccion de presupuesto de menor valor: OK"
         		,usuarioRevisor.verBandejaMensajes().get(0));

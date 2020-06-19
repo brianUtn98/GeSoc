@@ -1,3 +1,4 @@
+import Dominio.DireccionPostal;
 import Dominio.Entidad.*;
 import org.junit.Test;
 
@@ -10,7 +11,8 @@ public class TestOrganizacion {
     @Test
     public void testTieneNombreFicticio() {
     	CategoriaDeEntidad categoria = new Empresa(TipoEmpresa.MedianaTramo1);
-    	EntidadOrganizacional entidad = new EntidadJuridica("Pato feliz", "Patito S.A.", "30701258651", "calle falsa 123", categoria, "jih5524");
+    	DireccionPostal direccion = new DireccionPostal("Calle falsa 123","Argentina","Capital Federal", "Capital Federal");
+    	EntidadOrganizacional entidad = new EntidadJuridica("Pato feliz", "Patito S.A.", "30701258651", direccion, categoria, "jih5524");
     	
     	assertTrue(entidad.getNombreFicticio().equals("Pato feliz"));
     }

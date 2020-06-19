@@ -16,9 +16,7 @@ public class ValidacionCantidadPresupuestos implements Validacion {
     public boolean validar() {
     	boolean resultadoValidacion = true;
         if(egreso.getRequierePresupuestos())
-        	resultadoValidacion = egreso.getPresupuestos().size() >= PRESUPUESTOS_REQUERIDOS;
-        	String mensaje = this.nombreValidacion+(resultadoValidacion?"OK":"Fallo");
-        	egreso.notificar(mensaje);
+        	resultadoValidacion = egreso.getPresupuestos().size() >= PRESUPUESTOS_REQUERIDOS;        	
         return resultadoValidacion;
     }
 

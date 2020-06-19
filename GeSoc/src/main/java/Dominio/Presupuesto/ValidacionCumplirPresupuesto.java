@@ -16,8 +16,6 @@ public class ValidacionCumplirPresupuesto implements Validacion {
     	boolean resultadoValidacion = true;
         if(egreso.getRequierePresupuestos())
         	resultadoValidacion = egreso.getPresupuestoSeleccionado().isPresent();
-        	String mensaje = this.nombreValidacion+(resultadoValidacion?"OK":"Fallo");
-        	egreso.notificar(mensaje);
         return resultadoValidacion;
     }
 

@@ -20,8 +20,6 @@ public class ValidacionPresupuestoMenorValor implements Validacion {
 	        // Faltaria chequear por si el criterio de seleccion es el del menor valor. Pero eso donde lo ponemos? (tanto el criterio en si, como la validacion)
 	        OptionalInt costoMinimo = egreso.getPresupuestos().stream().mapToInt(Presupuesto::getTotal).min();
 	        resultado = costoMinimo.isPresent() && costoMinimo.getAsInt() == egreso.getPresupuestoSeleccionado().get().getTotal();
-	        String mensaje = this.nombreValidacion+(resultado?"OK":"Fallo");
-        	egreso.notificar(mensaje);
     	}
     	return resultado;
     }

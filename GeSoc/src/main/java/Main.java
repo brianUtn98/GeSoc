@@ -55,12 +55,14 @@ public class Main {
         System.out.println("Para validar las operaciones, ingrese VALIDAR");
         InputStreamReader streamLeido = new InputStreamReader(System.in);
         BufferedReader buffer = new BufferedReader (streamLeido);
-        System.out.println("Se leyó: " + buffer.readLine());
+        String lectura = buffer.readLine();
+        System.out.println("Se leyó: " + lectura);
 
-        if(buffer.readLine().equals("VALIDAR")){
+        if(lectura.equals("VALIDAR")){
             operaciones.stream().forEach(operacion -> {
-                ValidacionCantidadPresupuestos unaValidacion = new ValidacionCantidadPresupuestos(operacion);
-                unaValidacion.validar();
+                ValidacionCantidadPresupuestos unaValidacion = new ValidacionCantidadPresupuestos(operacion);              
+                String mensaje = unaValidacion.getNombre()+(unaValidacion.validar()?"OK":"Fallo");
+                operacion.notificar(mensaje);
             }
             );
 

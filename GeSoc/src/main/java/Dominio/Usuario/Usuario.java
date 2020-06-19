@@ -3,10 +3,9 @@ package Dominio.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
-import Dominio.IUsuario;
 import Dominio.Operacion;
 
-public class Usuario implements IUsuario{
+public class Usuario{
 	private String nombre;
 	private String hashPassword;
 	private TipoDeUsuario tipoDeUsuario;
@@ -35,7 +34,6 @@ public class Usuario implements IUsuario{
 		return mensajes;
 	}
 
-	@Override
 	public void updateBandeja(String mensaje) {
 		// TODO Auto-generated method stub
 		mensajes.add(mensaje);

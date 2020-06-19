@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.time.*;
 
-public class Operacion implements IOperacion{
+public class Operacion{
 
 	private Integer numeroDocumento;
 	private Provedor provedor;
@@ -114,7 +114,6 @@ public class Operacion implements IOperacion{
 		revisores.add(usuario);
 	}
 	
-	@Override
 	public void notificar(String mensaje) {
 		getRevisores().forEach(revisor->revisor.updateBandeja(mensaje));
 	}
