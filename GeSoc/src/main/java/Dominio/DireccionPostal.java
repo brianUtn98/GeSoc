@@ -11,7 +11,7 @@ public class DireccionPostal {
 	private String ciudad;
 	
 	public DireccionPostal(String direccion, String pais, String provincia, String ciudad) {
-		this.setDireccion(direccion);		
+		this.direccion = direccion;		
 		this.pais = pais;
 		this.provincia = provincia;
 		this.ciudad = ciudad;
