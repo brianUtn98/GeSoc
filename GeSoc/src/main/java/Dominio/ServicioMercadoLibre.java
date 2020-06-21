@@ -1,6 +1,10 @@
 package Dominio;
 
 import javax.ws.rs.core.MediaType;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.json.*;
 
 import com.sun.jersey.api.client.Client;
@@ -14,130 +18,127 @@ import Dominio.Ubicacion.Pais;
 import Dominio.Ubicacion.Provincia;
 
 public class ServicioMercadoLibre implements ServicioInformacionUbicaciones{
-	private Client cliente;//Combiene tenerlo aca o crearlo cada vez que se hace un request
-	private String idPais;
-	private String idProvincia;
-	private String idCiudad;
-	private String idMoneda;
-
+	private Client cliente;
 	
-	public ServicioMercadoLibre(String pais, String provincia, String ciudad){
+	public ServicioMercadoLibre(){
 		this.cliente = new Client();
+	}
+	
+	@Override
+	public List<String> getPaises(){
 		ClientResponse respuestaPaises =	this.recursoMercadoLibre()
-								  			.path(this.recursoPais(null))
-								  			.accept(MediaType.APPLICATION_JSON) 
-								  			.get(ClientResponse.class);
-		
+	  			.path(this.recursoPais(null))
+	  			.accept(MediaType.APPLICATION_JSON) 
+	  			.get(ClientResponse.class);
+
 		if(!(respuestaPaises.getStatus() == 200))
-            throw new RuntimeException("Failed : HTTP error code : " + respuestaPaises.getStatus());
+		throw new RuntimeException("Failed : HTTP error code : " + respuestaPaises.getStatus());
 		
 		JsonReader lectorPaises = Json.createReader(respuestaPaises.getEntityInputStream());
 		
 		JsonArray paisesJson = lectorPaises.readArray();
-			
-		try {
-			JsonValue infoPais = paisesJson.stream().filter(p -> {
-					JsonObject country = p.asJsonObject();
-					return country.getString("name").equals(pais);
-			}).findFirst().get();
-			
-			this.idPais = infoPais.asJsonObject().getString("id");
-			this.idMoneda = infoPais.asJsonObject().getString("currency_id");
-			
-			JsonObject recursoPais = getJson(this.recursoPais(this.idPais));
-				
-			JsonArray provinciasJson = recursoPais.getJsonArray("states");
-			
-			JsonValue infoProvincia = provinciasJson.stream().filter(p ->{
-					JsonObject state = p.asJsonObject();
-					return state.getString("name").equals(provincia);
-			}).findFirst().get();
-			
-			this.idProvincia = infoProvincia.asJsonObject().getString("id");
-			
-			JsonObject recursoProvincia = getJson(this.recursoProvincia(this.idProvincia));
-			
-			JsonArray ciudadesJson = recursoProvincia.getJsonArray("cities");
-			
-			JsonValue infoCiudad= ciudadesJson.stream().filter(p ->{
-				JsonObject state = p.asJsonObject();
-				return state.getString("name").equals(ciudad);
-			}).findFirst().get();
-			
-			this.idCiudad = infoCiudad.asJsonObject().getString("id");
-		}
-		catch(Exception e) {
-			//Pensar bien las excepctions y como hacer para que tire distintas segun el error
-			throw new RuntimeException("Datos mal ingresados");
-		}		
+
+		return paisesJson.stream().map(p -> 
+				p.asJsonObject().getString("name"))
+				.collect(Collectors.toList());
 	}
 	
 	@Override
-	public Pais getPais() {
+	public List<String> getProvincias(String pais){		
 		
-		JsonObject pais = this.getJson(this.recursoPais(this.idPais));
+		JsonObject recursoPais = this.getJsonPais(pais);
 		
-		JsonObject geoInfo = pais.getJsonObject("geo_information").getJsonObject("location");
+		JsonArray provinciasJson = recursoPais.getJsonArray("states");
+		
+		return provinciasJson.stream().map(p -> 
+				p.asJsonObject().getString("name"))
+				.collect(Collectors.toList());
+	}
+	
+	@Override
+	public List<String> getCiudades(String pais, String provincia){
+		
+		JsonObject recursoProvincia = this.getJsonProvincia(pais, provincia);
+		
+		JsonArray ciudadesJson = recursoProvincia.getJsonArray("cities");
+		
+		return ciudadesJson.stream().map(c -> 
+				c.asJsonObject().getString("name"))
+				.collect(Collectors.toList());
+	}
+	
+	@Override
+	public List<String> getMonedas(){
+		ClientResponse respuestaMonedas =	this.recursoMercadoLibre()
+	  			.path(this.recursoMoneda(null))
+	  			.accept(MediaType.APPLICATION_JSON) 
+	  			.get(ClientResponse.class);
+		
+		JsonReader lectorMonedas = Json.createReader(respuestaMonedas.getEntityInputStream());
+		
+		JsonArray monedasJson = lectorMonedas.readArray();
+
+		return monedasJson.stream().map(p -> 
+				p.asJsonObject().getString("description"))
+				.collect(Collectors.toList());	
+	}
+	
+	@Override
+	public Pais getPais(String pais) {
+		
+		JsonObject paisJson = this.getJsonPais(pais);
+		
+		JsonObject geoInfo = paisJson.getJsonObject("geo_information").getJsonObject("location");
 	
 		Double latitud = geoInfo.getJsonNumber("latitude").doubleValue();
 		Double longitud = geoInfo.getJsonNumber("longitude").doubleValue();
 		
-		return new Pais(pais.getString("name"),
-						pais.getString("locale"), 
-						pais.getString("decimal_separator"),
-						pais.getString("thousands_separator"), 
-						pais.getString("time_zone"),
-						pais.getString("currency_id"),
-						new InformacionGeografica(latitud,longitud));
+		return new Pais(
+				paisJson.getString("name"),
+				paisJson.getString("locale"), 
+				paisJson.getString("decimal_separator"),
+				paisJson.getString("thousands_separator"), 
+				paisJson.getString("time_zone"),
+				paisJson.getString("currency_id"),
+				new InformacionGeografica(latitud,longitud));
 	}
 	
 	@Override
-	public Provincia getProvincia() {
-		JsonObject provincia = this.getJson(this.recursoProvincia(this.idProvincia));
-		JsonObject geoInfo = provincia.getJsonObject("geo_information").getJsonObject("location");
+	public Provincia getProvincia(String pais, String provincia) {
+		JsonObject provinciaJson = this.getJsonProvincia(pais, provincia);
+		JsonObject geoInfo = provinciaJson.getJsonObject("geo_information").getJsonObject("location");
 		
 		Double latitud = geoInfo.getJsonNumber("latitude").doubleValue();
 		Double longitud = geoInfo.getJsonNumber("longitude").doubleValue();
 		
-		return new Provincia(	provincia.getString("name"), 
-								provincia.getString("time_zone"),
-		
-								new InformacionGeografica(latitud, longitud));
+		return new Provincia(	
+				provinciaJson.getString("name"), 
+				provinciaJson.getString("time_zone"),		
+				new InformacionGeografica(latitud, longitud));
 	}
 	
 	@Override
-	public Ciudad getCiudad() {
-		JsonObject ciudad = this.getJson(this.recursoCiudad(idCiudad));
-		JsonObject geoInfo = ciudad.getJsonObject("geo_information").getJsonObject("location");
+	public Ciudad getCiudad(String pais, String provincia, String ciudad) {
+		JsonObject ciudadJson = this.getJsonCiudad(pais, provincia, ciudad);
+		JsonObject geoInfo = ciudadJson.getJsonObject("geo_information").getJsonObject("location");
 		
 		Double latitud = geoInfo.getJsonNumber("latitude").doubleValue();
 		Double longitud = geoInfo.getJsonNumber("longitude").doubleValue();
 		
-		return new Ciudad(	ciudad.getString("name"), 
-							new InformacionGeografica(latitud, longitud));
+		return new Ciudad(	
+				ciudadJson.getString("name"), 
+				new InformacionGeografica(latitud, longitud));
 	}
 
 	@Override
-	public Moneda getMonedaLocal() {
-		JsonObject moneda = this.getJson(this.recursoMoneda(idMoneda));
+	public Moneda getMonedaLocal(String pais) {
+		JsonObject monedaJson = this.getJsonMoneda(pais);
 
-		return new Moneda(	moneda.getString("id"),
-							moneda.getString("symbol"),
-							moneda.getString("description"), 
-							moneda.getInt("decimal_places"));
-	}
-	
-	private JsonObject getJson(String recurso) {
-		ClientResponse response = this.recursoMercadoLibre().
-		path(recurso).
-		accept(MediaType.APPLICATION_JSON).
-		get(ClientResponse.class);
-
-		if(!(response.getStatus() == 200))
-		throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
-		
-		JsonReader reader = Json.createReader(response.getEntityInputStream());
-		return reader.readObject();
+		return new Moneda(	
+				monedaJson.getString("id"),
+				monedaJson.getString("symbol"),
+				monedaJson.getString("description"), 
+				monedaJson.getInt("decimal_places"));
 	}
 	
 	private WebResource recursoMercadoLibre() {
@@ -171,6 +172,90 @@ public class ServicioMercadoLibre implements ServicioInformacionUbicaciones{
 		if(id!=null && !id.isEmpty())
 			recurso = recurso.concat(id);	
 		return recurso;
+	}
+	
+	private JsonObject getJsonPais(String pais) {
+		ClientResponse respuestaPaises =	this.recursoMercadoLibre()
+	  			.path(this.recursoPais(null))
+	  			.accept(MediaType.APPLICATION_JSON) 
+	  			.get(ClientResponse.class);
+
+		if(!(respuestaPaises.getStatus() == 200))
+		throw new RuntimeException("Failed : HTTP error code : " + respuestaPaises.getStatus());
+		
+		JsonReader lectorPaises = Json.createReader(respuestaPaises.getEntityInputStream());
+		
+		JsonArray paisesJson = lectorPaises.readArray();
+		
+		String paisId = paisesJson.stream().filter( p -> 
+					p.asJsonObject().getString("name").equals(pais)
+				).findFirst().get().asJsonObject().getString("id");
+		
+		ClientResponse respuestaPais = this.recursoMercadoLibre()
+	  			.path(this.recursoProvincia(paisId))
+	  			.accept(MediaType.APPLICATION_JSON) 
+	  			.get(ClientResponse.class);
+		
+		JsonReader lectorPais =  Json.createReader(respuestaPais.getEntityInputStream());
+		
+		return lectorPais.readObject();
+	}
+	
+	private JsonObject getJsonProvincia(String pais, String provincia) {
+		JsonObject paisJson = this.getJsonPais(pais);
+		
+		JsonArray provinciasJson = paisJson.getJsonArray("states");
+		
+		String provinciaId= provinciasJson.stream().filter( p -> 
+					p.asJsonObject().getString("name").equals(provincia)
+				).findFirst().get().asJsonObject().getString("id");
+		
+		ClientResponse respuestaProvincia = this.recursoMercadoLibre()
+	  			.path(this.recursoProvincia(provinciaId))
+	  			.accept(MediaType.APPLICATION_JSON) 
+	  			.get(ClientResponse.class);
+		
+		JsonReader lectorProvincia = Json.createReader(respuestaProvincia.getEntityInputStream());
+		
+		return lectorProvincia.readObject();
+	}
+
+	
+	private JsonObject getJsonCiudad(String pais, String provincia, String ciudad) {
+		
+		JsonObject provinciaJson = this.getJsonProvincia(pais, provincia);
+		
+		JsonArray ciudadesJson = provinciaJson.getJsonArray("cities");
+		
+		String ciudadId = ciudadesJson.stream().filter( p -> 
+					p.asJsonObject().getString("name").equals(ciudad)
+				).findFirst().get().asJsonObject().getString("id");;
+		
+		ClientResponse respuestaCiudad = this.recursoMercadoLibre()
+	  			.path(this.recursoCiudad(ciudadId))
+	  			.accept(MediaType.APPLICATION_JSON) 
+	  			.get(ClientResponse.class);
+		
+		JsonReader lectorCiudad = Json.createReader(respuestaCiudad.getEntityInputStream());
+		
+		return lectorCiudad.readObject();
+	}
+
+	
+	private JsonObject getJsonMoneda(String pais) {
+		
+		JsonObject paisJson = this.getJsonPais(pais);
+		
+		String monedaId = paisJson.getString("currency_id");
+		
+		ClientResponse respuestaMoneda = this.recursoMercadoLibre()
+	  			.path(this.recursoMoneda(monedaId))
+	  			.accept(MediaType.APPLICATION_JSON) 
+	  			.get(ClientResponse.class);
+		
+		JsonReader lectorMoneda = Json.createReader(respuestaMoneda.getEntityInputStream());
+		
+		return lectorMoneda.readObject();
 	}
 
 
