@@ -6,28 +6,26 @@ import Dominio.Ubicacion.Provincia;
 
 public class DireccionPostal {
 	private String direccion;
-	private Pais pais;
-	private Provincia provincia;
-	private Ciudad ciudad;
+	private String pais;
+	private String provincia;
+	private String ciudad;
 	
 	public DireccionPostal(String direccion, String pais, String provincia, String ciudad) {
-		this.setDireccion(direccion);
-		ServicioMercadoLibre info = new ServicioMercadoLibre(pais, provincia, ciudad);
-		
-		this.pais = info.getPais();
-		this.provincia = info.getProvincia();
-		this.ciudad = info.getCiudad();
+		this.setDireccion(direccion);		
+		this.pais = pais;
+		this.provincia = provincia;
+		this.ciudad = ciudad;
 	}
 	
-	public Pais getPais() {
+	public String getPais() {
 		return this.pais;
 	}
 
-	public Provincia getProvincia() {
+	public String getProvincia() {
 		return this.provincia;
 	}
 	
-	public Ciudad getCiudad() {
+	public String getCiudad() {
 		return this.ciudad;
 	}
 
