@@ -174,6 +174,17 @@ public class ServicioMercadoLibre implements ServicioInformacionUbicaciones{
 		return recurso;
 	}
 	
+	private JsonObject getJson(String recurso) {
+		ClientResponse response = this.recursoMercadoLibre()
+	  			.path(recurso)
+	  			.accept(MediaType.APPLICATION_JSON) 
+	  			.get(ClientResponse.class);
+		
+		JsonReader lector =  Json.createReader(response.getEntityInputStream());
+		
+		return lector.readObject();
+	}
+	
 	private JsonObject getJsonPais(String pais) {
 		ClientResponse respuestaPaises =	this.recursoMercadoLibre()
 	  			.path(this.recursoPais(null))
@@ -191,14 +202,7 @@ public class ServicioMercadoLibre implements ServicioInformacionUbicaciones{
 					p.asJsonObject().getString("name").equals(pais)
 				).findFirst().get().asJsonObject().getString("id");
 		
-		ClientResponse respuestaPais = this.recursoMercadoLibre()
-	  			.path(this.recursoProvincia(paisId))
-	  			.accept(MediaType.APPLICATION_JSON) 
-	  			.get(ClientResponse.class);
-		
-		JsonReader lectorPais =  Json.createReader(respuestaPais.getEntityInputStream());
-		
-		return lectorPais.readObject();
+		return this.getJson(this.recursoPais(paisId));
 	}
 	
 	private JsonObject getJsonProvincia(String pais, String provincia) {
@@ -209,15 +213,8 @@ public class ServicioMercadoLibre implements ServicioInformacionUbicaciones{
 		String provinciaId= provinciasJson.stream().filter( p -> 
 					p.asJsonObject().getString("name").equals(provincia)
 				).findFirst().get().asJsonObject().getString("id");
-		
-		ClientResponse respuestaProvincia = this.recursoMercadoLibre()
-	  			.path(this.recursoProvincia(provinciaId))
-	  			.accept(MediaType.APPLICATION_JSON) 
-	  			.get(ClientResponse.class);
-		
-		JsonReader lectorProvincia = Json.createReader(respuestaProvincia.getEntityInputStream());
-		
-		return lectorProvincia.readObject();
+			
+		return this.getJson(this.recursoProvincia(provinciaId));
 	}
 
 	
@@ -231,14 +228,7 @@ public class ServicioMercadoLibre implements ServicioInformacionUbicaciones{
 					p.asJsonObject().getString("name").equals(ciudad)
 				).findFirst().get().asJsonObject().getString("id");;
 		
-		ClientResponse respuestaCiudad = this.recursoMercadoLibre()
-	  			.path(this.recursoCiudad(ciudadId))
-	  			.accept(MediaType.APPLICATION_JSON) 
-	  			.get(ClientResponse.class);
-		
-		JsonReader lectorCiudad = Json.createReader(respuestaCiudad.getEntityInputStream());
-		
-		return lectorCiudad.readObject();
+		return this.getJson(this.recursoCiudad(ciudadId));
 	}
 
 	
@@ -248,14 +238,7 @@ public class ServicioMercadoLibre implements ServicioInformacionUbicaciones{
 		
 		String monedaId = paisJson.getString("currency_id");
 		
-		ClientResponse respuestaMoneda = this.recursoMercadoLibre()
-	  			.path(this.recursoMoneda(monedaId))
-	  			.accept(MediaType.APPLICATION_JSON) 
-	  			.get(ClientResponse.class);
-		
-		JsonReader lectorMoneda = Json.createReader(respuestaMoneda.getEntityInputStream());
-		
-		return lectorMoneda.readObject();
+		return this.getJson(this.recursoMoneda(monedaId));
 	}
 
 
