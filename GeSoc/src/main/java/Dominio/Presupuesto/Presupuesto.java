@@ -2,6 +2,7 @@ package Dominio.Presupuesto;
 
 import Dominio.DocumentoComercial;
 import Dominio.ItemOperacion;
+import Dominio.Pago.ValorMonetario;
 import Dominio.Provedor;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.Optional;
 
 public class Presupuesto {
     private Provedor provedor;
-    private List<ItemOperacion> detalle;;
+    private List<ItemOperacion> detalle;
     private Optional<DocumentoComercial> documentoComercial;
 
     public Presupuesto(Provedor provedor, List<ItemOperacion> detalle) {
@@ -17,7 +18,7 @@ public class Presupuesto {
         this.detalle = detalle;
     }
 
-    public Integer getTotal(){
-        return detalle.stream().mapToInt(ItemOperacion::getValorTotal).sum();
+    public ValorMonetario getTotal() {
+        return detalle.stream().map(ItemOperacion::getValorTotal).reduce(ValorMonetario::sumar).get(); // TODO: Revisar que pasa si no hay ningun item operacion. Deberia poder pasar eso?
     }
 }
