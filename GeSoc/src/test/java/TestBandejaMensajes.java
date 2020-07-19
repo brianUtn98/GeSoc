@@ -1,7 +1,9 @@
 import Dominio.*;
 import Dominio.Pago.DineroEnCuenta;
 import Dominio.Pago.MedioDePago;
+import Dominio.Pago.ValorMonetario;
 import Dominio.Presupuesto.*;
+import Dominio.Ubicacion.Moneda;
 import Dominio.Usuario.CreadorDeUsuario;
 import Dominio.Usuario.TipoAdministrador;
 import Dominio.Usuario.Usuario;
@@ -40,9 +42,9 @@ public class TestBandejaMensajes {
         medioDePago = new DineroEnCuenta(352265652);
 
         List<ItemOperacion> detalleBarato = new ArrayList<>();
-        detalleBarato.add(new ItemOperacion("Algo", 10));
+        detalleBarato.add(new ItemOperacion("Algo", new ValorMonetario(new Moneda("0", "ARS", "Peso", 2), 10)));
         List<ItemOperacion> detalleCaro = new ArrayList<>();
-        detalleCaro.add(new ItemOperacion("Algo", 100));
+        detalleCaro.add(new ItemOperacion("Algo", new ValorMonetario(new Moneda("0", "ARS", "Peso", 2), 100)));
 
         operacionRequierePresupuesto = new Operacion(29256328, proveedorHomero, LocalDate.now(),  medioDePago, detalleBarato, null, true, true);
         operacionNoRequierePresupuesto = new Operacion(29256328, proveedorHomero, LocalDate.now(),  medioDePago, detalleBarato, null, false, true);
