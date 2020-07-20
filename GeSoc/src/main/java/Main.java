@@ -1,7 +1,9 @@
 import Dominio.*;
 import Dominio.Pago.Efectivo;
+import Dominio.Pago.ValorMonetario;
 import Dominio.Presupuesto.Presupuesto;
 import Dominio.Presupuesto.ValidacionCantidadPresupuestos;
+import Dominio.Ubicacion.Moneda;
 import Dominio.Usuario.*;
 
 import javax.swing.*;
@@ -24,9 +26,9 @@ public class Main {
         creador.crearPassword("aloja125",validadores);
         Usuario unUsuario = creador.crearUsuario();
 
-        ItemOperacion unItem = new ItemOperacion("UnProducto1",1000);
-        ItemOperacion unItem2 = new ItemOperacion("UnProducto2",2000);
-        ItemOperacion unItem3 = new ItemOperacion("UnProducto3",200);
+        ItemOperacion unItem = new ItemOperacion("UnProducto1", new ValorMonetario(new Moneda("0", "ARS", "Peso", 2), 1000));
+        ItemOperacion unItem2 = new ItemOperacion("UnProducto2",new ValorMonetario(new Moneda("0", "ARS", "Peso", 2), 2000));
+        ItemOperacion unItem3 = new ItemOperacion("UnProducto3",new ValorMonetario(new Moneda("0", "ARS", "Peso", 2), 200));
         Provedor proveedorHomero = new Provedor("Homero", "Thompson", "Pato feliz", 29256328,  new DireccionPostal("Calle falsa 123","Argentina","Capital Federal", "Capital Federal"), TipoDocumento.DNI);
         Provedor proveedorBart = new Provedor("Bart", "Thompson", "Pato infeliz", 29256329,  new DireccionPostal("Calle falsa 123","Argentina","Capital Federal", "Capital Federal"), TipoDocumento.DNI);
         List<ItemOperacion> items1 = new ArrayList<ItemOperacion>();
