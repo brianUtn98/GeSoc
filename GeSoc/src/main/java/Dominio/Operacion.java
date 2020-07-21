@@ -1,5 +1,6 @@
 package Dominio;
 
+import Dominio.Mensajes.Mensaje;
 import Dominio.Pago.MedioDePago;
 import Dominio.Presupuesto.Presupuesto;
 import Dominio.Usuario.Usuario;
@@ -110,7 +111,8 @@ public class Operacion{
 		return revisores;
 	}
 	
-	public void notificar(String mensaje) {
+	public void notificar(String m) {
+		Mensaje mensaje = new Mensaje(m, this);
 		getRevisores().forEach(revisor->revisor.updateBandeja(mensaje));
 	}
 
