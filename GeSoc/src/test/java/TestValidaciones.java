@@ -4,6 +4,7 @@ import Dominio.Pago.MedioDePago;
 import Dominio.Pago.ValorMonetario;
 import Dominio.Presupuesto.*;
 import Dominio.Ubicacion.Moneda;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,8 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class TestValidaciones {
 
@@ -96,4 +96,20 @@ public class TestValidaciones {
 
         assertTrue(validaciones.stream().allMatch(validacion -> validacion.validar(operacionRequierePresupuesto))); // Las validaciones que se hacen sobre compras que requieren presupuestos pasan cuando no se requiere uno
     }
+
+    @Test
+    public void testCorredorValidaciones() {
+        CorredorValidaciones corredorValidaciones = CorredorValidaciones.getInstance();
+        corredorValidaciones.agregarOperacion(operacionRequierePresupuesto);
+        corredorValidaciones.agregarOperacion(operacionNoRequierePresupuesto);
+        corredorValidaciones.validarPendientes();
+
+        List<Operacion> operaciones = new ArrayList<>();
+        operaciones.add(operacionRequierePresupuesto);
+        operaciones.add(operacionNoRequierePresupuesto);
+
+        assertTrue(corredorValidaciones.getOperacionesPendientes().isEmpty());
+        assertTrue(corredorValidaciones.getOperacionesValidadas().containsAll(operaciones));
+    }
+
 }

@@ -12,6 +12,7 @@ import java.util.List;
 public class CorredorValidaciones {
     private List<Validacion> validaciones;
     private List<Operacion> operacionesPendientes;
+    private List<Operacion> operacionesValidadas;
 
     private static CorredorValidaciones instance;
     public static CorredorValidaciones getInstance() {
@@ -27,6 +28,7 @@ public class CorredorValidaciones {
     private CorredorValidaciones(List<Validacion> validaciones) {
         this.validaciones = validaciones;
         operacionesPendientes = new ArrayList<>();
+        operacionesValidadas = new ArrayList<>();
     }
 
     public void validar(Operacion operacion) {
@@ -38,10 +40,19 @@ public class CorredorValidaciones {
 
     public void validarPendientes() {
         operacionesPendientes.forEach(this::validar);
+        operacionesValidadas.addAll(operacionesPendientes);
         operacionesPendientes = new ArrayList<>(); // Quizas esto es mejorable?
     }
 
     public void agregarOperacion(Operacion operacion) {
         operacionesPendientes.add(operacion);
+    }
+
+    public List<Operacion> getOperacionesPendientes() {
+        return operacionesPendientes;
+    }
+
+    public List<Operacion> getOperacionesValidadas() {
+        return operacionesValidadas;
     }
 }
