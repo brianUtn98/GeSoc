@@ -48,18 +48,18 @@ public class TestValidaciones {
     public void testFaltanPresupuestos() {
         operacionRequierePresupuesto.addPresupusto(presupuestoBarato);
 
-        Validacion validacion = new ValidacionCantidadPresupuestos(operacionRequierePresupuesto);
+        Validacion validacion = new ValidacionCantidadPresupuestos();
 
-        assertFalse(validacion.validar()); // Solo agregamos un presupuesto, pero se esperan 2
+        assertFalse(validacion.validar(operacionRequierePresupuesto)); // Solo agregamos un presupuesto, pero se esperan 2
     }
 
     @Test
     public void testNoSeCumplePresupuesto() {
         operacionRequierePresupuesto.addPresupusto(presupuestoBarato);
 
-        Validacion validacion = new ValidacionCumplirPresupuesto(operacionRequierePresupuesto);
+        Validacion validacion = new ValidacionCumplirPresupuesto();
 
-        assertFalse(validacion.validar()); // No se selecciono un presupuesto para la compra
+        assertFalse(validacion.validar(operacionRequierePresupuesto)); // No se selecciono un presupuesto para la compra
     }
 
     @Test
@@ -69,19 +69,18 @@ public class TestValidaciones {
 
         operacionRequierePresupuesto.setPresupuestoSeleccionado(presupuestoCaro);
 
-        Validacion validacion = new ValidacionPresupuestoMenorValor(operacionRequierePresupuesto);
+        Validacion validacion = new ValidacionPresupuestoMenorValor();
 
-        assertFalse(validacion.validar()); // El presupuesto elegido es el caro
+        assertFalse(validacion.validar(operacionRequierePresupuesto)); // El presupuesto elegido es el caro
     }
-
 
     @Test
     public void testNoRequierePresupuesto() {
         List<Validacion> validaciones = new ArrayList<>();
-        validaciones.add(new ValidacionCumplirPresupuesto(operacionNoRequierePresupuesto));
-        validaciones.add(new ValidacionCantidadPresupuestos(operacionNoRequierePresupuesto));
+        validaciones.add(new ValidacionCumplirPresupuesto());
+        validaciones.add(new ValidacionCantidadPresupuestos());
 
-        assertTrue(validaciones.stream().allMatch(validacion -> validacion.validar())); // Las validaciones que se hacen sobre compras que requieren presupuestos pasan cuando no se requiere uno
+        assertTrue(validaciones.stream().allMatch(validacion -> validacion.validar(operacionNoRequierePresupuesto))); // Las validaciones que se hacen sobre compras que requieren presupuestos pasan cuando no se requiere uno
     }
 
     @Test
@@ -91,11 +90,10 @@ public class TestValidaciones {
         operacionRequierePresupuesto.setPresupuestoSeleccionado(presupuestoBarato);
 
         List<Validacion> validaciones = new ArrayList<>();
-        validaciones.add(new ValidacionCumplirPresupuesto(operacionRequierePresupuesto)); // Deberia pasar porque el presupuesto seleccionado es uno de los que tiene la compra asociados
-        validaciones.add(new ValidacionCantidadPresupuestos(operacionRequierePresupuesto)); // Deberia pasar porque tenemos 2 presupuestos (el minimo es 2)
-        validaciones.add(new ValidacionPresupuestoMenorValor(operacionRequierePresupuesto)); // Deberia pasar porque de los 2 presupuestos elegimos el mas barato
+        validaciones.add(new ValidacionCumplirPresupuesto()); // Deberia pasar porque el presupuesto seleccionado es uno de los que tiene la compra asociados
+        validaciones.add(new ValidacionCantidadPresupuestos()); // Deberia pasar porque tenemos 2 presupuestos (el minimo es 2)
+        validaciones.add(new ValidacionPresupuestoMenorValor()); // Deberia pasar porque de los 2 presupuestos elegimos el mas barato
 
-        assertTrue(validaciones.stream().allMatch(validacion -> validacion.validar())); // Las validaciones que se hacen sobre compras que requieren presupuestos pasan cuando no se requiere uno
+        assertTrue(validaciones.stream().allMatch(validacion -> validacion.validar(operacionRequierePresupuesto))); // Las validaciones que se hacen sobre compras que requieren presupuestos pasan cuando no se requiere uno
     }
-
 }
