@@ -4,18 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Dominio.Operacion;
+import Dominio.Mensajes.BandejaDeMensajes;
+import Dominio.Mensajes.Mensaje;
 
 public class Usuario{
 	private String nombre;
 	private String hashPassword;
 	private TipoDeUsuario tipoDeUsuario;
-	private List<String> mensajes = new ArrayList<String>();
+	private BandejaDeMensajes bandejaDeMensajes;
 	
-	public Usuario(String _nombre, String _hashPassword, TipoDeUsuario _tipo)
+	public Usuario(String _nombre, String _hashPassword, TipoDeUsuario _tipo, BandejaDeMensajes _bandeja)
 	{
 		nombre =_nombre;
 		hashPassword = _hashPassword;
 		tipoDeUsuario = _tipo;
+		bandejaDeMensajes = _bandeja;
 	}
 
 	public String getNombre() {
@@ -30,13 +33,13 @@ public class Usuario{
 		password = _password;
 	} Lo comento porque quizás a futuro queramos cambiar la pass, pero por ahora lo dejamos en manos del builder*/
 	
-	public List<String> verBandejaMensajes() {
-		return mensajes;
+	public List<Mensaje> verBandejaMensajes() {
+		return bandejaDeMensajes.getMensajes();
 	}
 
-	public void updateBandeja(String mensaje) {
+	public void updateBandeja(Mensaje mensaje) {
 		// TODO Auto-generated method stub
-		mensajes.add(mensaje);
+		bandejaDeMensajes.agregarMensaje(mensaje);
 	}
 
 

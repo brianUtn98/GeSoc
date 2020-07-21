@@ -1,4 +1,5 @@
 import Dominio.*;
+import Dominio.Mensajes.BandejaDeMensajes;
 import Dominio.Pago.DineroEnCuenta;
 import Dominio.Pago.MedioDePago;
 import Dominio.Pago.ValorMonetario;
@@ -53,6 +54,8 @@ public class TestBandejaMensajes {
         presupuestoCaro = new Presupuesto(proveedorBart, detalleCaro);
         
         CreadorDeUsuario builder = new CreadorDeUsuario("Esteban Quito");
+        BandejaDeMensajes bandeja = new BandejaDeMensajes();
+        builder.setearBandejaDeMensajse(bandeja);
         builder.setearTipoUsuario(new TipoAdministrador());
         List<ValidadorPassword> validadores = new ArrayList<ValidadorPassword>();
         ValidadorLongitud validadorLongitud = new ValidadorLongitud();
@@ -76,7 +79,7 @@ public class TestBandejaMensajes {
         operacionRequierePresupuesto.notificar(mensaje); 
         
       //Se notifica al usuario que la cantidad de presupuesto no es la correcta
-        Assert.assertEquals("Validacion de cantidad de presupuestos: Fallo",usuarioRevisor.verBandejaMensajes().get(0));
+        Assert.assertEquals("Validacion de cantidad de presupuestos: Fallo",usuarioRevisor.verBandejaMensajes().get(0).getDetalle());
     }
 
     @Test
@@ -91,7 +94,7 @@ public class TestBandejaMensajes {
         operacionRequierePresupuesto.notificar(mensaje);
         
         //Se notifica al usuario que la cantidad de presupuesto es la correcta 
-        Assert.assertEquals("Validacion de cantidad de presupuestos: OK",usuarioRevisor.verBandejaMensajes().get(0));
+        Assert.assertEquals("Validacion de cantidad de presupuestos: OK",usuarioRevisor.verBandejaMensajes().get(0).getDetalle());
     }
     
     
@@ -106,7 +109,7 @@ public class TestBandejaMensajes {
         operacionRequierePresupuesto.notificar(mensaje); 
         
         //  Se notifica al usuario que no se selecciono un presupuesto para la compra
-        Assert.assertEquals("Validacion egreso tiene presupuesto: Fallo",usuarioRevisor.verBandejaMensajes().get(0));
+        Assert.assertEquals("Validacion egreso tiene presupuesto: Fallo",usuarioRevisor.verBandejaMensajes().get(0).getDetalle());
     }
 
     @Test
@@ -122,7 +125,7 @@ public class TestBandejaMensajes {
         operacionRequierePresupuesto.notificar(mensaje);
         
         // Se notifica al usuario que se selecciono un presupuesto para la compra
-        Assert.assertEquals("Validacion egreso tiene presupuesto: OK",usuarioRevisor.verBandejaMensajes().get(0));
+        Assert.assertEquals("Validacion egreso tiene presupuesto: OK",usuarioRevisor.verBandejaMensajes().get(0).getDetalle());
     }
 
     
@@ -140,7 +143,7 @@ public class TestBandejaMensajes {
 
         // Se notifica al usuario que el presupuesto elegido es el caro
         Assert.assertEquals("Validacion de seleccion de presupuesto de menor valor: Fallo"
-        		,usuarioRevisor.verBandejaMensajes().get(0));
+        		,usuarioRevisor.verBandejaMensajes().get(0).getDetalle());
     }
 
     @Test
@@ -158,6 +161,6 @@ public class TestBandejaMensajes {
         
         // Se notifica al usuario que el presupuesto elegido es el barato
         Assert.assertEquals("Validacion de seleccion de presupuesto de menor valor: OK"
-        		,usuarioRevisor.verBandejaMensajes().get(0));
+        		,usuarioRevisor.verBandejaMensajes().get(0).getDetalle());
     }    
 }
