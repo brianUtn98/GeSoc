@@ -1,5 +1,5 @@
 package Dominio.Entidad;
 
-public class OSC implements CategoriaDeEntidad {
+public class OSC implements TipoDeEntidad {
 
 }

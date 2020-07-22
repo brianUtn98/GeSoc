@@ -2,7 +2,9 @@ package Dominio;
 
 import Dominio.Mensajes.Mensaje;
 import Dominio.Pago.MedioDePago;
+import Dominio.Pago.ValorMonetario;
 import Dominio.Presupuesto.Presupuesto;
+import Dominio.Ubicacion.Moneda;
 import Dominio.Usuario.Usuario;
 
 import java.util.ArrayList;
@@ -23,6 +25,8 @@ public class Operacion{
 	private Boolean requierePresupuestos;
 	private Boolean criterioDeSeleccionMinimoValor;
 	private List<Usuario> revisores = new ArrayList<>(); 
+	private List<Etiqueta> etiquetas = new ArrayList<>(); 
+
 	
 	
 	public Operacion(Integer numeroDocumento, Provedor provedor, LocalDate fecha, MedioDePago medioPago,
@@ -116,4 +120,26 @@ public class Operacion{
 		getRevisores().forEach(revisor->revisor.updateBandeja(mensaje));
 	}
 
+	public void addEtiqueta( Etiqueta et) {
+		if (!etiquetas.contains(et))
+			etiquetas.add(et);
+	}
+	
+	public void quitarEtiqueta( Etiqueta et) {
+		if (etiquetas.contains(et))
+			etiquetas.remove(et);
+	}
+	
+	public List<Etiqueta> getEtiquetas(){
+			return etiquetas;
+	}
+	
+	public ValorMonetario getTotal() {
+		ValorMonetario total =new ValorMonetario(new Moneda("0", "ARS", "Peso", 2), 0);
+		for(ItemOperacion i:detalle) {
+			total = total.sumar(i.getValorTotal());
+		}
+		
+		return total;
+	}
 }

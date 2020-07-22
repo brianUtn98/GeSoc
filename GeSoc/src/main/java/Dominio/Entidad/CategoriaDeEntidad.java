@@ -1,5 +1,8 @@
 package Dominio.Entidad;
 
-public interface CategoriaDeEntidad {
-    // TODO: Esto en el futuro deberia tener mensajes a entender.
+import java.util.List;
+
+public class CategoriaDeEntidad {
+	private String Nombre;
+	private List<ReglaDeCategoria> reglas;
 }

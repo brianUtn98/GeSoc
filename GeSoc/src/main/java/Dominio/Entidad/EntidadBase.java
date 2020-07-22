@@ -2,9 +2,9 @@ package Dominio.Entidad;
 
 import java.util.Optional;
 
-public class EntidadBase implements EntidadOrganizacional {
+public class EntidadBase extends EntidadOrganizacional {
 	
-	private String nombreFicticio;
+	
 	private String descripcion;
 	private Optional<EntidadOrganizacional> entidadJuridica;
 	
@@ -15,15 +15,9 @@ public class EntidadBase implements EntidadOrganizacional {
 	
 	public EntidadBase( String _nombreFicticio,String _descripcion, Optional<EntidadOrganizacional> _entidadJuridica)
 	{
-		nombreFicticio =_nombreFicticio;
+		super(_nombreFicticio);
 		descripcion = _descripcion;
 		entidadJuridica = _entidadJuridica;
-	}
-	
-	@Override
-	public String getNombreFicticio()
-	{
-		return nombreFicticio;
 	}
 	
 	public String getDescripcion()

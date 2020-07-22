@@ -1,6 +1,6 @@
 package Dominio.Entidad;
 
-public class Empresa implements CategoriaDeEntidad {
+public class Empresa implements TipoDeEntidad {
     private TipoEmpresa tipo;
 
     public Empresa(TipoEmpresa tipo) {
