@@ -3,27 +3,21 @@ package Dominio.Presupuesto;
 import Dominio.Operacion;
 
 public class ValidacionCantidadPresupuestos implements Validacion {
-    private Operacion egreso;
     private final Integer PRESUPUESTOS_REQUERIDOS = 2; // No se si esta bueno esto
     private String nombreValidacion;
     
-    public ValidacionCantidadPresupuestos(Operacion egreso) {
-        this.egreso = egreso;
+    public ValidacionCantidadPresupuestos() {
         this.nombreValidacion = "Validacion de cantidad de presupuestos: ";
     }
 
     @Override
-    public boolean validar() {
+    public boolean validar(Operacion egreso) {
     	boolean resultadoValidacion = true;
         if(egreso.getRequierePresupuestos())
         	resultadoValidacion = egreso.getPresupuestos().size() >= PRESUPUESTOS_REQUERIDOS;        	
         return resultadoValidacion;
     }
 
-    public Operacion getEgreso() {
-        return egreso;
-    }
-    
     public Integer getPRESUPUESTOS_REQUERIDOS() {
         return PRESUPUESTOS_REQUERIDOS;
     }
@@ -31,6 +25,4 @@ public class ValidacionCantidadPresupuestos implements Validacion {
     public String getNombre() {
     	return nombreValidacion;
     }
-
-
 }

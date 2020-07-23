@@ -74,8 +74,8 @@ public class TestBandejaMensajes {
  
         operacionRequierePresupuesto.altaRevisor(usuarioRevisor);
         
-        Validacion validacion = new ValidacionCantidadPresupuestos(operacionRequierePresupuesto);
-        String mensaje = validacion.getNombre()+(validacion.validar()?"OK":"Fallo");
+        Validacion validacion = new ValidacionCantidadPresupuestos();
+        String mensaje = validacion.getNombre()+(validacion.validar(operacionRequierePresupuesto)?"OK":"Fallo");
         operacionRequierePresupuesto.notificar(mensaje); 
         
       //Se notifica al usuario que la cantidad de presupuesto no es la correcta
@@ -89,8 +89,8 @@ public class TestBandejaMensajes {
         
         operacionRequierePresupuesto.altaRevisor(usuarioRevisor);
         
-        Validacion validacion = new ValidacionCantidadPresupuestos(operacionRequierePresupuesto);
-        String mensaje = validacion.getNombre()+(validacion.validar()?"OK":"Fallo");
+        Validacion validacion = new ValidacionCantidadPresupuestos();
+        String mensaje = validacion.getNombre()+(validacion.validar(operacionRequierePresupuesto)?"OK":"Fallo");
         operacionRequierePresupuesto.notificar(mensaje);
         
         //Se notifica al usuario que la cantidad de presupuesto es la correcta 
@@ -104,8 +104,8 @@ public class TestBandejaMensajes {
 
         operacionRequierePresupuesto.altaRevisor(usuarioRevisor);
         
-        Validacion validacion = new ValidacionCumplirPresupuesto(operacionRequierePresupuesto);
-        String mensaje = validacion.getNombre()+(validacion.validar()?"OK":"Fallo");
+        Validacion validacion = new ValidacionCumplirPresupuesto();
+        String mensaje = validacion.getNombre()+(validacion.validar(operacionRequierePresupuesto)?"OK":"Fallo");
         operacionRequierePresupuesto.notificar(mensaje); 
         
         //  Se notifica al usuario que no se selecciono un presupuesto para la compra
@@ -120,8 +120,8 @@ public class TestBandejaMensajes {
         
         operacionRequierePresupuesto.altaRevisor(usuarioRevisor);
         
-        Validacion validacion = new ValidacionCumplirPresupuesto(operacionRequierePresupuesto);
-        String mensaje = validacion.getNombre()+(validacion.validar()?"OK":"Fallo");
+        Validacion validacion = new ValidacionCumplirPresupuesto();
+        String mensaje = validacion.getNombre()+(validacion.validar(operacionRequierePresupuesto)?"OK":"Fallo");
         operacionRequierePresupuesto.notificar(mensaje);
         
         // Se notifica al usuario que se selecciono un presupuesto para la compra
@@ -137,8 +137,8 @@ public class TestBandejaMensajes {
         operacionRequierePresupuesto.setPresupuestoSeleccionado(presupuestoCaro);
         operacionRequierePresupuesto.altaRevisor(usuarioRevisor);
         
-        Validacion validacion = new ValidacionPresupuestoMenorValor(operacionRequierePresupuesto);
-        String mensaje = validacion.getNombre()+(validacion.validar()?"OK":"Fallo");
+        Validacion validacion = new ValidacionPresupuestoMenorValor();
+        String mensaje = validacion.getNombre()+(validacion.validar(operacionRequierePresupuesto)?"OK":"Fallo");
         operacionRequierePresupuesto.notificar(mensaje);
 
         // Se notifica al usuario que el presupuesto elegido es el caro
@@ -154,8 +154,8 @@ public class TestBandejaMensajes {
         operacionRequierePresupuesto.setPresupuestoSeleccionado(presupuestoBarato);
         operacionRequierePresupuesto.altaRevisor(usuarioRevisor);
         
-        Validacion validacion = new ValidacionPresupuestoMenorValor(operacionRequierePresupuesto);
-        String mensaje = validacion.getNombre()+(validacion.validar()?"OK":"Fallo");
+        Validacion validacion = new ValidacionPresupuestoMenorValor();
+        String mensaje = validacion.getNombre()+(validacion.validar(operacionRequierePresupuesto)?"OK":"Fallo");
         operacionRequierePresupuesto.notificar(mensaje);
 
         

@@ -17,7 +17,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws IOException {
         System.out.println("Sistema GeSoc");
-        List<Operacion> operaciones = new ArrayList<Operacion>();
+        CorredorValidaciones corredorValidaciones = CorredorValidaciones.getInstance();
         CreadorDeUsuario creador = new CreadorDeUsuario("Pepe");
         creador.setearTipoUsuario(new TipoEstandar());
         ValidadorLongitud unValidador = new ValidadorLongitud();
@@ -47,8 +47,8 @@ public class Main {
         unEgreso.addPresupusto(otroPresupuesto);
         Operacion otroEgreso = new Operacion(41665156,proveedorHomero,LocalDate.now(),unMedio,items2,null,true,true);
         otroEgreso.addPresupusto(otroPresupuesto2);
-        operaciones.add(unEgreso);
-        operaciones.add(otroEgreso);
+        corredorValidaciones.agregarOperacion(unEgreso);
+        corredorValidaciones.agregarOperacion(otroEgreso);
 
         unEgreso.altaRevisor(unUsuario);
         otroEgreso.altaRevisor(unUsuario);
@@ -61,12 +61,7 @@ public class Main {
         System.out.println("Se leyó: " + lectura);
 
         if(lectura.equals("VALIDAR")){
-            operaciones.stream().forEach(operacion -> {
-                ValidacionCantidadPresupuestos unaValidacion = new ValidacionCantidadPresupuestos(operacion);              
-                String mensaje = unaValidacion.getNombre()+(unaValidacion.validar()?"OK":"Fallo");
-                operacion.notificar(mensaje);
-            }
-            );
+            corredorValidaciones.validarPendientes();
 
             System.out.println("Se validaron las operaciones de egreso");
 

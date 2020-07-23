@@ -1,7 +1,9 @@
 package Dominio.Presupuesto;
 
+import Dominio.Operacion;
+
 public interface Validacion {
-    public boolean validar();
+    public boolean validar(Operacion egreso);
     
     public String getNombre();
 }

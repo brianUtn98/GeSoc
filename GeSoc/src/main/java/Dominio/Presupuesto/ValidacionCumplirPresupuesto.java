@@ -3,24 +3,18 @@ package Dominio.Presupuesto;
 import Dominio.Operacion;
 
 public class ValidacionCumplirPresupuesto implements Validacion {
-    private Operacion egreso;
     private String nombreValidacion;
     
-    public ValidacionCumplirPresupuesto(Operacion egreso) {
-        this.egreso = egreso;
+    public ValidacionCumplirPresupuesto() {
         this.nombreValidacion = "Validacion egreso tiene presupuesto: ";
     }
 
     @Override
-    public boolean validar() {
+    public boolean validar(Operacion egreso) {
     	boolean resultadoValidacion = true;
         if(egreso.getRequierePresupuestos())
         	resultadoValidacion = egreso.getPresupuestoSeleccionado().isPresent();
         return resultadoValidacion;
-    }
-
-    public Operacion getEgreso() {
-        return egreso;
     }
     
     public String getNombre() {
