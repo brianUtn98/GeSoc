@@ -6,18 +6,21 @@ public class EntidadBase extends EntidadOrganizacional {
 	
 	
 	private String descripcion;
-	private Optional<EntidadOrganizacional> entidadJuridica;
+	private Optional<EntidadJuridica> entidadJuridica;
 	
-	public EntidadBase( String _nombreFicticio,String _descripcion)
+	public EntidadBase( String _nombreFicticio,String _descripcion, CategoriaDeEntidad _categoria)
 	{
-		this(_nombreFicticio, _descripcion, Optional.empty());
+		this(_nombreFicticio, _descripcion, Optional.empty(), _categoria);
 	}
 	
-	public EntidadBase( String _nombreFicticio,String _descripcion, Optional<EntidadOrganizacional> _entidadJuridica)
+	public EntidadBase( String _nombreFicticio,String _descripcion, Optional<EntidadJuridica> _entidadJuridica, CategoriaDeEntidad _categoria)
 	{
-		super(_nombreFicticio);
+		super(_nombreFicticio, _categoria);
 		descripcion = _descripcion;
-		entidadJuridica = _entidadJuridica;
+
+		if(_categoria.puedeSerParteDeEntidadJuridica())
+			entidadJuridica = _entidadJuridica.filter(entidadJuridica -> entidadJuridica.puedeAgregarEntidadBase()); // Simplemente no agregamos la entidad juridica si no nos deja la regla
+																													// La entidad base igual se crea. Esta bien esto?
 	}
 	
 	public String getDescripcion()
@@ -25,7 +28,7 @@ public class EntidadBase extends EntidadOrganizacional {
 		return descripcion;
 	}
 	
-	public Optional<EntidadOrganizacional> getentidadJuridica()
+	public Optional<EntidadJuridica> getEntidadJuridica()
 	{
 		return entidadJuridica;
 	}

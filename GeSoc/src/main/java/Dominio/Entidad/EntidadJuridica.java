@@ -7,16 +7,16 @@ public class EntidadJuridica extends EntidadOrganizacional {
 	private String razonSocial;
 	private String cuit;
 	private DireccionPostal direccionPostal;
-	private TipoDeEntidad categoria;
+	private TipoDeEntidad tipoDeEntidad;
 	private String codigoInscripcionIGJ;
 	
-	public EntidadJuridica(String _nombreFicticio,String _razonSocial,String _cuit,DireccionPostal _direccionPostal,TipoDeEntidad _categoria,String _codigoInscripcionIGJ) 
+	public EntidadJuridica(String _nombreFicticio,String _razonSocial,String _cuit,DireccionPostal _direccionPostal,TipoDeEntidad _tipo,String _codigoInscripcionIGJ, CategoriaDeEntidad _categoria)
 	{
-		super(_nombreFicticio);
+		super(_nombreFicticio, _categoria);
 		razonSocial =_razonSocial;
 		cuit =_cuit;
 		direccionPostal =_direccionPostal;
-		categoria =_categoria;
+		tipoDeEntidad =_tipo;
 		codigoInscripcionIGJ =_codigoInscripcionIGJ;
 	}
 	
@@ -38,8 +38,11 @@ public class EntidadJuridica extends EntidadOrganizacional {
 	public String getCuit() {
 		return cuit;
 	}
-	public TipoDeEntidad getCategoria() {
-		return categoria;
+	public TipoDeEntidad getTipoDeEntidad() {
+		return tipoDeEntidad;
 	}
-	
+
+	public boolean puedeAgregarEntidadBase() {
+		return categoria.puedeAgregarEntidadBase();
+	}
 }

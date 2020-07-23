@@ -9,15 +9,15 @@ import Dominio.Operacion;
 public class EntidadOrganizacional {
 
 	protected String nombreFicticio;
-	private List<CategoriaDeEntidad> categorias;
+	protected CategoriaDeEntidad categoria;
 	private List<Operacion> operaciones;
 	private List<Etiqueta> etiquetas;
 	
-	public EntidadOrganizacional(String _nombreFicticio) {
+	public EntidadOrganizacional(String _nombreFicticio, CategoriaDeEntidad _categoria) {
 		nombreFicticio =_nombreFicticio;
 		operaciones = new ArrayList<Operacion>();
 		etiquetas = new ArrayList<Etiqueta>();
-		categorias = new ArrayList<CategoriaDeEntidad>();		
+		categoria = _categoria;
 	}
 	
 	
@@ -28,11 +28,10 @@ public class EntidadOrganizacional {
 	public void setNombreFicticio( String _nombreFicticio) {
 		
 	}
-	
-	
 
 	public void agregarOperacion(Operacion operacion) {
-		operaciones.add(operacion);
+		if(categoria.puedeAgregarOperacion(operacion))
+			operaciones.add(operacion);
 	}
 	
 	public void agregarEtiqueta( Etiqueta et) {
