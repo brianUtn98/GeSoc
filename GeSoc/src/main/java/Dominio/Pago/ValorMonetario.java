@@ -12,8 +12,9 @@ public class ValorMonetario {
     }
 
     public ValorMonetario sumar(ValorMonetario otroValor) {
-        if(this.moneda.equals(otroValor.getMoneda())){
-            return new ValorMonetario(moneda, monto + otroValor.getMonto());
+        if(this.moneda.getCodigo().equals(otroValor.getMoneda().getCodigo())){
+        	ValorMonetario v= new ValorMonetario(moneda, monto + otroValor.getMonto());
+            return v;
         }
         else {
             return this; // TODO: Que pasa si son 2 monedas distintas? Habria que resolver esto
