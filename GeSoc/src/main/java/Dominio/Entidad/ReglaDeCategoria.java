@@ -3,7 +3,7 @@ package Dominio.Entidad;
 import Dominio.Operacion;
 
 public abstract class ReglaDeCategoria {
-    public boolean sePuedeAgregarOperacion(Operacion operacion) {
+    public boolean sePuedeAgregarOperacion(EntidadOrganizacional entidad,Operacion operacion) {
         return true;
     }
 

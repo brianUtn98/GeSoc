@@ -2,6 +2,8 @@ package Dominio.Entidad;
 
 import java.util.Optional;
 
+import javax.management.RuntimeErrorException;
+
 public class EntidadBase extends EntidadOrganizacional {
 	
 	
@@ -18,8 +20,10 @@ public class EntidadBase extends EntidadOrganizacional {
 		super(_nombreFicticio, _categoria);
 		descripcion = _descripcion;
 
-		if(_categoria.puedeSerParteDeEntidadJuridica())
-			entidadJuridica = _entidadJuridica.filter(entidadJuridica -> entidadJuridica.puedeAgregarEntidadBase()); // Simplemente no agregamos la entidad juridica si no nos deja la regla
+		if(!_categoria.puedeSerParteDeEntidadJuridica())
+			throw new RuntimeException( "No puede ser parte de una entidad juridica");	
+		
+		entidadJuridica = _entidadJuridica.filter(entidadJuridica -> entidadJuridica.puedeAgregarEntidadBase()); // Simplemente no agregamos la entidad juridica si no nos deja la regla
 																													// La entidad base igual se crea. Esta bien esto?
 	}
 	

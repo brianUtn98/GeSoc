@@ -1,5 +1,8 @@
 package Dominio.Entidad;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import Dominio.Operacion;
 
 public class BloquearNuevosEgresos extends ReglaDeCategoria {
@@ -10,7 +13,10 @@ public class BloquearNuevosEgresos extends ReglaDeCategoria {
     }
 
     @Override
-    public boolean sePuedeAgregarOperacion(Operacion operacion) {
-        return operacion.getTotal().getMonto() < montoMaximo;
+    public boolean sePuedeAgregarOperacion(EntidadOrganizacional entidad,Operacion operacion) {
+    	int montoTotal = entidad.misOperaciones().stream()
+    			.mapToInt(p -> p.getTotal().getMonto()).sum();
+    		  
+    	return (montoTotal + operacion.getTotal().getMonto()) < montoMaximo;
     }
 }

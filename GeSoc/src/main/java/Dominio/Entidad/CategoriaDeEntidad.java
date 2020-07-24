@@ -24,8 +24,8 @@ public class CategoriaDeEntidad {
 		return reglas.stream().allMatch(condicion);
 	}
 
-	public boolean puedeAgregarOperacion(Operacion operacion) {
-		return todasLasReglasCumplen(regla -> regla.sePuedeAgregarOperacion(operacion));
+	public boolean puedeAgregarOperacion(EntidadOrganizacional entidad, Operacion operacion) {
+		return todasLasReglasCumplen(regla -> regla.sePuedeAgregarOperacion(entidad ,operacion));
 	}
 
 	public boolean puedeAgregarEntidadBase() {
@@ -34,5 +34,15 @@ public class CategoriaDeEntidad {
 
 	public boolean puedeSerParteDeEntidadJuridica() {
 		return todasLasReglasCumplen(ReglaDeCategoria::puedeSerParteDeEntidadJuridica);
+	}
+	
+	public void agregarRegla(ReglaDeCategoria regla) {
+		if(!reglas.contains(regla))
+			reglas.add(regla);
+	}
+	
+	public void quitarRegla(ReglaDeCategoria regla) {
+		if(reglas.contains(regla))
+			reglas.remove(regla);
 	}
 }

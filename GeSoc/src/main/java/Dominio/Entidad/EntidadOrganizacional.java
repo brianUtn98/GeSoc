@@ -25,13 +25,25 @@ public class EntidadOrganizacional {
 	{
 		return nombreFicticio;
 	}
+	
 	public void setNombreFicticio( String _nombreFicticio) {
 		
 	}
 
+	public CategoriaDeEntidad getCategoria() {
+		return this.categoria;
+	}
+	
+	public void setCategoria(CategoriaDeEntidad categoria) {
+		this.categoria = categoria;
+	}
+	
+
 	public void agregarOperacion(Operacion operacion) {
-		if(categoria.puedeAgregarOperacion(operacion))
-			operaciones.add(operacion);
+		if(!categoria.puedeAgregarOperacion(this, operacion))
+			throw new RuntimeException("Se supero el monto maximo");
+			
+		operaciones.add(operacion);
 	}
 	
 	public void agregarEtiqueta( Etiqueta et) {
