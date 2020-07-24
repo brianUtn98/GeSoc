@@ -66,7 +66,7 @@ public class Main {
             System.out.println("Se validaron las operaciones de egreso");
 
             System.out.println("Se mostraran los mensajes del usuario: " + unUsuario.getNombre());
-            unUsuario.verBandejaMensajes().stream().forEach(mensaje -> System.out.println(mensaje));
+            unUsuario.verBandejaMensajes().stream().forEach(mensaje -> System.out.println(mensaje.getDetalle()));
 
         }
         else

@@ -54,8 +54,6 @@ public class TestBandejaMensajes {
         presupuestoCaro = new Presupuesto(proveedorBart, detalleCaro);
         
         CreadorDeUsuario builder = new CreadorDeUsuario("Esteban Quito");
-        BandejaDeMensajes bandeja = new BandejaDeMensajes();
-        builder.setearBandejaDeMensajse(bandeja);
         builder.setearTipoUsuario(new TipoAdministrador());
         List<ValidadorPassword> validadores = new ArrayList<ValidadorPassword>();
         ValidadorLongitud validadorLongitud = new ValidadorLongitud();

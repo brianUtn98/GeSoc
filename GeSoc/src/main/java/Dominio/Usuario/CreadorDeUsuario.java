@@ -8,7 +8,6 @@ public class CreadorDeUsuario {
 String nombre;
 String hashPass;
 TipoDeUsuario tipoDeUsuario;
-BandejaDeMensajes bandeja;
 GeneradorDeHash generador = new GeneradorDeHash();
 
     public CreadorDeUsuario(String _nombre) {
@@ -33,13 +32,9 @@ GeneradorDeHash generador = new GeneradorDeHash();
     public void setearTipoUsuario(TipoDeUsuario _tipoDeUsuario){
         this.tipoDeUsuario=_tipoDeUsuario;
     }
-    
-    public void setearBandejaDeMensajse(BandejaDeMensajes _bandeja) {
-    	bandeja = _bandeja;
-    }
 
     public Usuario crearUsuario(){
-        Usuario nuevoUsuario = new Usuario(this.nombre,this.hashPass,this.tipoDeUsuario, this.bandeja);
+        Usuario nuevoUsuario = new Usuario(this.nombre,this.hashPass,this.tipoDeUsuario, new BandejaDeMensajes());
         return nuevoUsuario;
     }
 
