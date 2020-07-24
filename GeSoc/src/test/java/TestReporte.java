@@ -39,9 +39,7 @@ public class TestReporte {
     	entidad = new EntidadJuridica("Pato feliz", "Patito S.A.", "30701258651", direccion, tipo, "jih5524", categoria);
     	//creo las etiquetas para esta entidad
     	et = new Etiqueta("gastos superfluos");
-    	entidad.agregarEtiqueta(et);
     	et2 = new Etiqueta("gastos importantisimos");
-    	entidad.agregarEtiqueta(et2);
     	
     	//agrego operaciones
     	Provedor prov = new Provedor("Homero", "Thompson", "Pato feliz", 29256328, new DireccionPostal("Calle falsa 123","Argentina","Capital Federal", "Capital Federal"), TipoDocumento.DNI);
@@ -79,7 +77,7 @@ public class TestReporte {
 		generador.ingresarEtiqueta(et);
 		
 		Reporte report = generador.generarReporte();
-		assertTrue(report.obtenerTotal().getMonto() == 110);
+		assertEquals(110, (int)report.obtenerTotal().getMonto());
 	}
 	
 	@Test

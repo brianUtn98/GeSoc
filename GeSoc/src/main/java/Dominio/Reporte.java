@@ -11,12 +11,12 @@ public class Reporte {
 	private Map<Etiqueta, ValorMonetario> entradas;
 	
 	public Reporte() {
-		entradas = new HashMap<Etiqueta, ValorMonetario>();
+		entradas = new HashMap<>();
 	}
 	
 	public  ValorMonetario obtenerTotal() {
 		ValorMonetario total =new ValorMonetario(new Moneda("0", "ARS", "Peso", 2), 0);
-		for(Map.Entry<Etiqueta, ValorMonetario> m:entradas.entrySet()){  
+		for(Map.Entry<Etiqueta, ValorMonetario> m : entradas.entrySet()){
 			total = total.sumar(m.getValue());
 		}
 		return total;
@@ -24,7 +24,6 @@ public class Reporte {
 
 
 	public void agregarDetalle(Etiqueta e, ValorMonetario v) {
-		// TODO Auto-generated method stub
 		entradas.put(e, v);
 	}
 	
