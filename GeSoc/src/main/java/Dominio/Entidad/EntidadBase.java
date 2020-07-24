@@ -21,9 +21,12 @@ public class EntidadBase extends EntidadOrganizacional {
 		descripcion = _descripcion;
 
 		if(!_categoria.puedeSerParteDeEntidadJuridica())
-			throw new RuntimeException( "No puede ser parte de una entidad juridica");	
+			throw new RuntimeException( "No puede ser parte de una entidad juridica");
+
+		if(_entidadJuridica.isPresent() && _entidadJuridica.get().puedeAgregarEntidadBase())
+			throw new RuntimeException( "La entidad juridica no admite entidades base");
 		
-		entidadJuridica = _entidadJuridica.filter(entidadJuridica -> entidadJuridica.puedeAgregarEntidadBase()); // Simplemente no agregamos la entidad juridica si no nos deja la regla
+		entidadJuridica = _entidadJuridica; // Simplemente no agregamos la entidad juridica si no nos deja la regla
 																													// La entidad base igual se crea. Esta bien esto?
 	}
 	
