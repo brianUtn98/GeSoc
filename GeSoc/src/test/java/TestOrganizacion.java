@@ -10,9 +10,10 @@ public class TestOrganizacion {
 	
     @Test
     public void testTieneNombreFicticio() {
-    	CategoriaDeEntidad categoria = new Empresa(TipoEmpresa.MedianaTramo1);
+    	TipoDeEntidad tipo = new Empresa(TipoEmpresa.MedianaTramo1);
     	DireccionPostal direccion = new DireccionPostal("Calle falsa 123","Argentina","Capital Federal", "Capital Federal");
-    	EntidadOrganizacional entidad = new EntidadJuridica("Pato feliz", "Patito S.A.", "30701258651", direccion, categoria, "jih5524");
+    	CategoriaDeEntidad categoria = new CategoriaDeEntidad("ONG");
+    	EntidadOrganizacional entidad = new EntidadJuridica("Pato feliz", "Patito S.A.", "30701258651", direccion, tipo, "jih5524", categoria);
     	
     	assertTrue(entidad.getNombreFicticio().equals("Pato feliz"));
     }

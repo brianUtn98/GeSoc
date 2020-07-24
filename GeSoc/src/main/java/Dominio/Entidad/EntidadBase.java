@@ -2,28 +2,25 @@ package Dominio.Entidad;
 
 import java.util.Optional;
 
-public class EntidadBase implements EntidadOrganizacional {
+public class EntidadBase extends EntidadOrganizacional {
 	
-	private String nombreFicticio;
+	
 	private String descripcion;
-	private Optional<EntidadOrganizacional> entidadJuridica;
+	private Optional<EntidadJuridica> entidadJuridica;
 	
-	public EntidadBase( String _nombreFicticio,String _descripcion)
+	public EntidadBase( String _nombreFicticio,String _descripcion, CategoriaDeEntidad _categoria)
 	{
-		this(_nombreFicticio, _descripcion, Optional.empty());
+		this(_nombreFicticio, _descripcion, Optional.empty(), _categoria);
 	}
 	
-	public EntidadBase( String _nombreFicticio,String _descripcion, Optional<EntidadOrganizacional> _entidadJuridica)
+	public EntidadBase( String _nombreFicticio,String _descripcion, Optional<EntidadJuridica> _entidadJuridica, CategoriaDeEntidad _categoria)
 	{
-		nombreFicticio =_nombreFicticio;
+		super(_nombreFicticio, _categoria);
 		descripcion = _descripcion;
-		entidadJuridica = _entidadJuridica;
-	}
-	
-	@Override
-	public String getNombreFicticio()
-	{
-		return nombreFicticio;
+
+		if(_categoria.puedeSerParteDeEntidadJuridica())
+			entidadJuridica = _entidadJuridica.filter(entidadJuridica -> entidadJuridica.puedeAgregarEntidadBase()); // Simplemente no agregamos la entidad juridica si no nos deja la regla
+																													// La entidad base igual se crea. Esta bien esto?
 	}
 	
 	public String getDescripcion()
@@ -31,7 +28,7 @@ public class EntidadBase implements EntidadOrganizacional {
 		return descripcion;
 	}
 	
-	public Optional<EntidadOrganizacional> getentidadJuridica()
+	public Optional<EntidadJuridica> getEntidadJuridica()
 	{
 		return entidadJuridica;
 	}
