@@ -26,8 +26,7 @@ public class EntidadBase extends EntidadOrganizacional {
 		if(_entidadJuridica.isPresent() && _entidadJuridica.get().puedeAgregarEntidadBase())
 			throw new RuntimeException( "La entidad juridica no admite entidades base");
 		
-		entidadJuridica = _entidadJuridica; // Simplemente no agregamos la entidad juridica si no nos deja la regla
-																													// La entidad base igual se crea. Esta bien esto?
+		entidadJuridica = _entidadJuridica;
 	}
 	
 	public String getDescripcion()
