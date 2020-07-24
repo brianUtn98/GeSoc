@@ -33,7 +33,7 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                    <archive>m
+                    <archive>
                         <manifest>
                             <mainClass>Main</mainClass>
                         </manifest>
