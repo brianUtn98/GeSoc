@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import Dominio.Entidad.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,11 +18,6 @@ import Dominio.Operacion;
 import Dominio.Provedor;
 import Dominio.Reporte;
 import Dominio.TipoDocumento;
-import Dominio.Entidad.Empresa;
-import Dominio.Entidad.EntidadJuridica;
-import Dominio.Entidad.EntidadOrganizacional;
-import Dominio.Entidad.TipoDeEntidad;
-import Dominio.Entidad.TipoEmpresa;
 import Dominio.Pago.DineroEnCuenta;
 import Dominio.Pago.MedioDePago;
 import Dominio.Pago.TarjetaDeCredito;
@@ -37,9 +33,10 @@ public class TestReporte {
  	@Before
     public void init(){
  		//creo una entidad
- 		TipoDeEntidad categoria = new Empresa(TipoEmpresa.MedianaTramo1);
+ 		TipoDeEntidad tipo = new Empresa(TipoEmpresa.MedianaTramo1);
+		CategoriaDeEntidad categoria = new CategoriaDeEntidad("ONG");
     	DireccionPostal direccion = new DireccionPostal("Calle falsa 123","Argentina","Capital Federal", "Capital Federal");
-    	entidad = new EntidadJuridica("Pato feliz", "Patito S.A.", "30701258651", direccion, categoria, "jih5524");
+    	entidad = new EntidadJuridica("Pato feliz", "Patito S.A.", "30701258651", direccion, tipo, "jih5524", categoria);
     	//creo las etiquetas para esta entidad
     	et = new Etiqueta("gastos superfluos");
     	entidad.agregarEtiqueta(et);

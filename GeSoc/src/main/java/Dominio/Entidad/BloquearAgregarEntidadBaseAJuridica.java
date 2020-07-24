@@ -1,5 +1,7 @@
 package Dominio.Entidad;
 
-public class BloquearAgregarEntidadBaseAJuridica implements ReglaDeCategoria {
-
+public class BloquearAgregarEntidadBaseAJuridica extends ReglaDeCategoria {
+    public boolean sePuedeAgregarEntidadBase() {
+        return false;
+    }
 }
