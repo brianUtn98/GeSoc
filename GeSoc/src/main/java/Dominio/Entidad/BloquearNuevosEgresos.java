@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import Dominio.Operacion;
 
 public class BloquearNuevosEgresos extends ReglaDeCategoria {
-    private int montoMaximo; // Este monto va aca o en la entidad???
+    private int montoMaximo; // NO EN LA ENTIDAD!
 
     public BloquearNuevosEgresos(int montoMaximo) {
         this.montoMaximo = montoMaximo;

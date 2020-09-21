@@ -2,8 +2,6 @@ package Dominio.Entidad;
 
 import java.util.Optional;
 
-import javax.management.RuntimeErrorException;
-
 public class EntidadBase extends EntidadOrganizacional {
 	
 	

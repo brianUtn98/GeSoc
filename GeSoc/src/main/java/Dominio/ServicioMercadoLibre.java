@@ -26,7 +26,7 @@ public class ServicioMercadoLibre implements ServicioInformacionUbicaciones{
 	
 	@Override
 	public List<String> getPaises(){
-		ClientResponse respuestaPaises =	this.recursoMercadoLibre()
+		ClientResponse respuestaPaises = this.recursoMercadoLibre()
 	  			.path(this.recursoPais(null))
 	  			.accept(MediaType.APPLICATION_JSON) 
 	  			.get(ClientResponse.class);

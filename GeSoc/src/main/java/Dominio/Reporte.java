@@ -22,7 +22,6 @@ public class Reporte {
 		return total;
 	}
 
-
 	public void agregarDetalle(Etiqueta e, ValorMonetario v) {
 		entradas.put(e, v);
 	}
