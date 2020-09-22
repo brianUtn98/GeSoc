@@ -1,0 +1,2 @@
+/*C3*/SET SCHEMA PUBLIC
+\u000a    alter table Presupuesto \u000a        add column documentoComercial integer

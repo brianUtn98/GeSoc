@@ -21,8 +21,9 @@ public class Presupuesto {
     @Transient
     private List<ItemOperacion> detalle;
 
-    @Transient
-    private Optional<DocumentoComercial> documentoComercial;
+    @Enumerated
+	@Column(nullable=true)
+    private DocumentoComercial documentoComercial;
 
     public Presupuesto(Provedor provedor, List<ItemOperacion> detalle) {
         this.provedor = provedor;
@@ -31,5 +32,9 @@ public class Presupuesto {
 
     public ValorMonetario getTotal() {
         return detalle.stream().map(ItemOperacion::getValorTotal).reduce(ValorMonetario::sumar).get(); // TODO: Revisar que pasa si no hay ningun item operacion. Deberia poder pasar eso?
+    }
+    
+    public Optional<DocumentoComercial> getDocumentoComercial(){
+    	return Optional.ofNullable(documentoComercial);
     }
 }

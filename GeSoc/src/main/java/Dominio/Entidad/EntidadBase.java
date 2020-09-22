@@ -8,15 +8,17 @@ public class EntidadBase extends EntidadOrganizacional {
 	
 	private String descripcion;
 
-	@Transient
-	private Optional<EntidadJuridica> entidadJuridica;
+	
+	@OneToOne
+	@JoinColumn(name="entidad_id", referencedColumnName="entidad_id", nullable=true)
+	private EntidadJuridica entidadJuridica;
 	
 	public EntidadBase( String _nombreFicticio,String _descripcion, CategoriaDeEntidad _categoria)
 	{
-		this(_nombreFicticio, _descripcion, Optional.empty(), _categoria);
+		this(_nombreFicticio, _descripcion, null, _categoria);
 	}
 	
-	public EntidadBase( String _nombreFicticio,String _descripcion, Optional<EntidadJuridica> _entidadJuridica, CategoriaDeEntidad _categoria)
+	public EntidadBase( String _nombreFicticio,String _descripcion, EntidadJuridica _entidadJuridica, CategoriaDeEntidad _categoria)
 	{
 		super(_nombreFicticio, _categoria);
 		descripcion = _descripcion;
@@ -24,7 +26,7 @@ public class EntidadBase extends EntidadOrganizacional {
 		if(!_categoria.puedeSerParteDeEntidadJuridica())
 			throw new RuntimeException( "No puede ser parte de una entidad juridica");
 
-		if(_entidadJuridica.isPresent() && _entidadJuridica.get().puedeAgregarEntidadBase())
+		if(_entidadJuridica != null && _entidadJuridica.puedeAgregarEntidadBase())
 			throw new RuntimeException( "La entidad juridica no admite entidades base");
 		
 		entidadJuridica = _entidadJuridica;
@@ -37,6 +39,6 @@ public class EntidadBase extends EntidadOrganizacional {
 	
 	public Optional<EntidadJuridica> getEntidadJuridica()
 	{
-		return entidadJuridica;
+		return Optional.ofNullable(entidadJuridica);
 	}
 }
