@@ -2,8 +2,17 @@ package Dominio.Pago;
 
 import Dominio.Ubicacion.Moneda;
 
+import javax.persistence.*;
+
+@Entity
 public class ValorMonetario {
+    @Id
+    @GeneratedValue
+    private long valor_monetario_id;
+
+    @ManyToOne
     private Moneda moneda;
+
     private Integer monto;
 
     public ValorMonetario(Moneda moneda, Integer monto) {

@@ -4,7 +4,16 @@ import Dominio.Ubicacion.Ciudad;
 import Dominio.Ubicacion.Pais;
 import Dominio.Ubicacion.Provincia;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class DireccionPostal {
+	@Id
+	@GeneratedValue
+	private long direccion_id;
+
 	private String direccion;
 	private String pais;
 	private String provincia;

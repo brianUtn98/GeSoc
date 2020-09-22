@@ -7,24 +7,44 @@ import Dominio.Presupuesto.Presupuesto;
 import Dominio.Ubicacion.Moneda;
 import Dominio.Usuario.Usuario;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.time.*;
 
+@Entity
 public class Operacion{
+	@Id
+	@GeneratedValue
+	private long operacion_id;
 
 	private Integer numeroDocumento;
+
+	@ManyToOne
 	private Provedor provedor;
 	private LocalDate fecha;
+
+	@Transient
 	private MedioDePago medioPago;
+
+	@OneToMany
+	@JoinColumn(name = "operacion_id")
 	private List <ItemOperacion> detalle;
+	@OneToMany
+	@JoinColumn(name = "operacion_id")
 	private List<Presupuesto> presupuestos = new ArrayList<>();
+	@Transient
 	private Optional<Presupuesto> presupuestoSeleccionado = Optional.empty();
+	@Transient
 	private Optional<DocumentoComercial> documentoComercial;
+
 	private Boolean requierePresupuestos;
 	private Boolean criterioDeSeleccionMinimoValor;
-	private List<Usuario> revisores = new ArrayList<>(); 
+
+	@ManyToMany
+	private List<Usuario> revisores = new ArrayList<>();
+	@ManyToMany
 	private List<Etiqueta> etiquetas = new ArrayList<>(); 
 
 	

@@ -1,11 +1,14 @@
 package Dominio.Entidad;
 
+import javax.persistence.*;
 import java.util.Optional;
 
+@Entity
 public class EntidadBase extends EntidadOrganizacional {
 	
-	
 	private String descripcion;
+
+	@Transient
 	private Optional<EntidadJuridica> entidadJuridica;
 	
 	public EntidadBase( String _nombreFicticio,String _descripcion, CategoriaDeEntidad _categoria)

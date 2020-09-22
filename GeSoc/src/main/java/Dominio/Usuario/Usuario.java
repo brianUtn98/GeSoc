@@ -7,24 +7,22 @@ import Dominio.Operacion;
 import Dominio.Mensajes.BandejaDeMensajes;
 import Dominio.Mensajes.Mensaje;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
-
+@Table(name="usuarios")
 public class Usuario{
 	@Id
 	@GeneratedValue
-	private long id;
+	private long usuario_id;
 
 	private String nombre;
-	@Transient
 	private String hashPassword;
+
 	@Transient
 	private TipoDeUsuario tipoDeUsuario;
-	@Transient
+
+	@OneToOne
 	private BandejaDeMensajes bandejaDeMensajes;
 	
 	public Usuario(String _nombre, String _hashPassword, TipoDeUsuario _tipo, BandejaDeMensajes _bandeja)

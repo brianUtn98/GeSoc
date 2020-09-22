@@ -1,8 +1,10 @@
 package Dominio.Pago;
 
+import javax.persistence.Entity;
 import java.util.Date;
 
-public class Efectivo implements MedioDePago {
+@Entity
+public class Efectivo extends MedioDePago {
 
 	private int numeroDeTicket;
 	private Date fechaVencimiento;

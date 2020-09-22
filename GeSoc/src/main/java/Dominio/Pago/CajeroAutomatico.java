@@ -1,6 +1,9 @@
 package Dominio.Pago;
 
-public class CajeroAutomatico implements MedioDePago {
+import javax.persistence.Entity;
+
+@Entity
+public class CajeroAutomatico extends MedioDePago {
 
 	private String numeroCajero;
 	private String sucursal;

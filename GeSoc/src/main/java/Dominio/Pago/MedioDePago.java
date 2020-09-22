@@ -1,8 +1,11 @@
 package Dominio.Pago;
 
+import javax.persistence.*;
 
-public interface MedioDePago {
-	
-
-
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class MedioDePago {
+    @Id
+    @GeneratedValue
+    private long medio_id;
 }

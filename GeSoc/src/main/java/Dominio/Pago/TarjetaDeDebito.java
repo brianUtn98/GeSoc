@@ -1,6 +1,9 @@
 package Dominio.Pago;
 
-public class TarjetaDeDebito implements MedioDePago {
+import javax.persistence.Entity;
+
+@Entity
+public class TarjetaDeDebito extends MedioDePago {
 
 	private Integer numeroIdentificatorio;
 	private String nombreCompleto;

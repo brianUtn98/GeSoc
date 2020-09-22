@@ -22,3 +22,5 @@ bin/
 # Maven
 log/
 target/
+
+GeSoc/schema.sql

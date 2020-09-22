@@ -6,10 +6,21 @@ import java.util.List;
 import Dominio.Etiqueta;
 import Dominio.Operacion;
 
+import javax.persistence.*;
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class EntidadOrganizacional {
+	@Id
+	@GeneratedValue
+	private long entidad_id;
 
 	protected String nombreFicticio;
+
+	@Transient
 	protected CategoriaDeEntidad categoria;
+
+	@Transient
 	private List<Operacion> operaciones;
 	
 	public EntidadOrganizacional(String _nombreFicticio, CategoriaDeEntidad _categoria) {

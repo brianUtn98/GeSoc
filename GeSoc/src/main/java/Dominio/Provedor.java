@@ -1,11 +1,22 @@
 package Dominio;
 
+import javax.persistence.*;
+
+@Entity
 public class Provedor {
+	@Id
+	@GeneratedValue
+	private long proveedor_id;
+
 	private String nombre;
 	private String apellido;
 	private String razonSocial;
 	private Integer numeroDocumento;
+
+	@OneToOne
 	private DireccionPostal direccionPostal;
+
+	@Enumerated
 	private TipoDocumento tipoDocumento;
 	
 	public Provedor(String nombre, String apellido, String razonSocial, Integer numeroDocumento,

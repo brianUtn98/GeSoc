@@ -1,6 +1,15 @@
 package Dominio.Ubicacion;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Moneda {
+	@Id
+	@GeneratedValue
+	private long moneda_id;
+
 	private String codigo;
 	private String simbolo;
 	private String descripcion;

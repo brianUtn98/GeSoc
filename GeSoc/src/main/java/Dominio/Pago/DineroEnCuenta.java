@@ -1,6 +1,9 @@
 package Dominio.Pago;
 
-public class DineroEnCuenta implements MedioDePago {
+import javax.persistence.Entity;
+
+@Entity
+public class DineroEnCuenta extends MedioDePago {
 
 	private Integer numeroDeCuenta;
 	

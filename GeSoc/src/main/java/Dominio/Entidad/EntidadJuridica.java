@@ -2,12 +2,21 @@ package Dominio.Entidad;
 
 import Dominio.DireccionPostal;
 
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+
+@Entity
 public class EntidadJuridica extends EntidadOrganizacional {
 
 	private String razonSocial;
 	private String cuit;
+
+	@Transient
 	private DireccionPostal direccionPostal;
+
+	@Transient
 	private TipoDeEntidad tipoDeEntidad;
+
 	private String codigoInscripcionIGJ;
 	
 	public EntidadJuridica(String _nombreFicticio,String _razonSocial,String _cuit,DireccionPostal _direccionPostal,TipoDeEntidad _tipo,String _codigoInscripcionIGJ, CategoriaDeEntidad _categoria)

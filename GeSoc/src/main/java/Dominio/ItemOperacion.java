@@ -2,8 +2,20 @@ package Dominio;
 
 import Dominio.Pago.ValorMonetario;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
 public class ItemOperacion {
+	@Id
+	@GeneratedValue
+	private long item_id;
+
 	private String descripcion;
+
+	@OneToOne
 	private ValorMonetario valorTotal;
 	
 	public ItemOperacion(String descripcion, ValorMonetario valorTotal) {

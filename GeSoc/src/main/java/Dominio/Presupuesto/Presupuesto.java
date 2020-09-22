@@ -5,12 +5,23 @@ import Dominio.ItemOperacion;
 import Dominio.Pago.ValorMonetario;
 import Dominio.Provedor;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Optional;
 
+@Entity
 public class Presupuesto {
+    @Id
+    @GeneratedValue
+    private long presupuesto_id;
+
+    @ManyToOne
     private Provedor provedor;
+
+    @Transient
     private List<ItemOperacion> detalle;
+
+    @Transient
     private Optional<DocumentoComercial> documentoComercial;
 
     public Presupuesto(Provedor provedor, List<ItemOperacion> detalle) {
