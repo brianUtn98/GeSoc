@@ -51,7 +51,7 @@ public class EntidadJuridica extends EntidadOrganizacional {
 		return tipoDeEntidad;
 	}
 
-	public boolean puedeAgregarEntidadBase() {
-		return categoria.puedeAgregarEntidadBase();
+	public void puedeAgregarEntidadBase() {
+		categoria.puedeAgregarEntidadBase();
 	}
 }

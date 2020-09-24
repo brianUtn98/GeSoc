@@ -20,20 +20,26 @@ public class CategoriaDeEntidad {
 		this.reglas = reglas;
 	}
 
-	private boolean todasLasReglasCumplen(Predicate<ReglaDeCategoria> condicion) {
-		return reglas.stream().allMatch(condicion);
+	private void todasLasReglasCumplen(Predicate<ReglaDeCategoria> condicion) {
+		reglas.stream().allMatch(condicion);
 	}
 
-	public boolean puedeAgregarOperacion(EntidadOrganizacional entidad, Operacion operacion) {
-		return todasLasReglasCumplen(regla -> regla.sePuedeAgregarOperacion(entidad ,operacion));
+	public void puedeAgregarOperacion(EntidadOrganizacional entidad, Operacion operacion) {
+		for(ReglaDeCategoria re : reglas) {
+			re.sePuedeAgregarOperacion(entidad ,operacion);
+		}
 	}
 
-	public boolean puedeAgregarEntidadBase() {
-		return todasLasReglasCumplen(ReglaDeCategoria::sePuedeAgregarEntidadBase);
+	public void puedeAgregarEntidadBase() {
+		for(ReglaDeCategoria re : reglas) {
+			re.sePuedeAgregarEntidadBase();
+		}
 	}
 
-	public boolean puedeSerParteDeEntidadJuridica() {
-		return todasLasReglasCumplen(ReglaDeCategoria::puedeSerParteDeEntidadJuridica);
+	public void puedeSerParteDeEntidadJuridica() {
+		for(ReglaDeCategoria re : reglas) {
+			re.puedeSerParteDeEntidadJuridica();
+		}
 	}
 	
 	public void agregarRegla(ReglaDeCategoria regla) {

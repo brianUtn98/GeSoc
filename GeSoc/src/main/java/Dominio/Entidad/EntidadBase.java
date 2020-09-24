@@ -23,12 +23,11 @@ public class EntidadBase extends EntidadOrganizacional {
 		super(_nombreFicticio, _categoria);
 		descripcion = _descripcion;
 
-		if(!_categoria.puedeSerParteDeEntidadJuridica())
-			throw new RuntimeException( "No puede ser parte de una entidad juridica");
+		_categoria.puedeSerParteDeEntidadJuridica();
 
-		if(_entidadJuridica != null && _entidadJuridica.puedeAgregarEntidadBase())
-			throw new RuntimeException( "La entidad juridica no admite entidades base");
-		
+		if(_entidadJuridica != null)
+			_entidadJuridica.puedeAgregarEntidadBase();
+			
 		entidadJuridica = _entidadJuridica;
 	}
 	

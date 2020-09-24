@@ -49,8 +49,7 @@ public class EntidadOrganizacional {
 	
 
 	public void agregarOperacion(Operacion operacion) {
-		if(!categoria.puedeAgregarOperacion(this, operacion))
-			throw new RuntimeException("Se supero el monto maximo");
+		categoria.puedeAgregarOperacion(this, operacion);
 			
 		operaciones.add(operacion);
 	}
