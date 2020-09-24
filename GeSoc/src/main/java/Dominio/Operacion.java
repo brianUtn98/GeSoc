@@ -25,7 +25,9 @@ public class Operacion{
 	private Provedor provedor;
 	private LocalDate fecha;
 
-	@Transient
+	
+	@OneToOne
+	@JoinColumn(name= "medio_id")
 	private MedioDePago medioPago;
 
 	@OneToMany
@@ -34,10 +36,12 @@ public class Operacion{
 	@OneToMany
 	@JoinColumn(name = "operacion_id")
 	private List<Presupuesto> presupuestos = new ArrayList<>();
+
 	@Transient
 	private Optional<Presupuesto> presupuestoSeleccionado = Optional.empty();
-	@Transient
-	private Optional<DocumentoComercial> documentoComercial;
+    @Enumerated
+	@Column(nullable=true)
+    private DocumentoComercial documentoComercial;
 
 	private Boolean requierePresupuestos;
 	private Boolean criterioDeSeleccionMinimoValor;
@@ -50,7 +54,7 @@ public class Operacion{
 	
 	
 	public Operacion(Integer numeroDocumento, Provedor provedor, LocalDate fecha, MedioDePago medioPago,
-			List<ItemOperacion> detalle, Optional<DocumentoComercial> documentoComercial, Boolean requierePresupuestos, Boolean criterio) {
+			List<ItemOperacion> detalle, DocumentoComercial documentoComercial, Boolean requierePresupuestos, Boolean criterio) {
 		this.numeroDocumento = numeroDocumento;
 		this.provedor = provedor;
 		this.fecha = fecha;
@@ -93,10 +97,10 @@ public class Operacion{
 	}
 	
 	public Optional<DocumentoComercial> getDocumentoComercial() {
-		return this.documentoComercial;
+		return Optional.ofNullable(this.documentoComercial);
 	}
 	
-	public void setDocumentoComercial(Optional<DocumentoComercial> documentoComercial) {
+	public void setDocumentoComercial(DocumentoComercial documentoComercial) {
 		this.documentoComercial = documentoComercial;
 	}
 
