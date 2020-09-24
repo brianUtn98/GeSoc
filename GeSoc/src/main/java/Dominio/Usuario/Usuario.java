@@ -19,6 +19,7 @@ public class Usuario{
 	private String nombre;
 	private String hashPassword;
 
+	//TODO qué hacemos con estos tipos de usuario?
 	@Transient
 	private TipoDeUsuario tipoDeUsuario;
 

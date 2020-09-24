@@ -10,8 +10,7 @@ public class Mensaje {
 	@GeneratedValue
 	private long mensaje_id;
 
-	//TODO quizas es un ManyToOne
-	@OneToOne
+	@ManyToOne
 	private Operacion operacion;
 	private String detalle;
 	private boolean leido;
