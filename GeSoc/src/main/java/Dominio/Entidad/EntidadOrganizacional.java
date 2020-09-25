@@ -17,10 +17,11 @@ public class EntidadOrganizacional {
 
 	protected String nombreFicticio;
 
-	@Transient
+	@ManyToOne
 	protected CategoriaDeEntidad categoria;
 
-	@Transient
+	//TODO es un ManyToMany?
+	@OneToMany
 	private List<Operacion> operaciones;
 	
 	public EntidadOrganizacional(String _nombreFicticio, CategoriaDeEntidad _categoria) {

@@ -3,6 +3,7 @@ package Dominio.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO ahora que persistimos, podríamos pensar en tener el top10k en la bd para no tener una lista de 10k pass en memoria todo el tiempo.
 
 public class ValidadorTop10000 implements ValidadorPassword{
     //¿Podría ser un singleton?

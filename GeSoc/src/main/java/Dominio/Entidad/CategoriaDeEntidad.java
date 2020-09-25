@@ -2,11 +2,19 @@ package Dominio.Entidad;
 
 import Dominio.Operacion;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
+
+@Entity
 public class CategoriaDeEntidad {
+	@Id
+	@GeneratedValue
+	private long categoriaEntidad_id;
 	private String Nombre;
 	private List<ReglaDeCategoria> reglas;
 

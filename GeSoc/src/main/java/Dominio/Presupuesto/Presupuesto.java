@@ -18,7 +18,7 @@ public class Presupuesto {
     @ManyToOne
     private Provedor provedor;
 
-    @Transient
+    @OneToMany
     private List<ItemOperacion> detalle;
 
     @Enumerated

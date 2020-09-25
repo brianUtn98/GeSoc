@@ -1,12 +1,17 @@
 package Dominio.Pago;
 
+import org.hibernate.type.TimeType;
+
 import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
 @Entity
 public class Efectivo extends MedioDePago {
 
 	private int numeroDeTicket;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaVencimiento;
 	
 	public Efectivo() {
