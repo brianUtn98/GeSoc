@@ -19,6 +19,7 @@ public class Presupuesto {
     private Provedor provedor;
 
     @OneToMany
+    @JoinColumn(name= "presupuesto_id")
     private List<ItemOperacion> detalle;
 
     @Enumerated
