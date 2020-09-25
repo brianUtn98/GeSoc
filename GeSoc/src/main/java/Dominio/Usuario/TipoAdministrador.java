@@ -1,4 +1,10 @@
 package Dominio.Usuario;
 
-public class TipoAdministrador implements TipoDeUsuario{
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue(value="TA")
+public class TipoAdministrador extends TipoDeUsuario{
+
 }

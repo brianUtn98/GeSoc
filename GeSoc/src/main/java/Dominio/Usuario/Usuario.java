@@ -20,7 +20,7 @@ public class Usuario{
 	private String hashPassword;
 
 	//TODO qué hacemos con estos tipos de usuario?
-	@Transient
+	@OneToOne
 	private TipoDeUsuario tipoDeUsuario;
 
 	@Embedded

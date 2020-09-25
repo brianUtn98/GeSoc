@@ -1,4 +1,9 @@
 package Dominio.Usuario;
 
-public class TipoEstandar implements TipoDeUsuario{
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue(value="TS")
+public class TipoEstandar extends TipoDeUsuario{
 }
