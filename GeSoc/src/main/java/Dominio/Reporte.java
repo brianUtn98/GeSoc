@@ -28,6 +28,7 @@ public class Reporte {
 	private LocalDate fecha;
 	
 	@OneToMany
+	@JoinColumn(name= "reporte_id")
 	private Collection<Operacion> entradas;
 	
 	public Reporte(Collection<Operacion> _entradas, String _nombre, LocalDate _fecha) {
