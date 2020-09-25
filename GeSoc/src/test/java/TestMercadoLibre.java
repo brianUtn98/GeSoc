@@ -33,4 +33,20 @@ public class TestMercadoLibre {
 		
 		assertTrue(servicio.getMonedaLocal("Argentina").getCodigo().equals("ARS"));
 	}
+	@Test
+	public void creacionProveedorUsandoServiceUbicacion() {
+		ServicioInformacionUbicaciones servicio = new ServicioUbicacionesMock();
+		//ServicioInformacionUbicaciones servicio = new ServicioMercadoLibre();
+		
+		String pais = servicio.getPaises().get(2);
+		String provincia = servicio.getProvincias(pais).get(2);
+		String ciudad = servicio.getCiudades(pais, provincia).get(3);
+		
+		DireccionPostal direccion = new DireccionPostal("Calle falsa 123", pais, provincia, ciudad);
+
+		Provedor prov = new Provedor("Homero", "Thompson", "Pato feliz", 29256328, direccion, TipoDocumento.DNI);
+		
+		assertFalse(prov.getDireccionPostal().getPais().equals(""));
+		assertNotNull(prov.getDireccionPostal().getPais());
+	}
 }
