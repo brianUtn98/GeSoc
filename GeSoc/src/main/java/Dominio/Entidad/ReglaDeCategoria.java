@@ -3,15 +3,12 @@ package Dominio.Entidad;
 import Dominio.Operacion;
 
 public abstract class ReglaDeCategoria {
-    public boolean sePuedeAgregarOperacion(EntidadOrganizacional entidad,Operacion operacion) {
-        return true;
-    }
+	
+	protected int montoMaximo;
+	
+    public abstract void sePuedeAgregarOperacion(EntidadOrganizacional entidad,Operacion operacion); 
 
-    public boolean sePuedeAgregarEntidadBase() {
-        return true;
-    }
+    public abstract void sePuedeAgregarEntidadBase() ;
 
-    public boolean puedeSerParteDeEntidadJuridica() {
-        return true;
-    }
+    public abstract void puedeSerParteDeEntidadJuridica();
 }

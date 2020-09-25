@@ -22,6 +22,7 @@
         <class>Dominio.ItemOperacion</class>
         <class>Dominio.Operacion</class>
         <class>Dominio.Etiqueta</class>
+        <class>Dominio.Reporte</class>
         <class>Dominio.Efectivo</class>
 
         <properties>

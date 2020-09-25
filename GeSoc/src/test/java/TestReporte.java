@@ -77,8 +77,19 @@ public class TestReporte {
 		generador.ingresarEtiqueta(et);
 		
 		Reporte report = generador.generarReporte();
-		assertEquals(110, (int)report.obtenerTotal().getMonto());
+		assertEquals(19966, (int)report.obtenerTotal().getMonto());
 	}
+	
+	@Test
+    public void CalcularTotalDeReportePorEtiqueta() {
+		GeneradorDeReporte generador = new GeneradorDeReporte();
+		generador.ingresarOperaciones(entidad.misOperaciones());
+		generador.ingresarEtiqueta(et);
+		
+		Reporte report = generador.generarReporte();
+		assertEquals(110, (int)report.obtenerTotal(et).getMonto());
+	}
+	
 	
 	@Test
 	public void CrearReporteNoVacio() {
@@ -86,6 +97,8 @@ public class TestReporte {
 		generador.ingresarOperaciones(entidad.misOperaciones());
 		generador.ingresarEtiqueta(et);
 		generador.ingresarEtiqueta(et2);
+		generador.setearNombre("reporte de pruebas");
+		generador.setearFecha(LocalDate.now());
 		
 		Reporte report = generador.generarReporte();
 		assertFalse(report.devolverDetalle().entrySet().isEmpty());
@@ -96,19 +109,24 @@ public class TestReporte {
 		GeneradorDeReporte generador = new GeneradorDeReporte();
 		generador.ingresarEtiqueta(et);
 		generador.ingresarEtiqueta(et2);
+		generador.setearNombre("reporte de pruebas");
+		generador.setearFecha(LocalDate.now());
 		
 		Reporte report = generador.generarReporte();
 		assertTrue(report.devolverDetalle().entrySet().isEmpty());
 	}
+	
 	
 	@Test
 	public void ObtenerDetalleDeUnaCategoriaEspecifica() {
 		GeneradorDeReporte generador = new GeneradorDeReporte();
 		generador.ingresarOperaciones(entidad.misOperaciones());
 		generador.ingresarEtiqueta(et);
+		generador.setearNombre("reporte de pruebas");
+		generador.setearFecha(LocalDate.now());
 		
 		Reporte report = generador.generarReporte();
-		assertTrue(report.devolverDetalle().entrySet().stream().anyMatch(e -> e.getKey() == et));
+		assertTrue(!report.devolverDetallePorEtiqueta(et).isEmpty());
 	}
 	
 	@Test
@@ -116,8 +134,11 @@ public class TestReporte {
 		GeneradorDeReporte generador = new GeneradorDeReporte();
 		generador.ingresarOperaciones(entidad.misOperaciones());
 		generador.ingresarEtiqueta(et);
+		generador.setearNombre("reporte de pruebas");
+		generador.setearFecha(LocalDate.now());
+		
 		
 		Reporte report = generador.generarReporte();
-		assertFalse(report.devolverDetalle().entrySet().stream().anyMatch(e -> e.getKey() == et2));
+		assertFalse(report.devolverDetallePorEtiqueta(et2).isEmpty());
 	}
 }

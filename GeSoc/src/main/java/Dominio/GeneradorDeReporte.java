@@ -1,11 +1,16 @@
 package Dominio;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GeneradorDeReporte {
 	private List<Operacion> operaciones;
 	private List<Etiqueta> etiquetas;
+	private String nombre;
+	private LocalDate fecha;
 	
 	public GeneradorDeReporte() {
 		operaciones = new ArrayList<Operacion>();
@@ -22,16 +27,17 @@ public class GeneradorDeReporte {
 			etiquetas.add(et);
 	}
 	
+	public void setearNombre(String _nombre) {
+		nombre = _nombre;
+	}
+	
+	public void setearFecha(LocalDate _fecha) {
+		fecha = _fecha;
+	}
+	
 	public  Reporte generarReporte() {
-		 Reporte repo = new Reporte();
 		 
-		 for (Etiqueta e: etiquetas) {
-			 for (Operacion p:operaciones) {
-				 if(p.getEtiquetas().contains(e))
-					 repo.agregarDetalle(e,p.getTotal());
-			 }
-			 
-		 }
+		 Reporte repo = new Reporte(operaciones, nombre, fecha);
 		  
 		 return repo;
 	}
