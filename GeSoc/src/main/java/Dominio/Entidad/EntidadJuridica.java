@@ -3,6 +3,7 @@ package Dominio.Entidad;
 import Dominio.DireccionPostal;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 @Entity
@@ -11,7 +12,7 @@ public class EntidadJuridica extends EntidadOrganizacional {
 	private String razonSocial;
 	private String cuit;
 
-	@Transient
+	@OneToOne
 	private DireccionPostal direccionPostal;
 
 	@Transient
