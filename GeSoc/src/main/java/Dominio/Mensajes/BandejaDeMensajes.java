@@ -4,14 +4,10 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Embeddable
 public class BandejaDeMensajes {
-	@Id
-	@GeneratedValue
-	private long baneja_id;
-
 	@OneToMany
-	@JoinColumn(name = "baneja_id")
+	@JoinColumn(name = "usuario_id")
 	private List<Mensaje> mensajes;
 	
 	public BandejaDeMensajes(){
@@ -23,7 +19,6 @@ public class BandejaDeMensajes {
 	}
 
 	public List<Mensaje> getMensajes() {
-		// TODO Auto-generated method stub
 		return mensajes;
 	}
 }

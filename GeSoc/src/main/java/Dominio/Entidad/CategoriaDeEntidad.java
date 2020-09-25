@@ -5,6 +5,7 @@ import Dominio.Operacion;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -16,6 +17,8 @@ public class CategoriaDeEntidad {
 	@GeneratedValue
 	private long categoriaEntidad_id;
 	private String Nombre;
+
+	@Transient
 	private List<ReglaDeCategoria> reglas;
 
 	public CategoriaDeEntidad(String nombre) {

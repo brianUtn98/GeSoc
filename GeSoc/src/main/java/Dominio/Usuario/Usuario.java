@@ -23,7 +23,7 @@ public class Usuario{
 	@Transient
 	private TipoDeUsuario tipoDeUsuario;
 
-	@OneToOne
+	@Embedded
 	private BandejaDeMensajes bandejaDeMensajes;
 	
 	public Usuario(String _nombre, String _hashPassword, TipoDeUsuario _tipo, BandejaDeMensajes _bandeja)
