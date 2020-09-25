@@ -37,8 +37,9 @@ public class Operacion{
 	@JoinColumn(name = "operacion_id")
 	private List<Presupuesto> presupuestos = new ArrayList<>();
 
-	@Transient
-	private Optional<Presupuesto> presupuestoSeleccionado = Optional.empty();
+	@OneToOne
+	@JoinColumn(name="presupuesto_id", referencedColumnName="presupuesto_id", nullable=true)
+	private Presupuesto presupuestoSeleccionado;
     @Enumerated
 	@Column(nullable=true)
     private DocumentoComercial documentoComercial;
@@ -117,10 +118,10 @@ public class Operacion{
 	}
 
 	public Optional<Presupuesto> getPresupuestoSeleccionado() {
-		return presupuestoSeleccionado;
+		return Optional.ofNullable(presupuestoSeleccionado);
 	}
 	public void setPresupuestoSeleccionado(Presupuesto presupuesto) {
-		presupuestoSeleccionado = Optional.of(presupuesto);
+		presupuestoSeleccionado = presupuesto;
 	}
 
 	public Boolean getCriterioDeSeleccionMinimoValor() {

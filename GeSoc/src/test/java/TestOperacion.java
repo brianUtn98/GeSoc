@@ -25,6 +25,6 @@ public class TestOperacion {
 		List<ItemOperacion> detalle = new ArrayList<>();
 		Operacion op = new Operacion(29256328, prov , LocalDate.now(),  medio, detalle, null, true,true);
 
-		assertFalse(op.getDocumentoComercial() != null);
+		assertFalse(op.getDocumentoComercial().isPresent());
 	}
 }
