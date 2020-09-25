@@ -20,8 +20,8 @@ public class EntidadOrganizacional {
 	@ManyToOne
 	protected CategoriaDeEntidad categoria;
 
-	//TODO es un ManyToMany?
 	@OneToMany
+	@JoinColumn(name= "entidad_id")
 	private List<Operacion> operaciones;
 	
 	public EntidadOrganizacional(String _nombreFicticio, CategoriaDeEntidad _categoria) {
