@@ -62,7 +62,7 @@
             <artifactId>jersey-client</artifactId>
             <version>1.8</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/javax.json/javax.json-api -->
+        <!-- https://mvnrepository.com/9/javax.json/javax.json-api -->
         <dependency>
             <groupId>javax.json</groupId>
             <artifactId>javax.json-api</artifactId>

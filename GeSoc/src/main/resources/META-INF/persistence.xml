@@ -13,6 +13,7 @@
         <class>Dominio.Entidad.EntidadOrganizacional</class>
         <class>Dominio.Entidad.EntidadBase</class>
         <class>Dominio.Entidad.EntidadJuridica</class>
+        <class>Dominio.Entidad.CategoriaDeEntidad</class>
         <class>Dominio.DireccionPostal</class>
         <class>Dominio.Provedor</class>
         <class>Dominio.Presupuesto.Presupuesto</class>
@@ -22,7 +23,7 @@
         <class>Dominio.Operacion</class>
         <class>Dominio.Etiqueta</class>
         <class>Dominio.Reporte</class>
-
+        <class>Dominio.Efectivo</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>

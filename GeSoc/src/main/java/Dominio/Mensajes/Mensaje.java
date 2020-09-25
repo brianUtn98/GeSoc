@@ -2,10 +2,7 @@ package Dominio.Mensajes;
 
 import Dominio.Operacion;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
 public class Mensaje {
@@ -13,7 +10,7 @@ public class Mensaje {
 	@GeneratedValue
 	private long mensaje_id;
 
-	@Transient
+	@ManyToOne
 	private Operacion operacion;
 	private String detalle;
 	private boolean leido;

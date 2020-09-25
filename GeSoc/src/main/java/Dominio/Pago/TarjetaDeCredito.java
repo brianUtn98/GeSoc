@@ -2,6 +2,8 @@ package Dominio.Pago;
 
 import javax.persistence.Entity;
 
+
+//TODO por qué son iguales tarjeta de crédito con débito
 @Entity
 public class TarjetaDeCredito extends MedioDePago {
 
