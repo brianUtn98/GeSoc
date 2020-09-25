@@ -28,18 +28,17 @@ public class Reporte {
 	private LocalDate fecha;
 	
 	@OneToMany
-	@JoinColumn(name= "reporte_id")
-	private Collection<Operacion> entradas;
+	private Collection<Operacion> operaciones;
 	
 	public Reporte(Collection<Operacion> _entradas, String _nombre, LocalDate _fecha) {
-		entradas = _entradas;
+		operaciones = _entradas;
 		nombre = _nombre;
 		fecha = _fecha;
 	}
 	
 	public  ValorMonetario obtenerTotal() {
 		ValorMonetario total =new ValorMonetario(new Moneda("0", "ARS", "Peso", 2), 0);
-		for(Operacion m : entradas){
+		for(Operacion m : operaciones){
 			total = total.sumar(m.getTotal());
 		}
 		return total;
@@ -47,7 +46,7 @@ public class Reporte {
 	
 	public Map<Etiqueta, Collection<Operacion>> devolverDetalle(){
 		Map<Etiqueta, Collection<Operacion>> mapeos = new HashMap<>();
-		Collection<Etiqueta> etiquetas = entradas.stream()
+		Collection<Etiqueta> etiquetas = operaciones.stream()
 				.flatMap(x -> x.getEtiquetas().stream())
 				.collect(Collectors.toList());
 		
@@ -58,7 +57,7 @@ public class Reporte {
 	}
 	
 	public Collection<Operacion> devolverDetallePorEtiqueta(Etiqueta e){	
-		Collection<Operacion> op = entradas.stream()
+		Collection<Operacion> op = operaciones.stream()
 				.filter(x -> x.getEtiquetas().contains(e))
 				.collect(Collectors.toList());
 		
@@ -74,7 +73,7 @@ public class Reporte {
 	}
 
 	public ValorMonetario obtenerTotal(Etiqueta et) {
-		Collection<Operacion> op = entradas.stream()
+		Collection<Operacion> op = operaciones.stream()
 				.filter(x -> x.getEtiquetas().contains(et))
 				.collect(Collectors.toList());
 		
