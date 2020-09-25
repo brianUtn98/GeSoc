@@ -1,18 +1,20 @@
 package Dominio.Ubicacion;
 
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
-@Entity
+@Embeddable
 public class Moneda {
-	@Id
-	@GeneratedValue
-	private long moneda_id;
 
 	private String codigo;
+	@Transient
 	private String simbolo;
+	@Transient
 	private String descripcion;
+	@Transient
 	private Integer lugaresDecimal;
 	
 	public Moneda(String codigo, String simbolo, String descripcion, Integer lugaresDecimal) {

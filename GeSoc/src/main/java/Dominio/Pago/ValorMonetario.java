@@ -4,13 +4,9 @@ import Dominio.Ubicacion.Moneda;
 
 import javax.persistence.*;
 
-@Entity
+@Embeddable
 public class ValorMonetario {
-    @Id
-    @GeneratedValue
-    private long valor_monetario_id;
-
-    @ManyToOne
+    @Embedded
     private Moneda moneda;
 
     private Integer monto;

@@ -2,6 +2,7 @@ package Dominio;
 
 import Dominio.Pago.ValorMonetario;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,7 +16,7 @@ public class ItemOperacion {
 
 	private String descripcion;
 
-	@OneToOne
+	@Embedded
 	private ValorMonetario valorTotal;
 	
 	public ItemOperacion(String descripcion, ValorMonetario valorTotal) {

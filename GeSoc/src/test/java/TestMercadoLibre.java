@@ -9,41 +9,28 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class TestMercadoLibre {
-/* Hacer un objeto mock para las pruebas o borrar directamente esta prueba
 	@Test
-	public void creacionCorrectaDePais() {
-		ServicioInformacionUbicaciones servicio = new ServicioMercadoLibre("Argentina", "Capital Federal", "Capital Federal");
-		Pais pais = servicio.getPais();
+	public void obtencionListaDePaises() {
+		ServicioInformacionUbicaciones servicio = new ServicioUbicacionesMock();
 		
-		assertTrue(pais.getNombre().equals("Argentina"));	
-		assertEquals(-38.416096, pais.getInformacionGeografica().getLatitud(), 0.1);
+		assertTrue(servicio.getPaises().contains("Argentina"));
 	}
-	
 	@Test
-	public void creacionCorrectaDeProvincia() {
-		ServicioInformacionUbicaciones servicio = new ServicioMercadoLibre("Argentina", "Capital Federal", "Capital Federal");
-		Provincia provincia = servicio.getProvincia();
+	public void obtencionListaProvincias() {
+		ServicioInformacionUbicaciones servicio = new ServicioUbicacionesMock();
 		
-		assertTrue(provincia.getNombre().equals("Capital Federal"));
-		assertTrue(provincia.getZonaHoraria().equals("GMT-03:00"));
+		assertTrue(servicio.getProvincias("Argentina").contains("Santa Fe"));
 	}
-	
 	@Test
-	public void creacionCorrectaDeCiudad() {
-		ServicioInformacionUbicaciones servicio = new ServicioMercadoLibre("Argentina", "Capital Federal", "Capital Federal");
-		Ciudad ciudad = servicio.getCiudad();
+	public void obtencionListaCiudades() {
+		ServicioInformacionUbicaciones servicio = new ServicioUbicacionesMock();
 		
-		assertTrue(ciudad.getNombre().equals("Capital Federal"));
-		assertEquals(-34.6084175, ciudad.getInformacionGeografica().getLatitud(), 0.1);
+		assertTrue(servicio.getCiudades("Argentina", "Capital Federal").contains("Capital Federal"));
 	}
-	
 	@Test
-	public void creacionCorrectaDeMoneda() {
-		ServicioInformacionUbicaciones servicio = new ServicioMercadoLibre("Argentina", "Capital Federal", "Capital Federal");
-		Moneda moneda = servicio.getMonedaLocal();
+	public void obtencioMoneda() {
+		ServicioInformacionUbicaciones servicio = new ServicioUbicacionesMock();
 		
-		assertTrue(moneda.getDescripcion().equals("Peso argentino"));
-		assertTrue(moneda.getSimbolo().equals("$"));
-	}	
-	*/
+		assertTrue(servicio.getMonedaLocal("Argentina").getCodigo().equals("ARS"));
+	}
 }
