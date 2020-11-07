@@ -24,3 +24,6 @@ log/
 target/
 
 GeSoc/schema.sql
+
+GeSoc/app-db.log
+GeSoc/.attach_pid*

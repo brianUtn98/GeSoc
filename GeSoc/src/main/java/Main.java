@@ -6,10 +6,15 @@ import Dominio.Ubicacion.Moneda;
 import Dominio.Usuario.*;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
+import spark.ModelAndView;
+import spark.Spark;
+import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class Main {
@@ -67,5 +72,19 @@ public class Main {
         catch(Exception e){
             e.printStackTrace();
         }
+
+        System.out.println("Iniciando servidor spark");
+
+        Spark.port(8080);
+        Spark.staticFileLocation("/public");
+
+
+        HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
+
+        Spark.get("/login", (request, response) -> {
+            Map<String, Object> modelo = new HashMap<>();
+
+            return new ModelAndView(modelo, "login.html");
+        }, engine);
     }
 }
