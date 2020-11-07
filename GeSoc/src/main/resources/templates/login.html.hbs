@@ -17,9 +17,12 @@
             <div class="row">
                 <div class="col-md-3" style="margin-bottom: 2em;">
                     <h2 class="text-primary" style="padding-left: 45%;">Log In</h2>
+                    {{#if error}}
+                    <p class="text-danger"> Error: Usuario o contraseña invalidos </p>
+                    {{/if}}
                 </div>
             </div>
-            <form>
+            <form method="post">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">

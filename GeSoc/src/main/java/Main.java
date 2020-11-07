@@ -4,6 +4,7 @@ import Dominio.Pago.ValorMonetario;
 import Dominio.Presupuesto.Presupuesto;
 import Dominio.Ubicacion.Moneda;
 import Dominio.Usuario.*;
+import controllers.UsuariosController;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import spark.ModelAndView;
@@ -11,13 +12,10 @@ import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
-public class Main {
+public class Main{
     private static Usuario initUsuario() {
         CreadorDeUsuario creador = new CreadorDeUsuario("Pepe");
         creador.setearTipoUsuario(new TipoEstandar());
@@ -73,6 +71,8 @@ public class Main {
             e.printStackTrace();
         }
 
+        new Bootstrap().run();
+
         System.out.println("Iniciando servidor spark");
 
         Spark.port(8080);
@@ -81,10 +81,23 @@ public class Main {
 
         HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 
-        Spark.get("/login", (request, response) -> {
+        UsuariosController usuariosController = new UsuariosController();
+
+        Spark.get("/", (request, response) -> {
             Map<String, Object> modelo = new HashMap<>();
 
-            return new ModelAndView(modelo, "login.html");
+            Optional<Usuario> usuarioLogueado = usuariosController.getUsuarioLogueado(request);
+
+            if(!usuarioLogueado.isPresent())
+                response.redirect("/login");
+            else
+                modelo.put("usuario", usuarioLogueado.get());
+
+            return new ModelAndView(modelo, "index.html.hbs");
         }, engine);
+
+        Spark.get("/login", (request, response) -> usuariosController.getFormularioLogin(request, response), engine);
+
+        Spark.post("/login", (request, response) -> usuariosController.loginUsuario(request, response));
     }
 }

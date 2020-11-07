@@ -34,6 +34,8 @@ public class Usuario{
 		bandejaDeMensajes = _bandeja;
 	}
 
+	public Usuario() {}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -53,6 +55,10 @@ public class Usuario{
 	public void updateBandeja(Mensaje mensaje) {
 		// TODO Auto-generated method stub
 		bandejaDeMensajes.agregarMensaje(mensaje);
+	}
+
+	public long getId() {
+		return usuario_id;
 	}
 
 
