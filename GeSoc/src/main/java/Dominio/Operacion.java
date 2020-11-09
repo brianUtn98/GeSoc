@@ -65,6 +65,8 @@ public class Operacion{
 		this.requierePresupuestos = requierePresupuestos;
 		this.criterioDeSeleccionMinimoValor = criterio;
 	}
+
+	public Operacion() {}
 	
 	public Integer getNumeroDocumento() {
 		return numeroDocumento;

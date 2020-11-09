@@ -47,9 +47,13 @@ public class Usuario{
 	/*public void setPassword(String _password) {
 		password = _password;
 	} Lo comento porque quizás a futuro queramos cambiar la pass, pero por ahora lo dejamos en manos del builder*/
-	
+
 	public List<Mensaje> verBandejaMensajes() {
 		return bandejaDeMensajes.getMensajes();
+	}
+
+	public BandejaDeMensajes getBandejaMensajes() {
+		return bandejaDeMensajes;
 	}
 
 	public void updateBandeja(Mensaje mensaje) {
@@ -61,5 +65,8 @@ public class Usuario{
 		return usuario_id;
 	}
 
+	public TipoDeUsuario getTipoDeUsuario(){
+		return tipoDeUsuario;
+	}
 
 }

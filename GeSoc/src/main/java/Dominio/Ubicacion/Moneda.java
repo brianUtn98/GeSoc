@@ -24,6 +24,8 @@ public class Moneda {
 		this.setLugaresDecimal(lugaresDecimal);
 	}
 
+	public Moneda(){}
+
 	public String getCodigo() {
 		return codigo;
 	}

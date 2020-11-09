@@ -20,12 +20,18 @@ public class Mensaje {
 		operacion = _operacion;
 		leido = false;
 	}
+
+	public Mensaje(){}
 	
 	public void marcarLeido() {
 		leido = true;
 	}
-	
+
 	public String getDetalle() {
 		return detalle;
+	}
+
+	public Operacion getOperacion() {
+		return operacion;
 	}
 }
