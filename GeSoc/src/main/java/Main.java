@@ -104,5 +104,6 @@ public class Main{
         Spark.post("/login", (request, response) -> usuariosController.loginUsuario(request, response));
 
         Spark.get("/mensajes", (request, response) -> mensajesController.getVistaMensajes(request, response), engine);
+        Spark.get("/mensajes/leer/:id", (request, response) -> mensajesController.leerMensaje(request, response), engine);
     }
 }

@@ -9,10 +9,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class MensajesController implements WithGlobalEntityManager, TransactionalOps {
 
@@ -26,11 +23,37 @@ public class MensajesController implements WithGlobalEntityManager, Transactiona
             return null;
         }
 
-        List<Mensaje> bandeja = usuarioLogueado.get().verBandejaMensajes();
+        List<Mensaje> bandeja = usuarioLogueado.map(Usuario::verBandejaMensajes).get();
+        bandeja.sort(Comparator.comparing(Mensaje::isLeido));
 
         modelo.put("cantidad", bandeja.size());
+        modelo.put("unread", bandeja.stream().filter(msg -> !msg.isLeido()).count());
         modelo.put("mensajes", bandeja);
 
         return new ModelAndView(modelo, "mensajes.html.hbs");
+    }
+
+    public ModelAndView leerMensaje(Request request, Response response) {
+        Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
+
+        if(!usuarioLogueado.isPresent()) {
+            response.redirect("/login");
+            return null;
+        }
+
+        List<Mensaje> bandeja = usuarioLogueado.map(Usuario::verBandejaMensajes).get();
+
+        long id = Long.parseLong(request.params(":id"));
+        Optional<Mensaje> mensaje = bandeja.stream().filter(msg -> msg.getId() == id).findFirst();
+
+        if(!mensaje.isPresent()) {
+            response.redirect("/mensajes");
+            return null;
+        }
+
+        mensaje.get().marcarLeido();
+
+        response.redirect("/operaciones/"+id);
+        return null;
     }
 }

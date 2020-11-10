@@ -13,6 +13,7 @@ public class Mensaje {
 	@ManyToOne
 	private Operacion operacion;
 	private String detalle;
+
 	private boolean leido;
 	
 	public Mensaje(String _detalle, Operacion _operacion) {
@@ -33,5 +34,13 @@ public class Mensaje {
 
 	public Operacion getOperacion() {
 		return operacion;
+	}
+
+	public boolean isLeido() {
+		return leido;
+	}
+
+	public long getId(){
+		return mensaje_id;
 	}
 }

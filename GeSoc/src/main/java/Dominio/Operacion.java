@@ -169,4 +169,8 @@ public class Operacion{
 		
 		return total;
 	}
+
+	public long getId(){
+		return operacion_id;
+	}
 }
