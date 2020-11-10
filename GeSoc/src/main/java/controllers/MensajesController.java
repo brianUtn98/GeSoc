@@ -3,6 +3,7 @@ package controllers;
 import Dominio.Mensajes.BandejaDeMensajes;
 import Dominio.Mensajes.Mensaje;
 import Dominio.Usuario.Usuario;
+import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import spark.ModelAndView;
@@ -11,7 +12,7 @@ import spark.Response;
 
 import java.util.*;
 
-public class MensajesController implements WithGlobalEntityManager, TransactionalOps {
+public class MensajesController implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
 
     public ModelAndView getVistaMensajes(Request request, Response response) {
         Map<String, Object> modelo = new HashMap<>();
@@ -51,7 +52,10 @@ public class MensajesController implements WithGlobalEntityManager, Transactiona
             return null;
         }
 
-        mensaje.get().marcarLeido();
+        withTransaction(() -> {
+            mensaje.get().marcarLeido();
+            persist(mensaje.get());
+        });
 
         response.redirect("/operaciones/"+id);
         return null;
