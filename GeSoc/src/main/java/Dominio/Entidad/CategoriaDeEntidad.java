@@ -30,6 +30,10 @@ public class CategoriaDeEntidad {
 		this(nombre);
 		this.reglas = reglas;
 	}
+	
+	public CategoriaDeEntidad() {
+		
+	}
 
 	private void todasLasReglasCumplen(Predicate<ReglaDeCategoria> condicion) {
 		reglas.stream().allMatch(condicion);
@@ -61,5 +65,8 @@ public class CategoriaDeEntidad {
 	public void quitarRegla(ReglaDeCategoria regla) {
 		if(reglas.contains(regla))
 			reglas.remove(regla);
+	}
+	public String getNombre() {
+		return Nombre;
 	}
 }

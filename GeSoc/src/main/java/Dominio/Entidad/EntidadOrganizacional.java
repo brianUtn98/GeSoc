@@ -30,6 +30,9 @@ public class EntidadOrganizacional {
 		categoria = _categoria;
 	}
 	
+	public EntidadOrganizacional() {
+	
+	}
 	
 	public String getNombreFicticio()
 	{
