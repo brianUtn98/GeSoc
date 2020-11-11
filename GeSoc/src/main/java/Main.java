@@ -4,6 +4,7 @@ import Dominio.Pago.ValorMonetario;
 import Dominio.Presupuesto.Presupuesto;
 import Dominio.Ubicacion.Moneda;
 import Dominio.Usuario.*;
+import controllers.EntidadController;
 import controllers.UsuariosController;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
@@ -82,6 +83,7 @@ public class Main{
         HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 
         UsuariosController usuariosController = new UsuariosController();
+        EntidadController entidadController = new EntidadController();
 
         Spark.get("/", (request, response) -> {
             Map<String, Object> modelo = new HashMap<>();
@@ -99,5 +101,7 @@ public class Main{
         Spark.get("/login", (request, response) -> usuariosController.getFormularioLogin(request, response), engine);
 
         Spark.post("/login", (request, response) -> usuariosController.loginUsuario(request, response));
+
+        Spark.get("/entidadesCategoria",(request, response) -> entidadController.mostrarEntidadCategoria(request,response),engine);
     }
 }
