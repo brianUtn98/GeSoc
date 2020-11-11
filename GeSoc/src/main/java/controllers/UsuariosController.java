@@ -40,7 +40,7 @@ public class UsuariosController implements WithGlobalEntityManager, Transactiona
         return new ModelAndView(modelo, "login.html.hbs");
     }
 
-    public Optional<Usuario> getUsuarioLogueado(Request request) {
+    public static Optional<Usuario> getUsuarioLogueado(Request request) {
         Long idUsuario = request.session().attribute("idUsuario");
 
         Optional<Usuario> usuario = Optional.empty();

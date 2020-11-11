@@ -28,6 +28,8 @@ public class Provedor {
 		this.direccionPostal = direccionPostal;
 		this.tipoDocumento = tipoDocumento;
 	}
+
+	public Provedor(){}
 	
 	public String getNombre() {
 		return nombre;

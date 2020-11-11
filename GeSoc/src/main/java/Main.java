@@ -4,6 +4,7 @@ import Dominio.Pago.ValorMonetario;
 import Dominio.Presupuesto.Presupuesto;
 import Dominio.Ubicacion.Moneda;
 import Dominio.Usuario.*;
+import controllers.MensajesController;
 import controllers.UsuariosController;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
@@ -83,6 +84,8 @@ public class Main{
 
         UsuariosController usuariosController = new UsuariosController();
 
+        MensajesController mensajesController = new MensajesController();
+
         Spark.get("/", (request, response) -> {
             Map<String, Object> modelo = new HashMap<>();
 
@@ -99,5 +102,8 @@ public class Main{
         Spark.get("/login", (request, response) -> usuariosController.getFormularioLogin(request, response), engine);
 
         Spark.post("/login", (request, response) -> usuariosController.loginUsuario(request, response));
+
+        Spark.get("/mensajes", (request, response) -> mensajesController.getVistaMensajes(request, response), engine);
+        Spark.get("/mensajes/leer/:id", (request, response) -> mensajesController.leerMensaje(request, response), engine);
     }
 }

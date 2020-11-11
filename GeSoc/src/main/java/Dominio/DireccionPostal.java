@@ -25,7 +25,9 @@ public class DireccionPostal {
 		this.provincia = provincia;
 		this.ciudad = ciudad;
 	}
-	
+
+	public DireccionPostal(){}
+
 	public String getPais() {
 		return this.pais;
 	}
