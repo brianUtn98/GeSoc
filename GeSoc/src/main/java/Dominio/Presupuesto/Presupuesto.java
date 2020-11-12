@@ -31,6 +31,8 @@ public class Presupuesto {
         this.detalle = detalle;
     }
 
+    public Presupuesto(){}
+
     public ValorMonetario getTotal() {
         return detalle.stream().map(ItemOperacion::getValorTotal).reduce(ValorMonetario::sumar).get(); // TODO: Revisar que pasa si no hay ningun item operacion. Deberia poder pasar eso?
     }

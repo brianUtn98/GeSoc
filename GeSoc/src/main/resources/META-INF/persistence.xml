@@ -24,6 +24,7 @@
         <class>Dominio.Etiqueta</class>
         <class>Dominio.Reporte</class>
         <class>Dominio.Efectivo</class>
+        <class>Dominio.OperacionValidada</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>

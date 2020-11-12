@@ -8,12 +8,15 @@ import controllers.MensajesController;
 import controllers.UsuariosController;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import java.time.LocalDate;
 import java.util.*;
+
+import static spark.Spark.after;
 
 
 public class Main{
@@ -58,7 +61,7 @@ public class Main{
         System.out.println("Sistema GeSoc");
 
         //Como todavía no trabajamos persistencia, instancio algunos objetos de dominio para poder correr la tarea calendarizada:
-        init();
+        //init();
 
         // Configuramos la tarea programada:
         try {
@@ -79,6 +82,10 @@ public class Main{
         Spark.port(8080);
         Spark.staticFileLocation("/public");
 
+        after((request, response) -> {
+            PerThreadEntityManagers.getEntityManager();
+            PerThreadEntityManagers.closeEntityManager();
+        });
 
         HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 
