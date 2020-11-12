@@ -1,5 +1,6 @@
 package controllers;
 
+import Dominio.Usuario.Usuario;
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
@@ -15,6 +16,15 @@ public class OperacionesController implements WithGlobalEntityManager, EntityMan
     }
 
 
+    public ModelAndView getFormularioOperaciones(Request request, Response response) {
+        Map <String,Object> modelo = new HashMap<>();
+        Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
+//        if(!usuarioLogueado.isPresent()){
+//            response.redirect("/login");
+//            return null;
+//        }
+        return new ModelAndView(modelo,"operaciones.html.hbs");
+    }
 }
 
 

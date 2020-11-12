@@ -1,0 +1,126 @@
+
+{{# partial "titulo" }}
+    <title>Operaciones de egresos</title>
+{{/partial}}
+
+{{# partial "contenido"}}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-auto" style="margin-bottom: 2em;">
+                <h2 class="text-primary" style="padding-left: 45%;">Operaciones de egresos</h2>
+            </div>
+        </div>
+        <form method="post">
+            <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <!--Numero de documento-->
+                    <label style="font-size: large; padding-left: 35%;">Numero de documento</label>
+                    <input type="number" name="numeroDocumento" class="form-control">
+                    <!--TODO limitar la cantidad de numeros a 10 para documento -->
+                  </div>
+
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!--TODO Proveedor-->
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <form method="post">
+                <div class="form-group">
+                  <!--Medio de pago-->
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="medioDePago">Medio de pago</label>
+                  </div>
+                  <select class="custom-select" id="medioDePago">
+                    <option selected value="efectivo">Efectivo</option>
+                    <option value="cajero">Cajero automático</option>
+                    <option value=cuenta"">Dinero en cuenta</option>
+                    <option value="credito">Tarjeta de crédito</option>
+                    <option value="debito">Tarjeta de débito</option>
+                  </select>
+                </div>
+              </div>
+                <!-- TODO vincular medios de pago con instancias de esas clases.-->
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!--TODO Items de operacion-->
+                  <!--Descripcion String y Valor(Moneda y monto)-->
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!--TODO Lista de presupuestos-->
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!--TODO Documento comercial-->
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="documentoComercial">Documento comercial</label>
+                  </div>
+                  <select class="custom-select" id="documentoComercial">
+                    <option selected value="factura">Factura</option>
+                    <option value="ticket">Ticket</option>
+                    <option value=nc"">NC</option>
+                    <option value="nd">ND</option>
+                    <option value="remito">Remito</option>
+                  </select>
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!--TODO Requiere presupuesto?-->
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!--TODO criterio de seleccion-->
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!--TODO revisores-->
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!--TODO etiquetas-->
+                </div>
+              </div>
+            </div>
+
+
+        </form>
+    </div>
+
+    <div class="container">
+
+    </div>
+{{/partial}}
+
+{{> layout.html.hbs}}
