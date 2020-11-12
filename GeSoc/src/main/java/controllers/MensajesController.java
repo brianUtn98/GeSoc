@@ -24,6 +24,8 @@ public class MensajesController implements WithGlobalEntityManager, EntityManage
             return null;
         }
 
+        modelo.put("usuario", usuarioLogueado.get());
+
         List<Mensaje> bandeja = usuarioLogueado.map(Usuario::verBandejaMensajes).get();
         bandeja.sort(Comparator.comparing(Mensaje::isLeido));
 
