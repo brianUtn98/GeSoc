@@ -4,12 +4,18 @@ import Dominio.Presupuesto.Validacion;
 import Dominio.Presupuesto.ValidacionCantidadPresupuestos;
 import Dominio.Presupuesto.ValidacionCumplirPresupuesto;
 import Dominio.Presupuesto.ValidacionPresupuestoMenorValor;
+import Dominio.Usuario.Usuario;
+import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class CorredorValidaciones {
+public class CorredorValidaciones implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
     private List<Validacion> validaciones;
     private List<Operacion> operacionesPendientes;
     private List<Operacion> operacionesValidadas;
@@ -22,7 +28,22 @@ public class CorredorValidaciones {
                     new ValidacionCantidadPresupuestos(),
                     new ValidacionPresupuestoMenorValor()
             ));
+        instance.cargar();
         return instance;
+    }
+
+    private void cargar() {
+        operacionesValidadas = entityManager()
+                .createQuery("from OperacionValidada", OperacionValidada.class)
+                .getResultList()
+                .stream().map(operacionValidada -> operacionValidada.getOperacion())
+                .collect(Collectors.toList());
+
+        operacionesPendientes = entityManager()
+                .createQuery("from Operacion", Operacion.class)
+                .getResultList()
+                .stream().filter(unaOperacion -> operacionesValidadas.stream().noneMatch(otraOperacion -> otraOperacion.equals(unaOperacion)))
+                .collect(Collectors.toList());
     }
 
     private CorredorValidaciones(List<Validacion> validaciones) {
@@ -32,15 +53,18 @@ public class CorredorValidaciones {
     }
 
     public void validar(Operacion operacion) {
-        for(Validacion validacion : validaciones) {
-            boolean resultado = validacion.validar(operacion);
-            operacion.notificar(validacion.getNombre() + (resultado ? "OK" : "Falló"));
-        }
+        withTransaction(() -> {
+            for(Validacion validacion : validaciones) {
+                    boolean resultado = validacion.validar(operacion);
+                    operacion.notificar(validacion.getNombre() + (resultado ? "OK" : "Falló"));
+            }
+            persist(new OperacionValidada(operacion));
+            operacionesValidadas.add(operacion);
+        });
     }
 
     public void validarPendientes() {
         operacionesPendientes.forEach(this::validar);
-        operacionesValidadas.addAll(operacionesPendientes);
         operacionesPendientes = new ArrayList<>(); // Quizas esto es mejorable?
     }
 

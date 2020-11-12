@@ -60,6 +60,8 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
     	
         TipoDeUsuario tipoAdmin = new TipoAdministrador();
         Usuario jose = new Usuario("jose55", new GeneradorDeHash().getHash("123456"), tipoAdmin, new BandejaDeMensajes());
+
+        unEgreso.altaRevisor(jose);
         withTransaction(() -> {
             persist(tipoAdmin);
             jose.updateBandeja(new Mensaje("aaaa", unEgreso));
