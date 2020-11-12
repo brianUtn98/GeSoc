@@ -21,7 +21,8 @@
                     <div class="panel-body">
                         <div class="list-group">
                             {{#mensajes}}
-                            <a href="/mensajes/leer/{{id}}" class="list-group-item {{#unless leido}}list-group-item-info{{/unless}}">
+                            <a href="/mensajes/leer/{{id}}" class="list-group-item {{#if fallo}}list-group-item-danger{{/if}}">
+                                {{#if leido}}<span class="badge"><span class="glyphicon glyphicon glyphicon-ok"></span></span>{{/if}}
                                 {{detalle}}
                             </a>
                             {{/mensajes}}

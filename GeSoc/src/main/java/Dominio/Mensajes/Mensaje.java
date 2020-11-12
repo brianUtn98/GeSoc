@@ -40,6 +40,10 @@ public class Mensaje {
 		return leido;
 	}
 
+	public boolean isFallo() {
+		return detalle.contains("Falló"); // Mejorable
+	}
+
 	public long getId(){
 		return mensaje_id;
 	}
