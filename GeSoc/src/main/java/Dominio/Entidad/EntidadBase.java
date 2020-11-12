@@ -31,6 +31,10 @@ public class EntidadBase extends EntidadOrganizacional {
 		entidadJuridica = _entidadJuridica;
 	}
 	
+	public EntidadBase() {
+		
+	}
+	
 	public String getDescripcion()
 	{
 		return descripcion;

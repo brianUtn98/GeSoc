@@ -30,6 +30,10 @@ public class EntidadJuridica extends EntidadOrganizacional {
 		codigoInscripcionIGJ =_codigoInscripcionIGJ;
 	}
 	
+	public EntidadJuridica() {
+		
+	}
+	
 	public String getRazonSocial() {
 		return razonSocial;
 	}
