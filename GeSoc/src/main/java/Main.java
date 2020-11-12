@@ -4,6 +4,8 @@ import Dominio.Pago.ValorMonetario;
 import Dominio.Presupuesto.Presupuesto;
 import Dominio.Ubicacion.Moneda;
 import Dominio.Usuario.*;
+import controllers.CategoriasController;
+import controllers.EntidadesController;
 import controllers.MensajesController;
 import controllers.UsuariosController;
 import org.quartz.*;
@@ -92,6 +94,10 @@ public class Main{
         UsuariosController usuariosController = new UsuariosController();
 
         MensajesController mensajesController = new MensajesController();
+        
+        EntidadesController entidadesController = new EntidadesController();
+        
+        CategoriasController categoriasController = new CategoriasController();
 
         Spark.get("/", (request, response) -> {
             Map<String, Object> modelo = new HashMap<>();
@@ -112,5 +118,15 @@ public class Main{
 
         Spark.get("/mensajes", (request, response) -> mensajesController.getVistaMensajes(request, response), engine);
         Spark.get("/mensajes/leer/:id", (request, response) -> mensajesController.leerMensaje(request, response), engine);
+        Spark.get("/entidades", (request, response) -> entidadesController.getVistaEntidades(request, response), engine);
+        Spark.get("/entidad/:id/categoria", (request, response) -> entidadesController.getFormularioSeleccionCategoria(request, response), engine);
+        Spark.post("/entidad/:id/categoria", (request, response) -> entidadesController.asignarCategoria(request, response));
+        
+        Spark.get("/categorias", (request, response) -> categoriasController.getVistaCategorias(request, response), engine);
+        Spark.get("/categoria/:id", (request, response) -> categoriasController.getFormularioEdicionCategoria(request, response), engine);
+        Spark.get("/categoria", (request, response) -> categoriasController.getFormularioCategoria(request, response), engine);
+        Spark.post("/categoria", (request, response) -> categoriasController.altaCategoria(request, response));
+        Spark.post("/categoria/editar/:id", (request, response) -> categoriasController.editarCategoria(request, response));
+        
     }
 }

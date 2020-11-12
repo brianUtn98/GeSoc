@@ -1,4 +1,12 @@
 import Dominio.*;
+import Dominio.Entidad.BloquearAgregarEntidadBaseAJuridica;
+import Dominio.Entidad.CategoriaDeEntidad;
+import Dominio.Entidad.Empresa;
+import Dominio.Entidad.EntidadJuridica;
+import Dominio.Entidad.EntidadOrganizacional;
+import Dominio.Entidad.ReglaDeCategoria;
+import Dominio.Entidad.TipoDeEntidad;
+import Dominio.Entidad.TipoEmpresa;
 import Dominio.Mensajes.BandejaDeMensajes;
 import Dominio.Mensajes.Mensaje;
 import Dominio.Pago.Efectivo;
@@ -15,6 +23,7 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
@@ -42,7 +51,13 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
         Operacion otroEgreso = new Operacion(41665156,proveedorHomero,LocalDate.now(),new Efectivo(),items2,null,true,true);
         otroEgreso.addPresupusto(new Presupuesto(proveedorBart,items2));
 
-
+        //creacion de entidad
+        TipoDeEntidad tipo = new Empresa(TipoEmpresa.MedianaTramo1);
+    	DireccionPostal direccion = new DireccionPostal("Calle falsa 123","Argentina","Capital Federal", "Capital Federal");
+    	ReglaDeCategoria regla = new BloquearAgregarEntidadBaseAJuridica();
+    	CategoriaDeEntidad categoria = new CategoriaDeEntidad("ONG", Arrays.asList(regla));
+    	EntidadOrganizacional entidad = new EntidadJuridica("Pato feliz", "Patito S.A.", "30701258651", direccion, tipo, "jih5524", categoria);
+    	
         TipoDeUsuario tipoAdmin = new TipoAdministrador();
         Usuario jose = new Usuario("jose55", new GeneradorDeHash().getHash("123456"), tipoAdmin, new BandejaDeMensajes());
 
@@ -62,7 +77,15 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
             persist(unEgreso);
             jose.verBandejaMensajes().forEach(mensaje -> persist(mensaje));
             persist(jose);
+            //persisto la entidad 
+            /*persist(direccion);*/
+            persist(regla);
+            persist(categoria);
+            /*persist(entidad);*/
         });
+        
+        
+        
     }
 
 }
