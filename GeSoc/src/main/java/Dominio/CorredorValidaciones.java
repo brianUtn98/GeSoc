@@ -42,7 +42,7 @@ public class CorredorValidaciones implements WithGlobalEntityManager, EntityMana
         operacionesPendientes = entityManager()
                 .createQuery("from Operacion", Operacion.class)
                 .getResultList()
-                .stream().filter(operacion -> !operacionesValidadas.stream().anyMatch(unaOperacion -> unaOperacion.getId() != operacion.getId()))
+                .stream().filter(unaOperacion -> operacionesValidadas.stream().noneMatch(otraOperacion -> otraOperacion.equals(unaOperacion)))
                 .collect(Collectors.toList());
     }
 
