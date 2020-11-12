@@ -1,7 +1,10 @@
 package Dominio.Entidad;
 
+import javax.persistence.DiscriminatorValue;
+
 import Dominio.Operacion;
 
+@DiscriminatorValue("ImpedirQueEntidadBaseSeaParteDeJuridica")
 public class ImpedirQueEntidadBaseSeaParteDeJuridica extends ReglaDeCategoria {
     public void puedeSerParteDeEntidadJuridica() {
     	throw new ReglaDeCategoriaException("Entidad Base no puede ser parte de la entidad Jurídica");

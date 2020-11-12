@@ -72,9 +72,9 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
             jose.verBandejaMensajes().forEach(mensaje -> persist(mensaje));
             persist(jose);
             //persisto la entidad 
-            persist(direccion);
+            /*persist(direccion);
             persist(categoria);
-            persist(entidad);
+            persist(entidad);*/
         });
         
         

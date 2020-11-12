@@ -3,8 +3,11 @@ package Dominio.Entidad;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.DiscriminatorValue;
+
 import Dominio.Operacion;
 
+@DiscriminatorValue("BloquearNuevosEgresos")
 public class BloquearNuevosEgresos extends ReglaDeCategoria {
 
     public BloquearNuevosEgresos(int montoMaximo) {

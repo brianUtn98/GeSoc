@@ -9,6 +9,7 @@ import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import  static java.util.stream.Collectors.*;
 
 
 @Entity
@@ -68,5 +69,19 @@ public class CategoriaDeEntidad {
 	}
 	public String getNombre() {
 		return Nombre;
+	}
+	
+	public String getReglasNombre() {
+		if(reglas == null) return "";
+		return reglas.stream().map(Object::toString).collect(joining(", ")); 
+	}
+	
+	public long getId(){
+		return categoriaEntidad_id;
+	}
+
+	public void setNombre(String value) {
+		// TODO Auto-generated method stub
+		Nombre = value;
 	}
 }

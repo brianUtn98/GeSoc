@@ -1,7 +1,10 @@
 package Dominio.Entidad;
 
+import javax.persistence.DiscriminatorValue;
+
 import Dominio.Operacion;
 
+@DiscriminatorValue("BloquearAgregarEntidadBaseAJuridica")
 public class BloquearAgregarEntidadBaseAJuridica extends ReglaDeCategoria {
     public void sePuedeAgregarEntidadBase()  {
     	throw new ReglaDeCategoriaException("No se puede agregar una Entidad Base a la Juridica");
