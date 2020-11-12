@@ -38,9 +38,13 @@
                         {{#each categorias}}
                             <tr>
                                 <td> {{nombre}}</td>
-                                <td> {{reglasNombre}}</td>
                                 <td> 
-                                    <a title="Ver" href="/reglas">ver Regla</a>
+                                    {{#each reglas}}
+                                        {{nombreRegla}}
+                                    {{/each}}
+                                </td>
+                                <td> 
+                                    <!--<a title="Ver" href="/reglas">ver Regla</a>-->
                                     <a title="Editar" href="/categoria/{{id}}">Editar Categoría</a>
                                 </td>
                             </tr>

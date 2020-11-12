@@ -5,6 +5,7 @@ import Dominio.Operacion;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class CategoriaDeEntidad {
 	private long categoriaEntidad_id;
 	private String Nombre;
 
-	@Transient
+	@OneToMany
 	private List<ReglaDeCategoria> reglas;
 
 	public CategoriaDeEntidad(String nombre) {
@@ -71,9 +72,13 @@ public class CategoriaDeEntidad {
 		return Nombre;
 	}
 	
-	public String getReglasNombre() {
+	/*public String getReglasNombre() {
 		if(reglas == null) return "";
 		return reglas.stream().map(Object::toString).collect(joining(", ")); 
+	}*/
+	
+	public List<ReglaDeCategoria> getReglas(){
+		return reglas;
 	}
 	
 	public long getId(){

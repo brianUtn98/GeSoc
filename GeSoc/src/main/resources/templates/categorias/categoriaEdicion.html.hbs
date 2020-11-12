@@ -35,10 +35,13 @@
                     <div>
                         <div class="form-group">
                             <label class="col-md-3" style="font-size: large;">Reglas</label>
-                            <select class="col-md-9" name="cars" class="form-control" multiple>
+                            <select class="col-md-9" name="reglas" class="form-control">
                             {{#each reglas}}
-                                <option value={{discriminator}}>{{discriminator}}</option>
+                                <option value={{tipo}}>{{nombreRegla}}</option>
                             {{/each}}
+                            {{#if reglaSeleccionada}}
+                                <option value={{reglaSeleccionada.tipo}} selected>{{reglaSeleccionada.nombreRegla}}</option>
+                            {{/if}}
                             </select>
                         </div>
                     </div>
