@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -21,11 +22,10 @@ public class CategoriaDeEntidad {
 	private String Nombre;
 
 	@OneToMany
-	private List<ReglaDeCategoria> reglas;
+	private List<ReglaDeCategoria> reglas = new ArrayList<>();
 
 	public CategoriaDeEntidad(String nombre) {
 		Nombre = nombre;
-		reglas = null;
 	}
 
 	public CategoriaDeEntidad(String nombre, List<ReglaDeCategoria> reglas) {
