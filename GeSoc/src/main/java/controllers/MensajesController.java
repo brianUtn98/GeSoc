@@ -56,10 +56,9 @@ public class MensajesController implements WithGlobalEntityManager, EntityManage
 
         withTransaction(() -> {
             mensaje.get().marcarLeido();
-            //persist(mensaje.get());
         });
 
-        response.redirect("/operaciones/"+id);
+        response.redirect("/operaciones/"+id+"/detalle");
         return null;
     }
 }
