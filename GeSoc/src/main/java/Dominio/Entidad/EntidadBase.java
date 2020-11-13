@@ -12,7 +12,9 @@ public class EntidadBase extends EntidadOrganizacional {
 	@OneToOne
 	@JoinColumn(name="entidad_id", referencedColumnName="entidad_id", nullable=true)
 	private EntidadJuridica entidadJuridica;
-	
+
+	public EntidadBase(){}
+
 	public EntidadBase( String _nombreFicticio,String _descripcion, CategoriaDeEntidad _categoria)
 	{
 		this(_nombreFicticio, _descripcion, null, _categoria);

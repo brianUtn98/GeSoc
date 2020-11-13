@@ -2,28 +2,30 @@ package Dominio.Entidad;
 
 import Dominio.Operacion;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
 
 @Entity
+@Table(name="categoriadeentidad")
 public class CategoriaDeEntidad {
 	@Id
 	@GeneratedValue
 	private long categoriaEntidad_id;
+
+	@Column(name = "nombre")
 	private String Nombre;
 
 	@Transient
-	private List<ReglaDeCategoria> reglas;
+	private List<ReglaDeCategoria> reglas = new ArrayList<>();
+
+	public CategoriaDeEntidad(){}
 
 	public CategoriaDeEntidad(String nombre) {
 		Nombre = nombre;
-		reglas = new ArrayList<>();
+		reglas = null;
 	}
 
 	public CategoriaDeEntidad(String nombre, List<ReglaDeCategoria> reglas) {
@@ -61,5 +63,17 @@ public class CategoriaDeEntidad {
 	public void quitarRegla(ReglaDeCategoria regla) {
 		if(reglas.contains(regla))
 			reglas.remove(regla);
+	}
+
+	public String getNombre() {
+		return Nombre;
+	}
+
+	public void setNombre(String nombre) {
+		Nombre = nombre;
+	}
+
+	public long getCategoriaEntidad_id() {
+		return categoriaEntidad_id;
 	}
 }
