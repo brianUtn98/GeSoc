@@ -24,15 +24,6 @@ import java.util.stream.Collectors;
 
 public class OperacionesController implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
     public ModelAndView cargarOperacion(Request request, Response response){
-        /*Arrays.stream(request.queryMap("item").values()).iterator().forEachRemaining(str -> System.out.println(str));
-        System.out.println("aaaa");*/
-        /*Arrays.stream(request.queryMap("item").get("1").values()).iterator().forEachRemaining(str -> System.out.println(str));
-        System.out.println(request.queryMap("item").value());
-        System.out.println(request.queryMap().toMap().get("item").length);*/
-
-
-        //Arrays.stream(request.queryMap("item").values()).iterator().forEachRemaining(str -> System.out.println(str));
-
 
         // !! Empieza codigo cavernicola: !!
         String[] detalles = request.queryMap("item").values();
@@ -80,13 +71,13 @@ public class OperacionesController implements WithGlobalEntityManager, EntityMan
             response.redirect("/login");
             return null;
         }
+        modelo.put("usuario", usuarioLogueado.get());
 
 
         List<Provedor> proveedores = RepositorioProveedor.instancia.listar();
 
         modelo.put("proveedores", proveedores);
 
-        //DocumentoComercial[] documentos = DocumentoComercial.values();
         modelo.put("documentos", DocumentoComercial.values());
 
         modelo.put("revisores", RepositorioUsuarios.instancia.listar());
@@ -97,11 +88,11 @@ public class OperacionesController implements WithGlobalEntityManager, EntityMan
     public ModelAndView vistaOperaciones(Request request, Response response) {
         Map <String,Object> modelo = new HashMap<>();
         Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
-//        if(!usuarioLogueado.isPresent()){
-//            response.redirect("/login");
-//            return null;
-//        }
-
+        if(!usuarioLogueado.isPresent()){
+            response.redirect("/login");
+            return null;
+        }
+        modelo.put("usuario", usuarioLogueado.get());
 
         List<Operacion> operaciones = RepositorioOperacion.instancia.listar();
 
@@ -115,10 +106,11 @@ public class OperacionesController implements WithGlobalEntityManager, EntityMan
     public ModelAndView vistaOperacion(Request request, Response response) {
         Map <String,Object> modelo = new HashMap<>();
         Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
-//        if(!usuarioLogueado.isPresent()){
-//            response.redirect("/login");
-//            return null;
-//        }
+        if(!usuarioLogueado.isPresent()){
+            response.redirect("/login");
+            return null;
+        }
+        modelo.put("usuario", usuarioLogueado.get());
 
         Long id = Long.parseLong(request.params("id"));
 
@@ -134,17 +126,18 @@ public class OperacionesController implements WithGlobalEntityManager, EntityMan
     public ModelAndView vistaPresupuestos(Request request, Response response) {
         Map <String,Object> modelo = new HashMap<>();
         Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
-//        if(!usuarioLogueado.isPresent()){
-//            response.redirect("/login");
-//            return null;
-//        }
+        if(!usuarioLogueado.isPresent()){
+            response.redirect("/login");
+            return null;
+        }
+        modelo.put("usuario", usuarioLogueado.get());
 
         Long id = Long.parseLong(request.params("id"));
 
         Operacion operacion = RepositorioOperacion.instancia.getById(id);
 
         modelo.put("operacion", operacion);
-        modelo.put("presupuestos", operacion.getPresupuestos().stream().filter(presupuesto -> !presupuesto.equals(operacion.getPresupuestoSeleccionado().get())).toArray());
+        modelo.put("presupuestos", operacion.getPresupuestos().stream().filter(presupuesto -> !(operacion.getPresupuestoSeleccionado().isPresent() && presupuesto.equals(operacion.getPresupuestoSeleccionado().get()))).toArray());
         if(operacion.getPresupuestoSeleccionado().isPresent())
             modelo.put("seleccionado", operacion.getPresupuestoSeleccionado().get());
 
@@ -154,12 +147,11 @@ public class OperacionesController implements WithGlobalEntityManager, EntityMan
 
 
     public ModelAndView seleccionPresupuesto(Request request, Response response) {
-        Map <String,Object> modelo = new HashMap<>();
         Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
-//        if(!usuarioLogueado.isPresent()){
-//            response.redirect("/login");
-//            return null;
-//        }
+        if(!usuarioLogueado.isPresent()){
+            response.redirect("/login");
+            return null;
+        }
 
         Long idOperacion = Long.parseLong(request.params("idOperacion"));
         Operacion operacion = RepositorioOperacion.instancia.getById(idOperacion);
@@ -181,10 +173,11 @@ public class OperacionesController implements WithGlobalEntityManager, EntityMan
     public ModelAndView detallePresupuesto(Request request, Response response) {
         Map <String,Object> modelo = new HashMap<>();
         Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
-//        if(!usuarioLogueado.isPresent()){
-//            response.redirect("/login");
-//            return null;
-//        }
+        if(!usuarioLogueado.isPresent()){
+            response.redirect("/login");
+            return null;
+        }
+        modelo.put("usuario", usuarioLogueado.get());
 
 
         Long idOperacion = Long.parseLong(request.params("idOperacion"));
@@ -192,10 +185,10 @@ public class OperacionesController implements WithGlobalEntityManager, EntityMan
         Long idPresupuesto = Long.parseLong(request.params("idPresupuesto"));
         Optional<Presupuesto> presupuesto = operacion.getPresupuestos().stream().filter(unPresupuesto -> unPresupuesto.getId() == idPresupuesto).findFirst();
 
-//        if(!presupuesto.isPresent()){
-//            response.redirect("/operaciones");
-//            return null;
-//        }
+        if(!presupuesto.isPresent()){
+            response.redirect("/operaciones");
+            return null;
+        }
 
         modelo.put("items", presupuesto.get().getDetalle());
 
@@ -204,20 +197,20 @@ public class OperacionesController implements WithGlobalEntityManager, EntityMan
     }
 
     public ModelAndView getFormularioPresupuesto(Request request, Response response) {
-    Map <String,Object> modelo = new HashMap<>();
+        Map <String,Object> modelo = new HashMap<>();
 
         List<Provedor> proveedores = RepositorioProveedor.instancia.listar();
         modelo.put("proveedores",proveedores);
 
         modelo.put("documentos",DocumentoComercial.values());
         Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
-//    if(!usuarioLogueado.isPresent()){
-//        response.redirect("/login");
-//        return null;
-//    }
+        if(!usuarioLogueado.isPresent()){
+            response.redirect("/login");
+            return null;
+        }
 
 
-    return new ModelAndView(modelo,"presupuesto.html.hbs");
+        return new ModelAndView(modelo,"presupuesto.html.hbs");
     }
 
     public ModelAndView cargarPresupuesto(Request request, Response response) {

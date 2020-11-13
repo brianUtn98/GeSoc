@@ -85,7 +85,7 @@ public class Main{
             e.printStackTrace();
         }
 
-        new Bootstrap().run(); // Deberia estar comemntado en el final
+        //new Bootstrap().run(); // Deberia estar comemntado en el final
 
         System.out.println("Iniciando servidor spark");
 
