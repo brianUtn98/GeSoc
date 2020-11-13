@@ -23,7 +23,9 @@ public class ItemOperacion {
 		this.descripcion = descripcion;
 		this.valorTotal = valorTotal;
 	}
-	
+
+	public ItemOperacion(){}
+
 	public String getDescripcion() {
 		return descripcion;
 	}

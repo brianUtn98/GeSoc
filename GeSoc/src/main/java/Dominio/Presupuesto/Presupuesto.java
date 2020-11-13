@@ -29,6 +29,13 @@ public class Presupuesto {
     public Presupuesto(Provedor provedor, List<ItemOperacion> detalle) {
         this.provedor = provedor;
         this.detalle = detalle;
+
+    }
+
+    public Presupuesto(Provedor provedor,List<ItemOperacion> detalle,DocumentoComercial documentoComercial){
+        this.provedor = provedor;
+        this.detalle = detalle;
+        this.documentoComercial = documentoComercial;
     }
 
     public Presupuesto(){}
@@ -39,5 +46,13 @@ public class Presupuesto {
     
     public Optional<DocumentoComercial> getDocumentoComercial(){
     	return Optional.ofNullable(documentoComercial);
+    }
+
+    public long getId(){
+        return presupuesto_id;
+    }
+
+    public List<ItemOperacion> getDetalle(){
+        return detalle;
     }
 }

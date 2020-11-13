@@ -29,11 +29,11 @@
                             <td> {{nombre}}</td>
                             <td> 
                                 {{#each reglas}}
-                                    {{nombreRegla}}
+                                    {{nombreRegla}} <br>
                                 {{/each}}
                             </td>
                             <td> 
-                                <!--<a title="Ver" href="/reglas">ver Regla</a>-->
+                                <a title="Agregar Regla" href="/categoria/{{id}}/regla">agregar Regla</a>
                                 <a title="Editar" href="/categoria/{{id}}">Editar Categoría</a>
                             </td>
                         </tr>

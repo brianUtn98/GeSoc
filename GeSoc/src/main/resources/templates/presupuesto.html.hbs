@@ -1,0 +1,76 @@
+
+{{# partial "titulo" }}
+    <title>Operaciones de egresos</title>
+{{/partial}}
+
+{{# partial "contenido"}}
+    <script>
+        var i = 1;
+        function agregar() {
+            $(".item:first").clone(true).insertBefore(".item:first");
+            return false;
+        }
+    </script>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-auto" style="margin-bottom: 2em;">
+                <h2 class="text-primary" style="padding-left: 45%;">Presupuesto</h2>
+            </div>
+        </div>
+        <form method="post">
+            <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label style="font-size: large; padding-left: 35%;">Proveedor</label>
+                    <select name="proveedor">
+                        {{#proveedores}}
+                            <option value="{{id}}">{{razonSocial}} ({{numeroDocumento}})</option>
+                        {{/proveedores}}
+                    </select>
+                  </div>
+
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                    Items
+                    <p class="item">
+                        <label>Item:</label> <input type="text" name="item">
+                        <label>Monto:</label> <input type="number" name="monto" value="0">
+                        <label>Moneda:</label> <input style="width:50px" type="text" name="moneda" value="ARS">
+                    </p>
+                    <span class="btn btn-default" onclick="agregar()">+</span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!--Documento comercial-->
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="documentoComercial">Documento comercial</label>
+                  </div>
+                  <select class="custom-select" name="documentoComercial">
+                      {{#documentos}}
+                          <option value="{{this}}">{{this}}</option>
+                      {{/documentos}}
+                  </select>
+                      <label> Numero: </label> <input type="text" name="numeroDocumento">
+                </div>
+                </div>
+              </div>
+            </div>
+
+<button>enviar</button>
+
+        </form>
+    </div>
+
+    <div class="container">
+
+    </div>
+{{/partial}}
+
+{{> layout.html.hbs}}

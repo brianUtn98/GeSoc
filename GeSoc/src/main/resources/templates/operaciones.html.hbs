@@ -1,0 +1,57 @@
+
+{{# partial "titulo" }}
+    <title>Operaciones</title>
+{{/partial}}
+
+{{# partial "contenido"}}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-auto" style="margin-bottom: 2em;">
+                <h2 class="text-primary" style="padding-left: 45%;">Operaciones</h2>
+                <a href="/operacion" class="btn btn-default">Nueva Operacion</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-auto">
+                <div class="panel panel-default">
+
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                            <th> #</th>
+                            <th> Fecha</th>
+                            <th> Proveedor</th>
+                            <th> Total</th>
+                            <th> Documento Comercial</th>
+                            <th> #</th>
+                            <th> Requiere Presupuestos</th>
+                            <th> Criterio minimo valor</th>
+                            <th> Detalle</th>
+                            <th> Presupuestos</th>
+                            </thead>
+                            <tbody>
+                            {{#operaciones}}
+                                <tr>
+                                    <td>{{id}}</td>
+                                    <td>{{fecha}}</td>
+                                    <td>{{provedor.razonSocial}}</td>
+                                    <td>{{total.moneda.simbolo}} {{total.monto}}</td>
+                                <td>{{#if documentoComercialNullable}}{{documentoComercialNullable}}{{else}}-{{/if}}</td>
+                                    <td>{{numeroDocumento}}</td>
+                                    <td>{{#if requierePresupuesto}}Sí{{else}}No{{/if}}</td>
+                                    <td>{{#if criterio}}Sí{{else}}No{{/if}}</td>
+                                    <td><a href="/operaciones/{{id}}/detalle" class="btn btn-default">Ver</a></td>
+                                    <td><a href="/operaciones/{{id}}/presupuestos" class="btn btn-default">Ver</a></td>
+                                </tr>
+                            {{/operaciones}}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{{/partial}}
+
+{{> layout.html.hbs}}

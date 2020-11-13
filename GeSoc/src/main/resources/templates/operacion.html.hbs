@@ -1,0 +1,144 @@
+
+{{# partial "titulo" }}
+    <title>Operaciones de egresos</title>
+{{/partial}}
+
+{{# partial "contenido"}}
+    <script>
+        function agregar() {
+            $(".item:first").clone(true).insertBefore(".item:first");
+            return false;
+        }
+        function agregarEtiqueta() {
+           $(".etiqueta:first").clone(true).insertBefore(".etiqueta:first");
+           return false;
+        }
+    </script>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-auto" style="margin-bottom: 2em;">
+                <h2 class="text-primary" style="padding-left: 45%;">Operaciones de egresos</h2>
+            </div>
+        </div>
+        <form method="post">
+            <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label style="font-size: large; padding-left: 35%;">Proveedor</label>
+                    <select name="proveedor">
+                        {{#proveedores}}
+                            <option value="{{id}}">{{razonSocial}} ({{numeroDocumento}})</option>
+                        {{/proveedores}}
+                    </select>
+                  </div>
+
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                  <!--Medio de pago-->
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="medioDePago">Medio de pago</label>
+                    </div>
+                  <select class="custom-select" id="medioDePago">
+                    <option selected value="efectivo">Efectivo</option>
+                    <option value="cajero">Cajero automático</option>
+                    <option value="cuenta">Dinero en cuenta</option>
+                    <option value="credito">Tarjeta de crédito</option>
+                    <option value="debito">Tarjeta de débito</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                    Items
+                    <p class="item">
+                        <label>Item:</label> <input type="text" name="item">
+                        <label>Monto:</label> <input type="number" name="monto" value="0">
+                        <label>Moneda:</label> <input style="width:50px" type="text" name="moneda" value="ARS">
+                    </p>
+                    <span class="btn btn-default" onclick="agregar()">+</span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!--Documento comercial-->
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="documentoComercial">Documento comercial</label>
+                  </div>
+                  <select class="custom-select" name="documentoComercial">
+                      {{#documentos}}
+                          <option value="{{this}}">{{this}}</option>
+                      {{/documentos}}
+                  </select>
+                      <label> Numero: </label> <input type="text" name="numeroDocumento">
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!--Requiere presupuesto?-->
+                    <label>Requiere presupuesto</label>
+                    <input class="form-check-input" type="radio" name="requierePresupuesto" id="requierePresupuesto" value="true" checked>
+                    <label class="form-check-label" for="requierePresupuesto">Sí</label>
+                    <input class="form-check-input" type="radio" name="requierePresupuesto" id="requierePresupuesto" value="false">
+                    <label class="form-check-label" for="requierePresupuesto">No</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!--TODO criterio de seleccion-->
+                   <label>Criterio mínimo valor</label>
+                   <input class="form-check-input" type="radio" name="criterioSeleccion" id="criterioSeleccion" value="true" checked>
+                   <label class="form-check-label" for="criterioSeleccion">Sí</label>
+                   <input class="form-check-input" type="radio" name="criterioSeleccion" id="criterioSeleccion" value="false">
+                   <label class="form-check-label" for="criterioSeleccion">No</label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!--revisores-->
+                 <label>Revisores</label>
+                 <select class="custom-select" name="revisores" multiple>
+                    {{#revisores}}
+                      <option value="{{id}}">{{nombre}}</option>
+                    {{/revisores}}
+                 </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!--TODO etiquetas-->
+                  <p class="etiqueta">
+                    <label>Etiqueta:</label> <input type="text" name="etiqueta">
+                   </p>
+                  <span class="btn btn-default" onclick="agregarEtiqueta()">+</span>
+                </div>
+              </div>
+            </div>
+<button>enviar</button>
+
+        </form>
+    </div>
+
+    <div class="container">
+
+    </div>
+{{/partial}}
+
+{{> layout.html.hbs}}

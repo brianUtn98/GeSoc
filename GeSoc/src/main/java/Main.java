@@ -1,9 +1,3 @@
-import Dominio.*;
-import Dominio.Entidad.CategoriaDeEntidad;
-import Dominio.Pago.Efectivo;
-import Dominio.Pago.ValorMonetario;
-import Dominio.Presupuesto.Presupuesto;
-import Dominio.Ubicacion.Moneda;
 import Dominio.Usuario.*;
 import controllers.CategoriaController;
 import controllers.EntidadController;
@@ -12,6 +6,7 @@ import controllers.CategoriasController;
 import controllers.EntidadesController;
 import controllers.EntidadesJuridicasController;
 import controllers.MensajesController;
+import controllers.OperacionesController;
 import controllers.UbicacionController;
 import controllers.UsuariosController;
 import org.quartz.*;
@@ -23,50 +18,12 @@ import com.github.jknack.handlebars.Handlebars;
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
-
-import java.time.LocalDate;
-import java.util.*;
-
 import static spark.Spark.after;
 
+import java.util.*;
 
-public class Main{
-    private static Usuario initUsuario() {
-        CreadorDeUsuario creador = new CreadorDeUsuario("Pepe");
-        creador.setearTipoUsuario(new TipoEstandar());
-        List<ValidadorPassword> validadores = new ArrayList<>();
-        validadores.add(new ValidadorLongitud());
-        creador.crearPassword("aloja125",validadores);
-        return creador.crearUsuario();
-    }
 
-    private static void init() {
-        Provedor proveedorHomero = new Provedor("Homero", "Thompson", "Pato feliz", 29256328,  new DireccionPostal("Calle falsa 123","Argentina","Capital Federal", "Capital Federal"), TipoDocumento.DNI);
-        Provedor proveedorBart = new Provedor("Bart", "Thompson", "Pato infeliz", 29256329,  new DireccionPostal("Calle falsa 123","Argentina","Capital Federal", "Capital Federal"), TipoDocumento.DNI);
-
-        Moneda unaMoneda = new Moneda("0", "ARS", "Peso", 2); // Tener un mock de moneda para esto y los tests seria genial
-
-        List<ItemOperacion> items1 = new ArrayList<>();
-        items1.add(new ItemOperacion("UnProducto1", new ValorMonetario(unaMoneda, 1000)));
-        items1.add(new ItemOperacion("UnProducto2", new ValorMonetario(unaMoneda, 2000)));
-
-        List<ItemOperacion> items2 = new ArrayList<>();
-        items2.add(new ItemOperacion("UnProducto3", new ValorMonetario(unaMoneda, 200)));
-
-        Operacion unEgreso = new Operacion(41665156,proveedorBart,LocalDate.now(),new Efectivo(),items1,null,true,true);
-        unEgreso.addPresupusto(new Presupuesto(proveedorBart,items1));
-        unEgreso.addPresupusto(new Presupuesto(proveedorHomero,items2));
-        Operacion otroEgreso = new Operacion(41665156,proveedorHomero,LocalDate.now(),new Efectivo(),items2,null,true,true);
-        otroEgreso.addPresupusto(new Presupuesto(proveedorBart,items2));
-
-        Usuario unUsuario = initUsuario();
-        unEgreso.altaRevisor(unUsuario);
-        otroEgreso.altaRevisor(unUsuario);
-
-        CorredorValidaciones corredorValidaciones = CorredorValidaciones.getInstance();
-        corredorValidaciones.agregarOperacion(unEgreso);
-        corredorValidaciones.agregarOperacion(otroEgreso);
-    }
+public class Main {
 
     public static void main(String[] args) {
         System.out.println("Sistema GeSoc");
@@ -86,7 +43,7 @@ public class Main{
             e.printStackTrace();
         }
 
-        new Bootstrap().run(); // Deberia estar comemntado en el final
+        //new Bootstrap().run(); // Deberia estar comemntado en el final
 
         System.out.println("Iniciando servidor spark");
 
@@ -112,8 +69,9 @@ public class Main{
         CategoriasController categoriasController = new CategoriasController();
         
         UbicacionController ubicacionController = new UbicacionController();
-             
-        
+
+        OperacionesController operacionesController = new OperacionesController();
+
         Spark.get("/", (request, response) -> {
             Map<String, Object> modelo = new HashMap<>();
 
@@ -131,9 +89,23 @@ public class Main{
 
         Spark.post("/login", (request, response) -> usuariosController.loginUsuario(request, response));
 
+        Spark.get("/logout", (request, response) -> usuariosController.logoutUsuario(request, response), engine);
+
         Spark.get("/categoriasBuscar",(request, response) -> entidadController.mostrarEntidadCategoria(request,response),engine);
         Spark.get("/mensajes", (request, response) -> mensajesController.getVistaMensajes(request, response), engine);
         Spark.get("/mensajes/leer/:id", (request, response) -> mensajesController.leerMensaje(request, response), engine);
+
+        Spark.get("/operacion",(request,response) -> operacionesController.getFormularioOperaciones(request,response),engine);
+        Spark.get("/operaciones/:id/detalle",(request,response) -> operacionesController.vistaOperacion(request,response),engine);
+        Spark.get("/operaciones/:idOperacion/presupuestos/:idPresupuesto/detalle",(request,response) -> operacionesController.detallePresupuesto(request,response),engine);
+        Spark.get("/operaciones/:idOperacion/presupuestos/:idPresupuesto/seleccionar",(request,response) -> operacionesController.seleccionPresupuesto(request,response),engine);
+        Spark.get("/operaciones/:id/presupuestos",(request,response) -> operacionesController.vistaPresupuestos(request,response),engine);
+
+        Spark.get("/operaciones/:id/presupuesto",(request,response) -> operacionesController.getFormularioPresupuesto(request,response),engine);
+        Spark.post("/operaciones/:id/presupuesto",(request,response) -> operacionesController.cargarPresupuesto(request,response),engine);
+        Spark.post("/operacion",(request,response) -> operacionesController.cargarOperacion(request,response));
+        Spark.get("/operaciones", (request, response) -> operacionesController.vistaOperaciones(request, response), engine);
+
         Spark.get("/entidades", (request, response) -> entidadesController.getVistaEntidades(request, response), engine);
         Spark.get("/entidad/:id/categoria", (request, response) -> entidadesController.getFormularioSeleccionCategoria(request, response), engine);
         Spark.post("/entidad/:id/categoria", (request, response) -> entidadesController.asignarCategoria(request, response));
@@ -149,7 +121,9 @@ public class Main{
         Spark.get("/categoria", (request, response) -> categoriasController.getFormularioCategoria(request, response), engine);
         Spark.post("/categoria", (request, response) -> categoriasController.altaCategoria(request, response));
         Spark.post("/categoria/editar/:id", (request, response) -> categoriasController.editarCategoria(request, response));
-    
+        Spark.get("/categoria/:id/regla", (request, response) -> categoriasController.getFormAgrearReglaACategoria(request, response), engine);
+        Spark.post("/categoria/:id/regla", (request, response) -> categoriasController.agregarReglaACategoria(request, response));
+        
         Spark.get("ubicacion/provincias", "aplicacion/json", (request, response) -> {
         	return ubicacionController.getProvinciasFromAPI(request.queryParams("pais"));        	
         }, new JsonTransformer());
@@ -157,6 +131,5 @@ public class Main{
         Spark.get("ubicacion/ciudades", "aplicacion/json", (request, response) -> {
         	return ubicacionController.getCiudadesFromAPI(request.queryParams("pais"),request.queryParams("provincia"));        	
         }, new JsonTransformer());
-
     }
 }

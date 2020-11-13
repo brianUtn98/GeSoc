@@ -69,6 +69,13 @@ public class Provedor {
 	public void setTipoDocumento(TipoDocumento tipoDocumento) {
 		this.tipoDocumento = tipoDocumento;
 	}
-	
 
+	@Override
+	public String toString() {
+		return razonSocial + "(" + numeroDocumento + ")";
+	}
+
+	public long getId(){
+		return proveedor_id;
+	}
 }
