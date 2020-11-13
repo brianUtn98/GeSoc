@@ -40,4 +40,8 @@ public class Presupuesto {
     public Optional<DocumentoComercial> getDocumentoComercial(){
     	return Optional.ofNullable(documentoComercial);
     }
+
+    public long getId(){
+        return presupuesto_id;
+    }
 }

@@ -4,6 +4,7 @@ import Dominio.*;
 import Dominio.Pago.Efectivo;
 import Dominio.Pago.MedioDePago;
 import Dominio.Pago.ValorMonetario;
+import Dominio.Presupuesto.Presupuesto;
 import Dominio.Ubicacion.Moneda;
 import Dominio.Usuario.Usuario;
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
@@ -130,12 +131,38 @@ public class OperacionesController implements WithGlobalEntityManager, EntityMan
         Operacion operacion = RepositorioOperacion.instancia.getById(id);
 
         modelo.put("operacion", operacion);
-        modelo.put("presupuestos", operacion.getPresupuestos().stream().filter(presupuesto -> !presupuesto.equals(operacion.getPresupuestoSeleccionado())).toArray());
+        modelo.put("presupuestos", operacion.getPresupuestos().stream().filter(presupuesto -> !presupuesto.equals(operacion.getPresupuestoSeleccionado().get())).toArray());
         if(operacion.getPresupuestoSeleccionado().isPresent())
             modelo.put("seleccionado", operacion.getPresupuestoSeleccionado().get());
 
 
         return new ModelAndView(modelo,"presupuestos.html.hbs");
+    }
+
+
+    public ModelAndView seleccionPresupuesto(Request request, Response response) {
+        Map <String,Object> modelo = new HashMap<>();
+        Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
+//        if(!usuarioLogueado.isPresent()){
+//            response.redirect("/login");
+//            return null;
+//        }
+
+        Long idOperacion = Long.parseLong(request.params("idOperacion"));
+        Operacion operacion = RepositorioOperacion.instancia.getById(idOperacion);
+        Long idPresupuesto = Long.parseLong(request.params("idPresupuesto"));
+        Optional<Presupuesto> presupuesto = operacion.getPresupuestos().stream().filter(unPresupuesto -> unPresupuesto.getId() == idPresupuesto).findFirst();
+
+        if(!presupuesto.isPresent()){
+            response.redirect("/operaciones");
+            return null;
+        }
+
+        withTransaction(() -> {
+            operacion.setPresupuestoSeleccionado(presupuesto.get());
+        });
+        response.redirect("/operaciones/"+idOperacion+"/presupuestos");
+        return null;
     }
 }
 

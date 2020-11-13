@@ -9,9 +9,11 @@ import controllers.OperacionesController;
 import controllers.UsuariosController;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
+import static spark.Spark.after;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -80,6 +82,11 @@ public class Main{
         Spark.port(8080);
         Spark.staticFileLocation("/public");
 
+        after((request, response) -> {
+            PerThreadEntityManagers.getEntityManager();
+            PerThreadEntityManagers.closeEntityManager();
+        });
+
 
         HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 
@@ -111,6 +118,7 @@ public class Main{
 
         Spark.get("/operacion",(request,response) -> operacionesController.getFormularioOperaciones(request,response),engine);
         Spark.get("/operaciones/:id/detalle",(request,response) -> operacionesController.vistaOperacion(request,response),engine);
+        Spark.get("/operaciones/:idOperacion/presupuestos/:idPresupuesto/seleccionar",(request,response) -> operacionesController.seleccionPresupuesto(request,response),engine);
         Spark.get("/operaciones/:id/presupuestos",(request,response) -> operacionesController.vistaPresupuestos(request,response),engine);
         Spark.post("/operacion",(request,response) -> operacionesController.cargarOperacion(request,response));
         Spark.get("/operaciones", (request, response) -> operacionesController.vistaOperaciones(request, response), engine);
