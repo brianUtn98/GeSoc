@@ -27,16 +27,17 @@ public class CategoriasController implements WithGlobalEntityManager, EntityMana
 	public ModelAndView getVistaCategorias(Request request, Response response) {
         Map<String, Object> modelo = new HashMap<>();
 
-       /* Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
+       Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
 
         if(!usuarioLogueado.isPresent()) {
             response.redirect("/login");
             return null;
-        }*/
+        }
 
         List<CategoriaDeEntidad> entidades =  RepositorioCategorias.instancia.listar();
         
         modelo.put("categorias", entidades);
+        modelo.put("usuario", usuarioLogueado.get());
 
         return new ModelAndView(modelo, "categorias/categorias.html.hbs");
     }
@@ -44,30 +45,31 @@ public class CategoriasController implements WithGlobalEntityManager, EntityMana
 	public ModelAndView getFormularioCategoria(Request request, Response response) {
 		Map<String, Object> modelo = new HashMap<>();
 		
-		/* Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
+		 Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
 
         if(!usuarioLogueado.isPresent()) {
             response.redirect("/login");
             return null;
-        }*/
+        }
 
         modelo.put("error", request.queryParams().contains("error"));
         
         List<ReglaDeCategoria> reglas =  RepositorioReglas.instancia.listarEnMemoria();
         reglas.stream().findFirst().get().getNombreRegla();
         modelo.put("reglas", reglas);
+        modelo.put("usuario", usuarioLogueado.get());
 
         return new ModelAndView(modelo, "categorias/categoria.html.hbs");
 	}
 
 	public Void altaCategoria(Request request, Response response) {
 		
-		/* Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
+		Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
 
         if(!usuarioLogueado.isPresent()) {
             response.redirect("/login");
             return null;
-        }*/
+        }
 		
 		CategoriaDeEntidad categoriaNueva = new CategoriaDeEntidad(request.queryParams("nombre"));
 		List<ReglaDeCategoria> reglas =  RepositorioReglas.instancia.listarEnMemoria();
@@ -89,12 +91,12 @@ public class CategoriasController implements WithGlobalEntityManager, EntityMana
 	public ModelAndView getFormularioEdicionCategoria(Request request, Response response) {
 		Map<String, Object> modelo = new HashMap<>();
 
-		/* Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
+		Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
 
         if(!usuarioLogueado.isPresent()) {
             response.redirect("/login");
             return null;
-        }*/
+        }
 		
 		long id = Long.parseLong(request.params(":id"));
         modelo.put("error", request.queryParams().contains("error"));
@@ -115,6 +117,7 @@ public class CategoriasController implements WithGlobalEntityManager, EntityMana
         }
         modelo.put("reglas", reglas);
         modelo.put("categoria", entidad.get());
+        modelo.put("usuario", usuarioLogueado.get());
 
         return new ModelAndView(modelo, "categorias/categoriaEdicion.html.hbs");
 	}
