@@ -13,6 +13,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -41,7 +42,10 @@ public class OperacionesController implements WithGlobalEntityManager, EntityMan
 
         Provedor proveedor = RepositorioProveedor.instancia.getById(Long.parseLong(request.queryParams("proveedor")));
         MedioDePago medioDePago = new Efectivo(); // TODO
-        Operacion operacion = new Operacion(0, proveedor, LocalDate.now(), medioDePago, items, DocumentoComercial.Factura, true, true); // TODO: Terminar de obtener todos los datos
+        Integer numeroDocumento = Integer.parseInt(request.queryParams("numeroDocumento"));
+        DocumentoComercial documento = DocumentoComercial.valueOf(request.queryParams("documentoComercial"));
+        boolean requierePresupuesto = Boolean.parseBoolean(request.queryParams("requierePresupuesto"));
+        Operacion operacion = new Operacion(numeroDocumento, proveedor, LocalDate.now(), medioDePago, items, documento, requierePresupuesto, true); // TODO: Terminar de obtener todos los datos
 
         withTransaction(() -> {
             items.forEach(item -> persist(item));
@@ -68,6 +72,9 @@ public class OperacionesController implements WithGlobalEntityManager, EntityMan
 
         modelo.put("proveedores", proveedores);
 
+        //DocumentoComercial[] documentos = DocumentoComercial.values();
+        modelo.put("documentos", DocumentoComercial.values());
+
 
         return new ModelAndView(modelo,"operacion.html.hbs");
     }
@@ -88,6 +95,47 @@ public class OperacionesController implements WithGlobalEntityManager, EntityMan
 
 
         return new ModelAndView(modelo,"operaciones.html.hbs");
+    }
+
+
+    public ModelAndView vistaOperacion(Request request, Response response) {
+        Map <String,Object> modelo = new HashMap<>();
+        Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
+//        if(!usuarioLogueado.isPresent()){
+//            response.redirect("/login");
+//            return null;
+//        }
+
+        Long id = Long.parseLong(request.params("id"));
+
+        Operacion operacion = RepositorioOperacion.instancia.getById(id);
+
+        modelo.put("items", operacion.getDetalle());
+
+
+        return new ModelAndView(modelo,"detalle-operacion.html.hbs");
+    }
+
+
+    public ModelAndView vistaPresupuestos(Request request, Response response) {
+        Map <String,Object> modelo = new HashMap<>();
+        Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
+//        if(!usuarioLogueado.isPresent()){
+//            response.redirect("/login");
+//            return null;
+//        }
+
+        Long id = Long.parseLong(request.params("id"));
+
+        Operacion operacion = RepositorioOperacion.instancia.getById(id);
+
+        modelo.put("operacion", operacion);
+        modelo.put("presupuestos", operacion.getPresupuestos().stream().filter(presupuesto -> !presupuesto.equals(operacion.getPresupuestoSeleccionado())).toArray());
+        if(operacion.getPresupuestoSeleccionado().isPresent())
+            modelo.put("seleccionado", operacion.getPresupuestoSeleccionado().get());
+
+
+        return new ModelAndView(modelo,"presupuestos.html.hbs");
     }
 }
 

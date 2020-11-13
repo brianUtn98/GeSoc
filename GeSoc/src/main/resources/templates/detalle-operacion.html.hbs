@@ -1,0 +1,40 @@
+
+{{# partial "titulo" }}
+    <title>Operaciones</title>
+{{/partial}}
+
+{{# partial "contenido"}}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-auto" style="margin-bottom: 2em;">
+                <h2 class="text-primary" style="padding-left: 45%;">Detalle</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-auto">
+                <div class="panel panel-default">
+
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                            <th> Descripcion</th>
+                            <th> Valor</th>
+                            </thead>
+                            <tbody>
+                            {{#items}}
+                                <tr>
+                                    <td>{{descripcion}}</td>
+                                    <td>{{valorTotal.moneda.simbolo}} {{valorTotal.monto}}</td>
+                                </tr>
+                            {{/items}}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{{/partial}}
+
+{{> layout.html.hbs}}
