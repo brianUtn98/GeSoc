@@ -16,7 +16,7 @@
                   <div class="form-group">
                     <!--Numero de documento-->
                     <label style="font-size: large; padding-left: 35%;">Numero de documento</label>
-                    <input type="number" name="numeroDocumento" class="form-control">
+                    <input type="number" name="numeroDocumento" class="form-control" placeholder="Introduzca su número de documento">
                     <!--TODO limitar la cantidad de numeros a 10 para documento -->
                   </div>
 
@@ -26,6 +26,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <!--TODO Proveedor-->
+                  Acá va el proveedor
                 </div>
               </div>
             </div>
@@ -55,6 +56,7 @@
                 <div class="form-group">
                   <!--TODO Items de operacion-->
                   <!--Descripcion String y Valor(Moneda y monto)-->
+                  Acá van los items de la operación
                 </div>
               </div>
             </div>
@@ -62,13 +64,23 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <!--TODO Lista de presupuestos-->
+                  Aca va Lista de presupuestos
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-4">
                 <div class="form-group">
-                  <!--TODO Documento comercial-->
+                  <!--TODO Presupu-->
+                  Aca va el presupuesto
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!--Documento comercial-->
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <label class="input-group-text" for="documentoComercial">Documento comercial</label>
@@ -87,7 +99,21 @@
             <div class="row">
               <div class="col-md-4">
                 <div class="form-group">
-                  <!--TODO Requiere presupuesto?-->
+                  <!--Requiere presupuesto?-->
+                  <label>Requiere presupuesto</label>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="requierePresupuesto" id="requierePresupuesto" value="siRequierePresu" checked>
+                    <label class="form-check-label" for="requierePresupuesto">
+                    Sí
+                    </label>
+
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="requierePresupuesto" id="requierePresupuesto" value="noRequierePresu">
+                    <label class="form-check-label" for="requierePresupuesto">
+                      No
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -96,6 +122,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <!--TODO criterio de seleccion-->
+                  Acá va el criterio de selección
                 </div>
               </div>
             </div>
@@ -103,6 +130,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <!--TODO revisores-->
+                  Aca van los revisores
                 </div>
               </div>
             </div>
@@ -110,6 +138,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <!--TODO etiquetas-->
+                  Aca van las etiquetas
                 </div>
               </div>
             </div>
