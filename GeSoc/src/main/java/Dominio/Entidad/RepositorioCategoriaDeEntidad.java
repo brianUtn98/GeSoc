@@ -14,6 +14,7 @@ public class RepositorioCategoriaDeEntidad  implements WithGlobalEntityManager {
         return entityManager()//
                 .createQuery("from CategoriaDeEntidad", CategoriaDeEntidad.class) //
                 .getResultList();
+
     }
 
     public CategoriaDeEntidad getById(Long id){

@@ -50,11 +50,9 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
         });
 
         DireccionPostal direccion3 = new DireccionPostal("Calle 12","Argentina","Buenos Aires", "Ciudad de Buenos Aires");
-        CategoriaDeEntidad categoria3 = new CategoriaDeEntidad("ONG", Arrays.asList(new BloquearNuevosEgresos(50)));
-        EntidadOrganizacional entidad3 = new EntidadJuridica("Medicos Sin Fronteras", "Medicos Sin Fronteras", "123456789", direccion3, tipoEntidad, "jih5524", categoria3);
+        EntidadOrganizacional entidad3 = new EntidadJuridica("Medicos Sin Fronteras", "Medicos Sin Fronteras", "123456789", direccion3, tipoEntidad, "jih5524", categoria);
         withTransaction(()-> {
             persist(direccion3);
-            persist(categoria3);
             persist(entidad3);
         });
 
