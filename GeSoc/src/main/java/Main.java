@@ -1,9 +1,11 @@
 import Dominio.*;
+import Dominio.Entidad.CategoriaDeEntidad;
 import Dominio.Pago.Efectivo;
 import Dominio.Pago.ValorMonetario;
 import Dominio.Presupuesto.Presupuesto;
 import Dominio.Ubicacion.Moneda;
 import Dominio.Usuario.*;
+import controllers.CategoriaController;
 import controllers.EntidadController;
 import controllers.UsuariosController;
 import org.quartz.*;
@@ -84,6 +86,7 @@ public class Main{
 
         UsuariosController usuariosController = new UsuariosController();
         EntidadController entidadController = new EntidadController();
+        CategoriaController categoriaBuscada = new CategoriaController();
 
         Spark.get("/", (request, response) -> {
             Map<String, Object> modelo = new HashMap<>();
@@ -102,6 +105,7 @@ public class Main{
 
         Spark.post("/login", (request, response) -> usuariosController.loginUsuario(request, response));
 
-        Spark.get("/entidadesCategoria",(request, response) -> entidadController.mostrarEntidadCategoria(request,response),engine);
+        Spark.get("/categoriasBuscar",(request, response) -> entidadController.mostrarEntidadCategoria(request,response),engine);
+       /* Spark.get("/categoriasBuscar",(request, response) -> categoriaBuscada.mostrarCategoria(request, response),engine);*/
     }
 }

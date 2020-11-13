@@ -16,10 +16,18 @@ public class EntidadController implements WithGlobalEntityManager, Transactional
 
 
     public ModelAndView mostrarEntidadCategoria(Request request, Response response){
-        List<EntidadOrganizacional> entidadesOrganizacionales = RepositorioEntidadOrganizacional.instancia.listar();
+        String categoriaBuscada = request.queryParams("filtro");
+
         Map<String, Object> parametros = new HashMap<String, Object>();
+
+        List<EntidadOrganizacional> entidadesOrganizacionales =
+                categoriaBuscada != null ?
+                        RepositorioEntidadOrganizacional.instancia.buscarPorCategoria(categoriaBuscada):
+                        RepositorioEntidadOrganizacional.instancia.listar();;
+
         parametros.put("entidades", entidadesOrganizacionales);
-        return new ModelAndView(parametros, "entidadesCategoria.html.hbs");
+        /*"entidadesCategoria.html.hbs"*//*"categorias.html.hbs"*/
+        return new ModelAndView(parametros,"categoriasBuscar.html.hbs");
     }
 
 }
