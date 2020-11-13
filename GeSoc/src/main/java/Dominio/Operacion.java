@@ -98,9 +98,13 @@ public class Operacion{
 	public void setDetalle(List<ItemOperacion> detalle) {
 		this.detalle = detalle;
 	}
-	
+
 	public Optional<DocumentoComercial> getDocumentoComercial() {
 		return Optional.ofNullable(this.documentoComercial);
+	}
+
+	public DocumentoComercial getDocumentoComercialNullable() {
+		return this.documentoComercial;
 	}
 	
 	public void setDocumentoComercial(DocumentoComercial documentoComercial) {

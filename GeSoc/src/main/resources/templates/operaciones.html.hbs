@@ -36,7 +36,7 @@
                                     <td>{{fecha}}</td>
                                     <td>{{provedor.razonSocial}}</td>
                                     <td>{{total.moneda.simbolo}} {{total.monto}}</td>
-                                    <td>{{documentoComercial}}</td>
+                                <td>{{#if documentoComercialNullable}}{{documentoComercialNullable}}{{else}}-{{/if}}</td>
                                     <td>{{numeroDocumento}}</td>
                                     <td>{{#if requierePresupuesto}}Sí{{else}}No{{/if}}</td>
                                     <td>{{#if criterio}}Sí{{else}}No{{/if}}</td>
