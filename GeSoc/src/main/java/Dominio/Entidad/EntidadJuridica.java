@@ -19,7 +19,9 @@ public class EntidadJuridica extends EntidadOrganizacional {
 	private TipoDeEntidad tipoDeEntidad;
 
 	private String codigoInscripcionIGJ;
-	
+
+	public EntidadJuridica(){}
+
 	public EntidadJuridica(String _nombreFicticio,String _razonSocial,String _cuit,DireccionPostal _direccionPostal,TipoDeEntidad _tipo,String _codigoInscripcionIGJ, CategoriaDeEntidad _categoria)
 	{
 		super(_nombreFicticio, _categoria);
@@ -28,10 +30,6 @@ public class EntidadJuridica extends EntidadOrganizacional {
 		direccionPostal =_direccionPostal;
 		tipoDeEntidad =_tipo;
 		codigoInscripcionIGJ =_codigoInscripcionIGJ;
-	}
-	
-	public EntidadJuridica() {
-		
 	}
 	
 	public String getRazonSocial() {

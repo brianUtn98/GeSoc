@@ -2,22 +2,22 @@ package Dominio.Entidad;
 
 import Dominio.Operacion;
 
+import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
-import  static java.util.stream.Collectors.*;
-
 
 @Entity
+@Table(name="categoriadeentidad")
 public class CategoriaDeEntidad {
 	@Id
 	@GeneratedValue
 	private long categoriaEntidad_id;
+
+	@Column(name = "nombre")
 	private String Nombre;
 
 	@OneToMany
@@ -25,7 +25,7 @@ public class CategoriaDeEntidad {
 
 	public CategoriaDeEntidad(String nombre) {
 		Nombre = nombre;
-		reglas = new ArrayList<>();
+		reglas = null;
 	}
 
 	public CategoriaDeEntidad(String nombre, List<ReglaDeCategoria> reglas) {

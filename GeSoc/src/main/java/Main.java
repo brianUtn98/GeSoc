@@ -1,9 +1,12 @@
 import Dominio.*;
+import Dominio.Entidad.CategoriaDeEntidad;
 import Dominio.Pago.Efectivo;
 import Dominio.Pago.ValorMonetario;
 import Dominio.Presupuesto.Presupuesto;
 import Dominio.Ubicacion.Moneda;
 import Dominio.Usuario.*;
+import controllers.CategoriaController;
+import controllers.EntidadController;
 import controllers.CategoriasController;
 import controllers.EntidadesController;
 import controllers.MensajesController;
@@ -92,6 +95,8 @@ public class Main{
         HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 
         UsuariosController usuariosController = new UsuariosController();
+        EntidadController entidadController = new EntidadController();
+        CategoriaController categoriaBuscada = new CategoriaController();
 
         MensajesController mensajesController = new MensajesController();
         
@@ -116,6 +121,7 @@ public class Main{
 
         Spark.post("/login", (request, response) -> usuariosController.loginUsuario(request, response));
 
+        Spark.get("/categoriasBuscar",(request, response) -> entidadController.mostrarEntidadCategoria(request,response),engine);
         Spark.get("/mensajes", (request, response) -> mensajesController.getVistaMensajes(request, response), engine);
         Spark.get("/mensajes/leer/:id", (request, response) -> mensajesController.leerMensaje(request, response), engine);
         Spark.get("/entidades", (request, response) -> entidadesController.getVistaEntidades(request, response), engine);
@@ -127,6 +133,5 @@ public class Main{
         Spark.get("/categoria", (request, response) -> categoriasController.getFormularioCategoria(request, response), engine);
         Spark.post("/categoria", (request, response) -> categoriasController.altaCategoria(request, response));
         Spark.post("/categoria/editar/:id", (request, response) -> categoriasController.editarCategoria(request, response));
-        
     }
 }

@@ -18,7 +18,7 @@ public class DireccionPostal {
 	private String pais;
 	private String provincia;
 	private String ciudad;
-	
+
 	public DireccionPostal(String direccion, String pais, String provincia, String ciudad) {
 		this.direccion = direccion;		
 		this.pais = pais;

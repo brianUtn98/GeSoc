@@ -23,15 +23,13 @@ public class EntidadOrganizacional {
 	@OneToMany
 	@JoinColumn(name= "entidad_id")
 	private List<Operacion> operaciones;
-	
+
+	public EntidadOrganizacional(){}
+
 	public EntidadOrganizacional(String _nombreFicticio, CategoriaDeEntidad _categoria) {
 		nombreFicticio =_nombreFicticio;
 		operaciones = new ArrayList<Operacion>();
 		categoria = _categoria;
-	}
-	
-	public EntidadOrganizacional() {
-	
 	}
 	
 	public String getNombreFicticio()
