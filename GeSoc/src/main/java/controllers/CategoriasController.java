@@ -55,7 +55,7 @@ public class CategoriasController implements WithGlobalEntityManager, EntityMana
         modelo.put("error", request.queryParams().contains("error"));
         
         List<ReglaDeCategoria> reglas =  RepositorioReglas.instancia.listarEnMemoria();
-        reglas.stream().findFirst().get().getNombreRegla();
+
         modelo.put("reglas", reglas);
         modelo.put("usuario", usuarioLogueado.get());
 
@@ -70,6 +70,12 @@ public class CategoriasController implements WithGlobalEntityManager, EntityMana
             response.redirect("/login");
             return null;
         }
+        
+        String nombre = request.queryParams("nombre");		
+		if(nombre == null || nombre == "") {	        
+	        response.redirect("/categoria?error");	        
+			return null;
+		}
 		
 		CategoriaDeEntidad categoriaNueva = new CategoriaDeEntidad(request.queryParams("nombre"));
 		List<ReglaDeCategoria> reglas =  RepositorioReglas.instancia.listarEnMemoria();
@@ -98,24 +104,16 @@ public class CategoriasController implements WithGlobalEntityManager, EntityMana
             return null;
         }
 		
-		long id = Long.parseLong(request.params(":id"));
         modelo.put("error", request.queryParams().contains("error"));
         
-        List<ReglaDeCategoria> reglas =  RepositorioReglas.instancia.listarEnMemoria();
+		long id = Long.parseLong(request.params(":id"));        
         Optional<CategoriaDeEntidad> entidad =  RepositorioCategorias.instancia.listar().stream().filter(cat -> cat.getId() == id).findFirst();
-
 
         if(!entidad.isPresent()) {
             response.redirect("/categorias");
             return null;
         }
-
-        Optional<ReglaDeCategoria> reglaSeleccionada = entidad.get().getReglas().stream().findFirst();
-        if (reglaSeleccionada.isPresent()) {
-        	reglas = reglas.stream().filter(reg -> !reg.getTipo().equals(reglaSeleccionada.get().getTipo())).collect(Collectors.toList());
-        	modelo.put("reglaSeleccionada", reglaSeleccionada.get());
-        }
-        modelo.put("reglas", reglas);
+      
         modelo.put("categoria", entidad.get());
         modelo.put("usuario", usuarioLogueado.get());
 
@@ -133,37 +131,95 @@ public class CategoriasController implements WithGlobalEntityManager, EntityMana
         }
 		
 		Optional<CategoriaDeEntidad> entidad =  RepositorioCategorias.instancia.listar().stream().filter(cat -> cat.getId() == id).findFirst();
-		List<ReglaDeCategoria> reglas =  RepositorioReglas.instancia.listarEnMemoria();
-		Optional<ReglaDeCategoria> reglaSeleccionada = reglas.stream().filter(reg -> reg.getTipo().equals(request.queryParams("reglas"))).findFirst();
 		
-
         if(!entidad.isPresent()) {
             response.redirect("/categorias");
             return null;
         }
-        
-        //me fijo si la regla que tengo es la misma que la me pasaron 
-        Optional<ReglaDeCategoria> reglaPrevia = entidad.get().getReglas().stream().filter(reg -> !reg.getTipo().equals(request.queryParams("reglas"))).findFirst();	
-        boolean reglaYaEnListado = entidad.get().getReglas().stream().anyMatch(reg -> reg.getTipo().equals(request.queryParams("reglas")));
-        
+          
         CategoriaDeEntidad categoriaNueva = entidad.get();
-        categoriaNueva.setNombre(request.queryParams("nombre"));
+        
+        String nombre = request.queryParams("nombre");		
+		if(nombre == null || nombre == "") {	        
+	        response.redirect("/categoria/"+id+"?error");	        
+			return null;
+		}
+		categoriaNueva.setNombre(nombre);
         
 		withTransaction(() ->{
-			//si hay una regla anterior diferente a la que me pasan la quito
-			if(reglaPrevia.isPresent()) 
-				entidad.get().quitarRegla(reglaPrevia.get());
-			//si la regla nueva y no esta en el listado la agrego
-			if(reglaSeleccionada.isPresent() && !reglaYaEnListado ) {
-					ReglaDeCategoria reglaAAplicar =reglaSeleccionada.get();
-					RepositorioReglas.instancia.agregar(reglaAAplicar);
-					categoriaNueva.agregarRegla(reglaAAplicar);	
-			}
-			
-			
 			RepositorioCategorias.instancia.agregar(categoriaNueva);
 		});
 		
+		response.redirect("/categorias");
+		return null;
+	}
+
+	public ModelAndView getFormAgrearReglaACategoria(Request request, Response response) {
+		Map<String, Object> modelo = new HashMap<>();
+		
+		long id = Long.parseLong(request.params(":id"));
+		
+	   Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
+
+       if(!usuarioLogueado.isPresent()) {
+           response.redirect("/login");
+           return null;
+       }
+
+       Optional<CategoriaDeEntidad> entidad =  RepositorioCategorias.instancia.listar().stream().filter(cat -> cat.getId() == id).findFirst();
+		
+       if(!entidad.isPresent()) {
+           response.redirect("/categorias");
+           return null;
+       }
+       
+       modelo.put("error", request.queryParams().contains("error"));
+       
+       List<ReglaDeCategoria> reglas =  RepositorioReglas.instancia.listarEnMemoria();
+
+       modelo.put("reglas", reglas);
+       modelo.put("usuario", usuarioLogueado.get());
+       modelo.put("categoria", entidad.get());
+
+       return new ModelAndView(modelo, "categorias/categoriaAgregarRegla.html.hbs");
+	}
+
+	public Void agregarReglaACategoria(Request request, Response response) {
+		Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
+
+		long id = Long.parseLong(request.params(":id"));
+		
+        if(!usuarioLogueado.isPresent()) {
+            response.redirect("/login");
+            return null;
+        }
+        
+        Optional<CategoriaDeEntidad> entidad =  RepositorioCategorias.instancia.listar().stream().filter(cat -> cat.getId() == id).findFirst();
+		
+        if(!entidad.isPresent()) {
+            response.redirect("/categorias");
+            return null;
+        }		
+        
+		List<ReglaDeCategoria> reglas =  RepositorioReglas.instancia.listarEnMemoria();
+		Optional<ReglaDeCategoria> reglaSeleccionada = reglas.stream().filter(reg -> reg.getTipo().equals(request.queryParams("reglas"))).findFirst();
+		
+		
+		if(entidad.get().getReglas().stream().anyMatch(reg -> reg.getTipo().equals(request.queryParams("reglas")))) {	        
+	        response.redirect("/categoria/"+entidad.get().getId()+"/regla?error");	        
+			return null;
+		}
+		
+		CategoriaDeEntidad categoriaEnEdicion = entidad.get();
+		withTransaction(() ->{
+			if(reglaSeleccionada.isPresent()) {
+				ReglaDeCategoria reglaAAplicar =reglaSeleccionada.get();
+				RepositorioReglas.instancia.agregar(reglaAAplicar);
+				categoriaEnEdicion.agregarRegla(reglaAAplicar);	
+			}
+			
+			RepositorioCategorias.instancia.agregar(categoriaEnEdicion);
+		});
 		response.redirect("/categorias");
 		return null;
 	}
