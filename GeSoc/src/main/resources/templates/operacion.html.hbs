@@ -1,0 +1,157 @@
+
+{{# partial "titulo" }}
+    <title>Operaciones de egresos</title>
+{{/partial}}
+
+{{# partial "contenido"}}
+    <script>
+        var i = 1;
+        function agregar() {
+            $(".item:first").clone(true).insertBefore(".item:first");
+            return false;
+        }
+    </script>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-auto" style="margin-bottom: 2em;">
+                <h2 class="text-primary" style="padding-left: 45%;">Operaciones de egresos</h2>
+            </div>
+        </div>
+        <form method="post">
+            <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <!--Numero de documento-->
+                    <label style="font-size: large; padding-left: 35%;">Proveedor</label>
+                    <select name="proveedor">
+                        {{#proveedores}}
+                            <option value="{{id}}">{{razonSocial}} ({{numeroDocumento}})</option>
+                        {{/proveedores}}
+                    </select>
+                  </div>
+
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                  <!--Medio de pago-->
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="medioDePago">Medio de pago</label>
+                    </div>
+                  <select class="custom-select" id="medioDePago">
+                    <option selected value="efectivo">Efectivo</option>
+                    <option value="cajero">Cajero automático</option>
+                    <option value=cuenta"">Dinero en cuenta</option>
+                    <option value="credito">Tarjeta de crédito</option>
+                    <option value="debito">Tarjeta de débito</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                    Items
+                    <p class="item">
+                        <label>Item:</label> <input type="text" name="item">
+                        <label>Monto:</label> <input type="number" name="monto" value="0">
+                        <label>Moneda:</label> <input style="width:50px" type="text" name="moneda" value="ARS">
+                    </p>
+                    <span class="btn btn-default" onclick="agregar()">+</span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!--TODO Lista de presupuestos-->
+                  Aca va Lista de presupuestos
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!--TODO Presupu-->
+                  Aca va el presupuesto
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!--Documento comercial-->
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="documentoComercial">Documento comercial</label>
+                  </div>
+                  <select class="custom-select" id="documentoComercial">
+                    <option selected value="factura">Factura</option>
+                    <option value="ticket">Ticket</option>
+                    <option value=nc"">NC</option>
+                    <option value="nd">ND</option>
+                    <option value="remito">Remito</option>
+                  </select>
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!--Requiere presupuesto?-->
+                  <label>Requiere presupuesto</label>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="requierePresupuesto" id="requierePresupuesto" value="siRequierePresu" checked>
+                    <label class="form-check-label" for="requierePresupuesto">
+                    Sí
+                    </label>
+
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="requierePresupuesto" id="requierePresupuesto" value="noRequierePresu">
+                    <label class="form-check-label" for="requierePresupuesto">
+                      No
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!--TODO criterio de seleccion-->
+                  Acá va el criterio de selección
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!--TODO revisores-->
+                  Aca van los revisores
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <!--TODO etiquetas-->
+                  Aca van las etiquetas
+                </div>
+              </div>
+            </div>
+<button>enviar</button>
+
+        </form>
+    </div>
+
+    <div class="container">
+
+    </div>
+{{/partial}}
+
+{{> layout.html.hbs}}

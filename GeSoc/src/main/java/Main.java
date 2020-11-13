@@ -109,6 +109,8 @@ public class Main{
         Spark.get("/mensajes", (request, response) -> mensajesController.getVistaMensajes(request, response), engine);
         Spark.get("/mensajes/leer/:id", (request, response) -> mensajesController.leerMensaje(request, response), engine);
 
-        Spark.get("/operaciones",(request,response) -> operacionesController.getFormularioOperaciones(request,response),engine);
+        Spark.get("/operacion",(request,response) -> operacionesController.getFormularioOperaciones(request,response),engine);
+        Spark.post("/operacion",(request,response) -> operacionesController.cargarOperacion(request,response));
+        Spark.get("/operaciones", (request, response) -> operacionesController.vistaOperaciones(request, response), engine);
     }
 }
