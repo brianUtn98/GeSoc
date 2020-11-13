@@ -7,6 +7,7 @@ import Dominio.Ubicacion.Moneda;
 import Dominio.Usuario.*;
 import controllers.CategoriaController;
 import controllers.EntidadController;
+import controllers.EntidadesBaseController;
 import controllers.CategoriasController;
 import controllers.EntidadesController;
 import controllers.MensajesController;
@@ -101,7 +102,7 @@ public class Main{
         MensajesController mensajesController = new MensajesController();
         
         EntidadesController entidadesController = new EntidadesController();
-        
+        EntidadesBaseController entidadesBaseController = new EntidadesBaseController();
         CategoriasController categoriasController = new CategoriasController();
 
         Spark.get("/", (request, response) -> {
@@ -127,6 +128,9 @@ public class Main{
         Spark.get("/entidades", (request, response) -> entidadesController.getVistaEntidades(request, response), engine);
         Spark.get("/entidad/:id/categoria", (request, response) -> entidadesController.getFormularioSeleccionCategoria(request, response), engine);
         Spark.post("/entidad/:id/categoria", (request, response) -> entidadesController.asignarCategoria(request, response));
+        Spark.get("/entidadBase", (request, response) -> entidadesBaseController.getFormularioNewEntidadBase(request, response),engine);
+        Spark.post("entidadBase", (request, response) -> entidadesBaseController.postNewEntidadBase(request, response));
+        Spark.get("entidadBase/:id", (request, response) -> entidadController.getEntidad(request, response), engine);
         
         Spark.get("/categorias", (request, response) -> categoriasController.getVistaCategorias(request, response), engine);
         Spark.get("/categoria/:id", (request, response) -> categoriasController.getFormularioEdicionCategoria(request, response), engine);

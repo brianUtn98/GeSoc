@@ -25,12 +25,18 @@ public class EntidadBase extends EntidadOrganizacional {
 		super(_nombreFicticio, _categoria);
 		descripcion = _descripcion;
 
-		_categoria.puedeSerParteDeEntidadJuridica();
+		if(_categoria != null) {			
+			_categoria.puedeSerParteDeEntidadJuridica();
+		}
 
 		if(_entidadJuridica != null)
 			_entidadJuridica.puedeAgregarEntidadBase();
 			
 		entidadJuridica = _entidadJuridica;
+	}
+	
+	public EntidadBase(String _nombreFicticio,String _descripcion) {
+		this(_nombreFicticio, _descripcion, null, null);
 	}
 	
 	public String getDescripcion()
