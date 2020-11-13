@@ -119,7 +119,7 @@ public class Main {
         Spark.get("/categoria/:id", (request, response) -> categoriasController.getFormularioEdicionCategoria(request, response), engine);
         Spark.get("/categoria", (request, response) -> categoriasController.getFormularioCategoria(request, response), engine);
         Spark.post("/categoria", (request, response) -> categoriasController.altaCategoria(request, response));
-        Spark.post("/categoria/editar/:id", (request, response) -> categoriasController.editarCategoria(request, response));
+        Spark.post("/categoria/:id", (request, response) -> categoriasController.editarCategoria(request, response));
         Spark.get("/categoria/:id/regla", (request, response) -> categoriasController.getFormAgrearReglaACategoria(request, response), engine);
         Spark.post("/categoria/:id/regla", (request, response) -> categoriasController.agregarReglaACategoria(request, response));
         
