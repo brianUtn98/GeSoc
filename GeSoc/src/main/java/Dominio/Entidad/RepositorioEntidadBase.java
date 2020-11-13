@@ -20,5 +20,4 @@ public class RepositorioEntidadBase implements WithGlobalEntityManager {
     public EntidadBase getById(Long id){
         return entityManager().find(EntidadBase.class, id);
     }
-
 }

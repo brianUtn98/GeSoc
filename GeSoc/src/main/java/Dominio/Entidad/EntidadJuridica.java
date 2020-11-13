@@ -32,6 +32,11 @@ public class EntidadJuridica extends EntidadOrganizacional {
 		codigoInscripcionIGJ =_codigoInscripcionIGJ;
 	}
 	
+	public EntidadJuridica(String _nombreFicticio,String _razonSocial,String _cuit,DireccionPostal _direccionPostal,String _codigoInscripcionIGJ){
+		this(_nombreFicticio, _razonSocial, _cuit,_direccionPostal, null, _codigoInscripcionIGJ, null);
+		
+	}
+	
 	public String getRazonSocial() {
 		return razonSocial;
 	}
@@ -56,5 +61,20 @@ public class EntidadJuridica extends EntidadOrganizacional {
 
 	public void puedeAgregarEntidadBase() {
 		categoria.puedeAgregarEntidadBase();
+	}
+
+	public void setRazonSocial(String razonSocial) {
+		// TODO Auto-generated method stub
+		this.razonSocial = razonSocial;
+	}
+
+	public void setCuit(String cuit) {
+		// TODO Auto-generated method stub
+		this.cuit = cuit;
+	}
+
+	public void setCodigoInscripcionIGJ(String codigo) {
+		// TODO Auto-generated method stub
+		this.codigoInscripcionIGJ = codigo;
 	}
 }
