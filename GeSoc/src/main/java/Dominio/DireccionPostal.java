@@ -19,15 +19,15 @@ public class DireccionPostal {
 	private String provincia;
 	private String ciudad;
 
-	public DireccionPostal(){}
-
 	public DireccionPostal(String direccion, String pais, String provincia, String ciudad) {
 		this.direccion = direccion;		
 		this.pais = pais;
 		this.provincia = provincia;
 		this.ciudad = ciudad;
 	}
-	
+
+	public DireccionPostal(){}
+
 	public String getPais() {
 		return this.pais;
 	}

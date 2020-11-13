@@ -3,12 +3,24 @@ package Dominio.Entidad;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 import Dominio.Operacion;
 
+@Entity
+
+@DiscriminatorValue("BNE")
 public class BloquearNuevosEgresos extends ReglaDeCategoria {
 
+	public BloquearNuevosEgresos(){
+		tipo= "BNE";
+	}
+	
     public BloquearNuevosEgresos(int montoMaximo) {
         super.montoMaximo = montoMaximo;
+        tipo= "BNE";
     }
 
    
@@ -34,4 +46,8 @@ public class BloquearNuevosEgresos extends ReglaDeCategoria {
 	    		throw new ReglaDeCategoriaException("No se puede agregar un nuevo egreso");
 	   
 	}
+	
+	public String getNombreRegla() {
+		return "Bloquear nuevo Egreso";
+	};
 }

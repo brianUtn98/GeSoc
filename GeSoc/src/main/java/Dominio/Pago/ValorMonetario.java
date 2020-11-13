@@ -16,6 +16,8 @@ public class ValorMonetario {
         this.monto = monto;
     }
 
+    public ValorMonetario(){}
+
     public ValorMonetario sumar(ValorMonetario otroValor) {
         if(this.moneda.getCodigo().equals(otroValor.getMoneda().getCodigo())){
         	ValorMonetario v= new ValorMonetario(moneda, monto + otroValor.getMonto());

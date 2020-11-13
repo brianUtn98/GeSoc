@@ -3,10 +3,12 @@ package Dominio.Entidad;
 import Dominio.Operacion;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.List;
 import java.util.function.Predicate;
-
 
 @Entity
 @Table(name="categoriadeentidad")
@@ -18,10 +20,8 @@ public class CategoriaDeEntidad {
 	@Column(name = "nombre")
 	private String Nombre;
 
-	@Transient
-	private List<ReglaDeCategoria> reglas = new ArrayList<>();
-
-	public CategoriaDeEntidad(){}
+	@OneToMany
+	private List<ReglaDeCategoria> reglas;
 
 	public CategoriaDeEntidad(String nombre) {
 		Nombre = nombre;
@@ -31,6 +31,10 @@ public class CategoriaDeEntidad {
 	public CategoriaDeEntidad(String nombre, List<ReglaDeCategoria> reglas) {
 		this(nombre);
 		this.reglas = reglas;
+	}
+	
+	public CategoriaDeEntidad() {
+		
 	}
 
 	private void todasLasReglasCumplen(Predicate<ReglaDeCategoria> condicion) {
@@ -64,16 +68,25 @@ public class CategoriaDeEntidad {
 		if(reglas.contains(regla))
 			reglas.remove(regla);
 	}
-
 	public String getNombre() {
 		return Nombre;
 	}
-
-	public void setNombre(String nombre) {
-		Nombre = nombre;
+	
+	/*public String getReglasNombre() {
+		if(reglas == null) return "";
+		return reglas.stream().map(Object::toString).collect(joining(", ")); 
+	}*/
+	
+	public List<ReglaDeCategoria> getReglas(){
+		return reglas;
+	}
+	
+	public long getId(){
+		return categoriaEntidad_id;
 	}
 
-	public long getCategoriaEntidad_id() {
-		return categoriaEntidad_id;
+	public void setNombre(String value) {
+		// TODO Auto-generated method stub
+		Nombre = value;
 	}
 }

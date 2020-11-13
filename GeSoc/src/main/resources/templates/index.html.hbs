@@ -1,5 +1,10 @@
-<html>
-    <body>
-        <p> Logueado como {{usuario.nombre}}</p>
-    </body>
-</html>
+
+{{# partial "titulo" }}
+    <title>{{#if unread}}({{unread}}) {{/if}}GeSoc</title>
+{{/partial}}
+
+{{# partial "contenido" }}
+    <h1 class="bienvenida">¡Bienvenido a GeSoc!</h1>
+{{/partial}}
+
+{{> layout.html.hbs }}

@@ -32,7 +32,6 @@ public class EntidadOrganizacional {
 		categoria = _categoria;
 	}
 	
-	
 	public String getNombreFicticio()
 	{
 		return nombreFicticio;
@@ -59,5 +58,10 @@ public class EntidadOrganizacional {
 	
 	public List<Operacion> misOperaciones(){
 		return operaciones;
+	}
+
+	public long getId() {
+		// TODO Auto-generated method stub
+		return entidad_id;
 	}
 }	
