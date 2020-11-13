@@ -47,4 +47,19 @@ public class DireccionPostal {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
+
+	public void setPais(String pais) {
+		// TODO Auto-generated method stub
+		this.pais = pais;
+	}
+
+	public void setProvincia(String provincia) {
+		// TODO Auto-generated method stub
+		this.provincia = provincia;
+	}
+
+	public void setCiudad(String ciudad) {
+		// TODO Auto-generated method stub
+		this.ciudad = ciudad;
+	}
 }

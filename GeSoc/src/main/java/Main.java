@@ -17,6 +17,9 @@ import controllers.UsuariosController;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
+import com.github.jknack.handlebars.Handlebars;
+
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -109,7 +112,8 @@ public class Main{
         CategoriasController categoriasController = new CategoriasController();
         
         UbicacionController ubicacionController = new UbicacionController();
-
+             
+        
         Spark.get("/", (request, response) -> {
             Map<String, Object> modelo = new HashMap<>();
 
@@ -135,12 +139,10 @@ public class Main{
         Spark.post("/entidad/:id/categoria", (request, response) -> entidadesController.asignarCategoria(request, response));
         Spark.get("/entidadBase", (request, response) -> entidadesBaseController.getFormularioNewEntidadBase(request, response),engine);
         Spark.post("entidadBase", (request, response) -> entidadesBaseController.postNewEntidadBase(request, response));
-        Spark.get("entidadBase/:id", (request, response) -> entidadController.getEditEntidad(request, response), engine);
-        Spark.post("entidadBase/:id", (request, response) -> entidadController.getEditEntidad(request, response));
+        Spark.get("entidad/edit/:id", (request, response) -> entidadController.getEditEntidad(request, response), engine);
+        Spark.post("entidad/edit/:id", (request, response) -> entidadController.postEditEntidad(request, response));
         Spark.get("/entidadJuridica", (request, response) -> entidadesJuridicasController.getFormularioNewEntidadJuridica(request, response),engine);
         Spark.post("entidadJuridica", (request, response) -> entidadesJuridicasController.postNewEntidadJuridica(request, response));
-        Spark.get("entidadJuridica/:id", (request, response) -> entidadController.getEditEntidad(request, response), engine);
-        Spark.post("entidadJuridica/:id", (request, response) -> entidadController.getEditEntidad(request, response));
 
         Spark.get("/categorias", (request, response) -> categoriasController.getVistaCategorias(request, response), engine);
         Spark.get("/categoria/:id", (request, response) -> categoriasController.getFormularioEdicionCategoria(request, response), engine);

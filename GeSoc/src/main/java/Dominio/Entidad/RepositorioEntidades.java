@@ -21,8 +21,11 @@ public class RepositorioEntidades  implements WithGlobalEntityManager {
 	        return entityManager().find(EntidadOrganizacional.class, id);
 	    }
 
-
 	    public void agregar(EntidadOrganizacional entidad) {
 	        entityManager().persist(entidad);
+	    }
+	    
+	    public void editar(EntidadOrganizacional entidad) {
+	    	entityManager().refresh(entidad);
 	    }
 }

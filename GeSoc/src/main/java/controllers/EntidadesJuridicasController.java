@@ -8,7 +8,10 @@ import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import Dominio.DireccionPostal;
+import Dominio.RepositorioDireccionPostal;
 import Dominio.Entidad.EntidadBase;
+import Dominio.Entidad.EntidadJuridica;
 import Dominio.Entidad.EntidadOrganizacional;
 import Dominio.Entidad.RepositorioEntidades;
 import Dominio.Usuario.Usuario;
@@ -46,12 +49,27 @@ public class EntidadesJuridicasController implements WithGlobalEntityManager, En
 			return null;
 		}
 		
-		EntidadOrganizacional entidadBase = new EntidadBase(
-				nombre,
-				request.queryParams("descripcion"));
+		DireccionPostal direccion = new DireccionPostal(
+					request.queryParams("direccion"),
+					request.queryParams("pais"),
+					request.queryParams("provincia"),
+					request.queryParams("cuidad")
+				);
 		
 		withTransaction(() -> {
-				RepositorioEntidades.instancia.agregar(entidadBase);
+			RepositorioDireccionPostal.instancia.agregar(direccion);
+		});
+		
+		EntidadOrganizacional entidadJuridica = new EntidadJuridica(
+				nombre,
+				request.queryParams("razonSocial"),
+				request.queryParams("cuit"),
+				direccion,
+				request.queryParams("codigoInscripcionIGJ")
+				);
+		
+		withTransaction(() -> {
+				RepositorioEntidades.instancia.agregar(entidadJuridica);
 			}
 		);
 		

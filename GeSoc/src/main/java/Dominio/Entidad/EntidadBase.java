@@ -52,4 +52,9 @@ public class EntidadBase extends EntidadOrganizacional {
 	public void setDescripcion(String _descripcion) {
 		this.descripcion = _descripcion;		
 	}
+
+	public void setEntidadJuridica(EntidadJuridica entidadJuridica2) {
+		// TODO Auto-generated method stub
+		this.entidadJuridica = entidadJuridica2;
+	}
 }

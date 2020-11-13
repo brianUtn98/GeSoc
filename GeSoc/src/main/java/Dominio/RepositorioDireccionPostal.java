@@ -28,4 +28,9 @@ public class RepositorioDireccionPostal implements WithGlobalEntityManager {
         entityManager().persist(direccionPostal);
     }
 
+	public void editar(DireccionPostal direccionPostal) {
+		// TODO Auto-generated method stub
+        entityManager().refresh(direccionPostal);
+	}
+
 }
