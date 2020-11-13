@@ -4,6 +4,13 @@
 {{/partial}}
 
 {{# partial "contenido"}}
+    <script>
+        var i = 1;
+        function agregar() {
+            $(".item:first").clone(true).insertBefore(".item:first");
+            return false;
+        }
+    </script>
     <div class="container">
         <div class="row">
             <div class="col-md-auto" style="margin-bottom: 2em;">
@@ -15,30 +22,23 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <!--Numero de documento-->
-                    <label style="font-size: large; padding-left: 35%;">Numero de documento</label>
-                    <input type="number" name="numeroDocumento" class="form-control" placeholder="Introduzca su número de documento">
-                    <!--TODO limitar la cantidad de numeros a 10 para documento -->
+                    <label style="font-size: large; padding-left: 35%;">Proveedor</label>
+                    <select name="proveedor">
+                        {{#proveedores}}
+                            <option value="{{id}}">{{razonSocial}} ({{numeroDocumento}})</option>
+                        {{/proveedores}}
+                    </select>
                   </div>
 
                 </div>
             </div>
             <div class="row">
-              <div class="col-md-4">
-                <div class="form-group">
-                  <!--TODO Proveedor-->
-                  Acá va el proveedor
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4">
-                <form method="post">
-                <div class="form-group">
+              <div class="col-md-6">
                   <!--Medio de pago-->
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <label class="input-group-text" for="medioDePago">Medio de pago</label>
-                  </div>
+                    </div>
                   <select class="custom-select" id="medioDePago">
                     <option selected value="efectivo">Efectivo</option>
                     <option value="cajero">Cajero automático</option>
@@ -48,15 +48,16 @@
                   </select>
                 </div>
               </div>
-                <!-- TODO vincular medios de pago con instancias de esas clases.-->
-              </div>
             </div>
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <div class="form-group">
-                  <!--TODO Items de operacion-->
-                  <!--Descripcion String y Valor(Moneda y monto)-->
-                  Acá van los items de la operación
+                    Items
+                    <p class="item">
+                        <label>Item:</label> <input type="text" name="item[]">
+                        <label>Monto:</label> <input type="number" name="monto[]">
+                    </p>
+                    <span class="btn btn-default" onclick="agregar()">+</span>
                 </div>
               </div>
             </div>

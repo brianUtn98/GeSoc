@@ -1,5 +1,7 @@
 package controllers;
 
+import Dominio.Provedor;
+import Dominio.RepositorioProveedor;
 import Dominio.Usuario.Usuario;
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
@@ -23,6 +25,14 @@ public class OperacionesController implements WithGlobalEntityManager, EntityMan
 //            response.redirect("/login");
 //            return null;
 //        }
+
+
+        List<Provedor> proveedores = RepositorioProveedor.instancia.listar();
+
+        modelo.put("proveedores", proveedores);
+
+
+
         return new ModelAndView(modelo,"operaciones.html.hbs");
     }
 }
