@@ -10,7 +10,9 @@ import controllers.EntidadController;
 import controllers.EntidadesBaseController;
 import controllers.CategoriasController;
 import controllers.EntidadesController;
+import controllers.EntidadesJuridicasController;
 import controllers.MensajesController;
+import controllers.UbicacionController;
 import controllers.UsuariosController;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
@@ -103,7 +105,10 @@ public class Main{
         
         EntidadesController entidadesController = new EntidadesController();
         EntidadesBaseController entidadesBaseController = new EntidadesBaseController();
+        EntidadesJuridicasController entidadesJuridicasController = new EntidadesJuridicasController();
         CategoriasController categoriasController = new CategoriasController();
+        
+        UbicacionController ubicacionController = new UbicacionController();
 
         Spark.get("/", (request, response) -> {
             Map<String, Object> modelo = new HashMap<>();
@@ -130,12 +135,26 @@ public class Main{
         Spark.post("/entidad/:id/categoria", (request, response) -> entidadesController.asignarCategoria(request, response));
         Spark.get("/entidadBase", (request, response) -> entidadesBaseController.getFormularioNewEntidadBase(request, response),engine);
         Spark.post("entidadBase", (request, response) -> entidadesBaseController.postNewEntidadBase(request, response));
-        Spark.get("entidadBase/:id", (request, response) -> entidadController.getEntidad(request, response), engine);
-        
+        Spark.get("entidadBase/:id", (request, response) -> entidadController.getEditEntidad(request, response), engine);
+        Spark.post("entidadBase/:id", (request, response) -> entidadController.getEditEntidad(request, response));
+        Spark.get("/entidadJuridica", (request, response) -> entidadesJuridicasController.getFormularioNewEntidadJuridica(request, response),engine);
+        Spark.post("entidadJuridica", (request, response) -> entidadesJuridicasController.postNewEntidadJuridica(request, response));
+        Spark.get("entidadJuridica/:id", (request, response) -> entidadController.getEditEntidad(request, response), engine);
+        Spark.post("entidadJuridica/:id", (request, response) -> entidadController.getEditEntidad(request, response));
+
         Spark.get("/categorias", (request, response) -> categoriasController.getVistaCategorias(request, response), engine);
         Spark.get("/categoria/:id", (request, response) -> categoriasController.getFormularioEdicionCategoria(request, response), engine);
         Spark.get("/categoria", (request, response) -> categoriasController.getFormularioCategoria(request, response), engine);
         Spark.post("/categoria", (request, response) -> categoriasController.altaCategoria(request, response));
         Spark.post("/categoria/editar/:id", (request, response) -> categoriasController.editarCategoria(request, response));
+    
+        Spark.get("ubicacion/provincias", "aplicacion/json", (request, response) -> {
+        	return ubicacionController.getProvinciasFromAPI(request.queryParams("pais"));        	
+        }, new JsonTransformer());
+        
+        Spark.get("ubicacion/ciudades", "aplicacion/json", (request, response) -> {
+        	return ubicacionController.getCiudadesFromAPI(request.queryParams("pais"),request.queryParams("provincia"));        	
+        }, new JsonTransformer());
+
     }
 }

@@ -48,4 +48,8 @@ public class EntidadBase extends EntidadOrganizacional {
 	{
 		return Optional.ofNullable(entidadJuridica);
 	}
+
+	public void setDescripcion(String _descripcion) {
+		this.descripcion = _descripcion;		
+	}
 }

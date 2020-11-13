@@ -33,7 +33,7 @@ public class EntidadController implements WithGlobalEntityManager, Transactional
         return new ModelAndView(parametros,"categoriasBuscar.html.hbs");
     }
 
-    public ModelAndView getEntidad(Request request, Response response) {
+    public ModelAndView getEditEntidad(Request request, Response response) {
         Map<String, Object> modelo = new HashMap<String, Object>();
 		
         Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
@@ -67,4 +67,33 @@ public class EntidadController implements WithGlobalEntityManager, Transactional
         	}
         }
     }
+    
+    public Void postEditEntidad(Request request, Response response) {
+    	long id = Long.parseLong(request.params(":id"));
+		
+    	Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
+
+    	if(!usuarioLogueado.isPresent()) {
+           response.redirect("/login");
+           return null;
+        }
+	
+    	Optional<EntidadBase> entidadBase = Optional.empty();
+        
+        entidadBase = Optional.ofNullable(RepositorioEntidadBase.instancia.getById(id));
+                        
+        if(entidadBase.isPresent()) {
+        	EntidadBase entidad = entidadBase.get();
+        	entidad.setNombreFicticio(request.queryParams("nombreFicticio"));
+        	entidad.setDescripcion(request.queryParams("descripcion"));
+        }else {
+        	Optional<EntidadJuridica> entidadJuridica = Optional.empty();
+        	entidadJuridica = Optional.ofNullable(RepositorioEntidadJuridica.instancia.getById(id));
+        	if(entidadJuridica.isPresent()) {
+        		
+        	}
+        }
+        return null;
+    }
+    
 }
