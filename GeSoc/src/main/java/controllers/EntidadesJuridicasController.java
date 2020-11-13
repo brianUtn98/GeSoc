@@ -26,6 +26,8 @@ public class EntidadesJuridicasController implements WithGlobalEntityManager, En
             response.redirect("/login");
             return null;
         }
+        else
+        	modelo.put("usuario", usuarioLogueado.get());
         
         if(request.queryParams().contains("error")) {
         	modelo.put("errorRequired", "El campo Nombre Ficticio es requerido");
