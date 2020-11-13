@@ -121,6 +121,9 @@ public class Main{
         Spark.get("/operaciones/:idOperacion/presupuestos/:idPresupuesto/detalle",(request,response) -> operacionesController.detallePresupuesto(request,response),engine);
         Spark.get("/operaciones/:idOperacion/presupuestos/:idPresupuesto/seleccionar",(request,response) -> operacionesController.seleccionPresupuesto(request,response),engine);
         Spark.get("/operaciones/:id/presupuestos",(request,response) -> operacionesController.vistaPresupuestos(request,response),engine);
+
+        Spark.get("/operaciones/:id/presupuesto",(request,response) -> operacionesController.getFormularioPresupuesto(request,response),engine);
+        Spark.post("/operaciones/:id/presupuesto",(request,response) -> operacionesController.cargarPresupuesto(request,response),engine);
         Spark.post("/operacion",(request,response) -> operacionesController.cargarOperacion(request,response));
         Spark.get("/operaciones", (request, response) -> operacionesController.vistaOperaciones(request, response), engine);
     }

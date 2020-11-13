@@ -29,6 +29,13 @@ public class Presupuesto {
     public Presupuesto(Provedor provedor, List<ItemOperacion> detalle) {
         this.provedor = provedor;
         this.detalle = detalle;
+
+    }
+
+    public Presupuesto(Provedor provedor,List<ItemOperacion> detalle,DocumentoComercial documentoComercial){
+        this.provedor = provedor;
+        this.detalle = detalle;
+        this.documentoComercial = documentoComercial;
     }
 
     public Presupuesto(){}

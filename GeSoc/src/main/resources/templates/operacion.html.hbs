@@ -5,10 +5,13 @@
 
 {{# partial "contenido"}}
     <script>
-        var i = 1;
         function agregar() {
             $(".item:first").clone(true).insertBefore(".item:first");
             return false;
+        }
+        function agregarEtiqueta() {
+           $(".etiqueta:first").clone(true).insertBefore(".etiqueta:first");
+           return false;
         }
     </script>
     <div class="container">
@@ -41,7 +44,7 @@
                   <select class="custom-select" id="medioDePago">
                     <option selected value="efectivo">Efectivo</option>
                     <option value="cajero">Cajero automático</option>
-                    <option value=cuenta"">Dinero en cuenta</option>
+                    <option value="cuenta">Dinero en cuenta</option>
                     <option value="credito">Tarjeta de crédito</option>
                     <option value="debito">Tarjeta de débito</option>
                   </select>
@@ -64,23 +67,6 @@
             <div class="row">
               <div class="col-md-4">
                 <div class="form-group">
-                  <!--TODO Lista de presupuestos-->
-                  Aca va Lista de presupuestos
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4">
-                <div class="form-group">
-                  <!--TODO Presupu-->
-                  Aca va el presupuesto
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-4">
-                <div class="form-group">
                   <!--Documento comercial-->
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -100,7 +86,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <!--Requiere presupuesto?-->
-                  <label>Requiere presupuesto</label>
+                    <label>Requiere presupuesto</label>
                     <input class="form-check-input" type="radio" name="requierePresupuesto" id="requierePresupuesto" value="true" checked>
                     <label class="form-check-label" for="requierePresupuesto">Sí</label>
                     <input class="form-check-input" type="radio" name="requierePresupuesto" id="requierePresupuesto" value="false">
@@ -113,15 +99,24 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <!--TODO criterio de seleccion-->
-                  Acá va el criterio de selección
+                   <label>Criterio mínimo valor</label>
+                   <input class="form-check-input" type="radio" name="criterioSeleccion" id="criterioSeleccion" value="true" checked>
+                   <label class="form-check-label" for="criterioSeleccion">Sí</label>
+                   <input class="form-check-input" type="radio" name="criterioSeleccion" id="criterioSeleccion" value="false">
+                   <label class="form-check-label" for="criterioSeleccion">No</label>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-4">
                 <div class="form-group">
-                  <!--TODO revisores-->
-                  Aca van los revisores
+                  <!--revisores-->
+                 <label>Revisores</label>
+                 <select class="custom-select" name="revisores" multiple>
+                    {{#revisores}}
+                      <option value="{{id}}">{{nombre}}</option>
+                    {{/revisores}}
+                 </select>
                 </div>
               </div>
             </div>
@@ -129,7 +124,10 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <!--TODO etiquetas-->
-                  Aca van las etiquetas
+                  <p class="etiqueta">
+                    <label>Etiqueta:</label> <input type="text" name="etiqueta">
+                   </p>
+                  <span class="btn btn-default" onclick="agregarEtiqueta()">+</span>
                 </div>
               </div>
             </div>
