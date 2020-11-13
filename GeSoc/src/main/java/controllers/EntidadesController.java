@@ -27,6 +27,8 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
         if(!usuarioLogueado.isPresent()) {
             response.redirect("/login");
             return null;
+        }else {
+            modelo.put("usuario", usuarioLogueado.get());
         }
 
         List<EntidadOrganizacional> entidades =  RepositorioEntidades.instancia.listar();
@@ -47,6 +49,8 @@ public class EntidadesController implements WithGlobalEntityManager, EntityManag
         if(!usuarioLogueado.isPresent()) {
             response.redirect("/login");
             return null;
+        }else {
+            modelo.put("usuario", usuarioLogueado.get());
         }
 		
 		long id = Long.parseLong(request.params(":id"));

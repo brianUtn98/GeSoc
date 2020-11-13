@@ -1,0 +1,132 @@
+{{#partial "titulo"}}
+      
+{{/partial}}
+
+{{#partial "contenido"}}
+        <div class="container">
+            <div style="margin-top: 15%; margin-left: 20%; margin-right: 20%;">
+                <form method="post">
+                    <h2 class="text-primary" style="padding-left: 30%;">Crear Entidad Juridica</h2>
+                    <div class="form-group">
+                        <label>Nombre Ficticio</label>
+                        <input name="nombreFicticio" type="text" class="form-control"  placeholder="Nombre Ficticio" required/>
+                        {{#if errorNombre}}
+                            <p class="text-danger"> {{this}} </p>
+                        {{/if}}
+                    </div>
+                    <div class="form-group">
+                        <label>Razón Social</label>
+                        <input name="razonSocial" type="text" class="form-control"  placeholder="Razón Social" required/>
+                        {{#if errorRS}}
+                            <p class="text-danger"> {{this}} </p>
+                        {{/if}}
+                    </div>
+                    <div class="form-group">
+                        <label>CUIT</label>
+                        <input name="cuit" type="text" class="form-control"  placeholder="CUIT" required/>
+                        {{#if errorCUIT}}
+                            <p class="text-danger"> {{this}} </p>
+                        {{/if}}
+                    </div>
+                    <div class="form-group">
+                        <label>Codigo Inscripcion IGJ</label>
+                        <input name="codigoInscripcionIGJ" type="text" class="form-control" placeholder="Codigo Inscripcion IGJ"/>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Dirección</label>
+                                <input name="direccion" type="text" class="form-control" placeholder="Dirección"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Paìs</label>
+                                <select id="pais" name="pais" class="form-control">
+                                    <option value></option>
+                                    {{#each paises}}
+                                        <option value="{{this}}">{{this}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Provincia</label>
+                                <select id="provincia" name="provincia" class="form-control" disabled>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <select id="ciudad" name="ciudad" class="form-control" disabled>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input class="btn btn-primary btn-lg" type="submit" value="Guardar"/>
+
+                </form>         
+            </div>   
+        </div>
+{{/partial}}
+
+{{#partial "scripts"}}
+    <script>
+        $(document).ready(function () {
+            $("#pais").on("change", function () {
+                const pais = $(this).val();
+                if(pais !== "" && pais !== null && pais !== undefined){
+                    $("#provincia").prop("disabled", false);
+                    $.ajax({
+                        url: "../ubicacion/provincias?pais=" + pais,
+                        success: function(data) {  
+                            let json = JSON.parse(data);                          
+                            $("#provincia").html("");
+                            let inner =  '<option value> </option>';
+                            for(let i = 0; i < json.length; i++){
+                                inner += '<option value="' + json[i] +'">';
+                                inner += json[i] + '</option>'
+                            }    
+                            $("#provincia").append(inner);
+                        }
+                    });
+                }else{
+                    $("#provincia").prop("disabled", true);
+                }
+            });
+            $("#provincia").on("change", function () {
+                const pais = $("#pais").val();
+                if(pais !== "" && pais !== null && pais !== undefined){
+                    const provincia = $(this).val();
+                    if(pais !== "" && pais !== null && pais !== undefined){
+                        $("#ciudad").prop("disabled", false);
+                        $.ajax({
+                            url: "../ubicacion/ciudades?pais=" + pais + "&provincia=" + provincia,
+                            success: function(data) {
+                                let json = JSON.parse(data);
+                                $("#ciudad").html("");
+                                let inner =  '<option value> </option>';
+                                for(let i = 0; i < json.length; i++){
+                                    inner += '<option value="' + json[i] +'">';
+                                    inner += json[i] + '</option>'
+                                }
+                                $("#ciudad").append(inner);    
+                            }
+                        });
+                    }else{
+                        $("#ciudad").prop("disabled", true);
+                    }                    
+                }else{
+                    $("#ciudad").prop("disabled", true);
+                    $("#provincia").prop("disabled", true);
+                }
+            });
+        });
+    </script>
+{{/partial}}
+
+{{> layout.html.hbs}}
