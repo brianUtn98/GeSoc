@@ -32,6 +32,12 @@ public class UsuariosController implements WithGlobalEntityManager, Transactiona
         return null;
     }
 
+    public ModelAndView logoutUsuario(Request request, Response response) {
+        request.session().removeAttribute("idUsuario");
+        response.redirect("/login");
+        return null;
+    }
+
     public ModelAndView getFormularioLogin(Request request, Response response) {
         Map<String, Object> modelo = new HashMap<>();
 
