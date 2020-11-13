@@ -44,4 +44,8 @@ public class Presupuesto {
     public long getId(){
         return presupuesto_id;
     }
+
+    public List<ItemOperacion> getDetalle(){
+        return detalle;
+    }
 }

@@ -164,6 +164,31 @@ public class OperacionesController implements WithGlobalEntityManager, EntityMan
         response.redirect("/operaciones/"+idOperacion+"/presupuestos");
         return null;
     }
+
+    public ModelAndView detallePresupuesto(Request request, Response response) {
+        Map <String,Object> modelo = new HashMap<>();
+        Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
+//        if(!usuarioLogueado.isPresent()){
+//            response.redirect("/login");
+//            return null;
+//        }
+
+
+        Long idOperacion = Long.parseLong(request.params("idOperacion"));
+        Operacion operacion = RepositorioOperacion.instancia.getById(idOperacion);
+        Long idPresupuesto = Long.parseLong(request.params("idPresupuesto"));
+        Optional<Presupuesto> presupuesto = operacion.getPresupuestos().stream().filter(unPresupuesto -> unPresupuesto.getId() == idPresupuesto).findFirst();
+
+        if(!presupuesto.isPresent()){
+            response.redirect("/operaciones");
+            return null;
+        }
+
+        modelo.put("items", presupuesto.get().getDetalle());
+
+
+        return new ModelAndView(modelo,"detalle-operacion.html.hbs");
+    }
 }
 
 
