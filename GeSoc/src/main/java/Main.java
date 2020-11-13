@@ -12,6 +12,7 @@ import controllers.CategoriasController;
 import controllers.EntidadesController;
 import controllers.EntidadesJuridicasController;
 import controllers.MensajesController;
+import controllers.OperacionesController;
 import controllers.UbicacionController;
 import controllers.UsuariosController;
 import org.quartz.*;
@@ -20,6 +21,7 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
+import static spark.Spark.after;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -110,6 +112,8 @@ public class Main{
         
         UbicacionController ubicacionController = new UbicacionController();
 
+        OperacionesController operacionesController = new OperacionesController();
+
         Spark.get("/", (request, response) -> {
             Map<String, Object> modelo = new HashMap<>();
 
@@ -130,6 +134,18 @@ public class Main{
         Spark.get("/categoriasBuscar",(request, response) -> entidadController.mostrarEntidadCategoria(request,response),engine);
         Spark.get("/mensajes", (request, response) -> mensajesController.getVistaMensajes(request, response), engine);
         Spark.get("/mensajes/leer/:id", (request, response) -> mensajesController.leerMensaje(request, response), engine);
+
+        Spark.get("/operacion",(request,response) -> operacionesController.getFormularioOperaciones(request,response),engine);
+        Spark.get("/operaciones/:id/detalle",(request,response) -> operacionesController.vistaOperacion(request,response),engine);
+        Spark.get("/operaciones/:idOperacion/presupuestos/:idPresupuesto/detalle",(request,response) -> operacionesController.detallePresupuesto(request,response),engine);
+        Spark.get("/operaciones/:idOperacion/presupuestos/:idPresupuesto/seleccionar",(request,response) -> operacionesController.seleccionPresupuesto(request,response),engine);
+        Spark.get("/operaciones/:id/presupuestos",(request,response) -> operacionesController.vistaPresupuestos(request,response),engine);
+
+        Spark.get("/operaciones/:id/presupuesto",(request,response) -> operacionesController.getFormularioPresupuesto(request,response),engine);
+        Spark.post("/operaciones/:id/presupuesto",(request,response) -> operacionesController.cargarPresupuesto(request,response),engine);
+        Spark.post("/operacion",(request,response) -> operacionesController.cargarOperacion(request,response));
+        Spark.get("/operaciones", (request, response) -> operacionesController.vistaOperaciones(request, response), engine);
+
         Spark.get("/entidades", (request, response) -> entidadesController.getVistaEntidades(request, response), engine);
         Spark.get("/entidad/:id/categoria", (request, response) -> entidadesController.getFormularioSeleccionCategoria(request, response), engine);
         Spark.post("/entidad/:id/categoria", (request, response) -> entidadesController.asignarCategoria(request, response));
@@ -155,6 +171,5 @@ public class Main{
         Spark.get("ubicacion/ciudades", "aplicacion/json", (request, response) -> {
         	return ubicacionController.getCiudadesFromAPI(request.queryParams("pais"),request.queryParams("provincia"));        	
         }, new JsonTransformer());
-
     }
 }
