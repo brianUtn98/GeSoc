@@ -1,0 +1,71 @@
+
+{{# partial "titulo" }}
+        <title>Entidades por categoria</title>
+{{/partial}}
+
+{{# partial "contenido"}}
+    <div class="container">
+        <h2 class="text-primary" style="padding-left: 45%;">Entidad por categoria</h2>
+        <div  class="panel panel-default">
+            <!--<table border=2px margin=10px; width=100%;>-->
+            <!--<form action="/action_page.php">-->
+            <form action="/categoriasBuscar" method="GET">
+                Buscar entidades por categoria
+                <input type="text" name="filtro">
+                <input type="submit" value="Buscar">
+            </form>
+            <!--<ul>
+                    {{!#categorias}}
+                        <li><a href="categoriasBuscar/"{{!id}}>{{!nombre}}</li>
+                        <li><a href="categoriasBuscar/"{{!id}}>{{!nombre}}</li>
+                    {{!/categorias}}
+                </ul>-->
+            <table class="table table-striped">
+                <thead>
+                <th> Categoria</th>
+                <th> Entidad</th>
+                <th> Descripción</th>
+                <th> Codigo Inscripción IGJ</th>
+                <th> CUIT</th>
+                <th> Razon Social</th>
+                <th> Ubicación</th>
+                </thead>
+                <tbody>
+                {{#each entidades}}
+                    <tr>
+                        <td> {{categoria.nombre}}</td>
+                        <td>{{nombreFicticio}}</td>
+                        {{#if descripcion}}
+                            <td>{{descripcion}}</td>
+                        {{else}}
+                            <td></td>
+                        {{/if}}
+                        {{#if codigoInscripcionIGJ}}
+                            <td>{{codigoInscripcionIGJ}}</td>
+                        {{else}}
+                            <td></td>
+                        {{/if}}
+                        {{#if cuit}}
+                            <td>{{cuit}}</td>
+                        {{else}}
+                            <td></td>
+                        {{/if}}
+                        {{#if}}
+                            <td>{{razonSocial}}</td>
+                        {{else}}
+                            <td></td>
+                        {{/if}}
+                        {{#if}}
+                            <td>{{direccionPostal.direccion}}, {{direccionPostal.ciudad}}, {{direccionPostal.provincia}}, {{direccionPostal.pais}}</td>
+                        {{else}}
+                            <td></td>
+                        {{/if}}
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{{/partial}}
+
+{{> layout.html.hbs}}

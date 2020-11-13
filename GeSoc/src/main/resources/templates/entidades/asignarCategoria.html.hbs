@@ -1,0 +1,47 @@
+{{# partial "titulo" }}
+    <title>{{#if unread}}({{unread}}) {{/if}}Asignar Categorías</title>
+{{/partial}}
+
+{{# partial "contenido"}}
+        <div style="margin-top: 15%; margin-left: 20%; margin-right: 20%;">
+            <div class="row">
+                <div style="margin-bottom: 2em;">
+                    <h2 class="text-primary" style="padding-left: 30%;">Asignación de Categoría</h2>
+                    {{#if error}}
+                    <p class="text-danger"> Error al asignar la categoría </p>
+                    {{/if}}
+                </div>
+            </div>
+            <form method="POST" action="/entidad/{{entidad.id}}/categoria">
+                <div class="row">
+                    <div>
+                        <div class="form-group">
+                            <label class="col-md-3" style="font-size: large;">Nombre: </label>
+                            <label class="col-md-9" style="font-size: large;">{{entidad.nombreFicticio}}</label> 
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <div class="form-group">
+                            <label class="col-md-3" style="font-size: large;">Categoria</label>
+                            <select class="col-md-9" name="cat_id" class="form-control">
+                            {{#each categorias}}
+                                <option value={{id}}>{{nombre}}</option>
+                            {{/each}}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2" style="margin-left: 67.5%; margin-top: 1%">
+                        <div class="form-group">
+                            <input class="btn btn-block" type="submit" value="Guardar"/>
+                        </div>
+                    </div>
+                </div>
+            </form>            
+        </div>        
+ {{/partial}}
+
+{{> layout.html.hbs}}

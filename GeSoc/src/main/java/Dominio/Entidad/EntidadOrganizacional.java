@@ -23,13 +23,14 @@ public class EntidadOrganizacional {
 	@OneToMany
 	@JoinColumn(name= "entidad_id")
 	private List<Operacion> operaciones;
-	
+
+	public EntidadOrganizacional(){}
+
 	public EntidadOrganizacional(String _nombreFicticio, CategoriaDeEntidad _categoria) {
 		nombreFicticio =_nombreFicticio;
 		operaciones = new ArrayList<Operacion>();
 		categoria = _categoria;
 	}
-	
 	
 	public String getNombreFicticio()
 	{
@@ -57,5 +58,10 @@ public class EntidadOrganizacional {
 	
 	public List<Operacion> misOperaciones(){
 		return operaciones;
+	}
+
+	public long getId() {
+		// TODO Auto-generated method stub
+		return entidad_id;
 	}
 }	

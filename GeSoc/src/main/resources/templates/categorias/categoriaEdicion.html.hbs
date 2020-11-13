@@ -1,0 +1,52 @@
+
+{{# partial "titulo" }}
+    <title>{{#if unread}}({{unread}}) {{/if}}Edición de Categorías</title>
+{{/partial}}
+
+{{# partial "contenido"}}
+        <div style="margin-top: 15%; margin-left: 20%; margin-right: 20%;">
+            <div class="row">
+                <div style="margin-bottom: 2em;">
+                    <h2 class="text-primary" style="padding-left: 30%;">Edición de Categoría</h2>
+                    {{#if error}}
+                    <p class="text-danger"> Error al editar la categoría </p>
+                    {{/if}}
+                </div>
+            </div>
+            <form method="POST" action="/categoria/editar/{{categoria.id}}">
+                <div class="row">
+                    <div>
+                        <div class="form-group">
+                            <label class="col-md-3" style="font-size: large;">Nombre</label>
+                            <input class="col-md-9" name="nombre" type="text" class="form-control" style="margin-top: 1%" value={{categoria.nombre}}>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <div class="form-group">
+                            <label class="col-md-3" style="font-size: large;">Reglas</label>
+                            <select class="col-md-9" name="reglas" class="form-control">
+                            {{#each reglas}}
+                                <option value={{tipo}}>{{nombreRegla}}</option>
+                            {{/each}}
+                            {{#if reglaSeleccionada}}
+                                <option value={{reglaSeleccionada.tipo}} selected>{{reglaSeleccionada.nombreRegla}}</option>
+                            {{/if}}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="_method" value="PUT">
+                <div class="row">
+                    <div class="col-md-2" style="margin-left: 67.5%; margin-top: 1%">
+                        <div class="form-group">
+                            <input class="btn btn-block" type="submit" value="Guardar"/>
+                        </div>
+                    </div>
+                </div>
+            </form>            
+        </div>        
+    {{/partial}}
+
+{{> layout.html.hbs}}

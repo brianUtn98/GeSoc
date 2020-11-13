@@ -1,0 +1,38 @@
+{{#partial "titulo"}}
+        <title>Entidades</title>
+{{/partial}}
+
+{{#partial "contenido"}}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-auto">
+                    <table class="table table-striped">
+                        <thead>
+                            <th> Nombre</th>
+                            <th> Categoria</th>
+                            <th> Tipo </th>
+                            <th> Acciones</th>
+                        </thead>
+                        <tbody>
+                        {{#each entidades}}
+                            <tr>
+                                <td> {{nombreFicticio}}</td>
+                                <td> 
+                                    {{categoria.Nombre}}
+                                </td>
+                                <td></td>
+                                <td> 
+                                    <!--<a title="Ver" href="/reglas">ver Regla</a>-->
+                                    <a title="Editar" href="/entidadBase/{{id}}">Editar Entidad</a>
+                                    <a title="Asignar" href="/entidad/{{id}}/categoria">Asignar Categoria</a>
+                                </td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+{{/partial}}
+
+{{> layout.html.hbs}}

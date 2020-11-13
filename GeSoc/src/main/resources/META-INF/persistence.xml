@@ -24,14 +24,19 @@
         <class>Dominio.Etiqueta</class>
         <class>Dominio.Reporte</class>
         <class>Dominio.Efectivo</class>
+        <class>Dominio.OperacionValidada</class>
+        <class>Dominio.Entidad.ReglaDeCategoria</class>
+        <class>Dominio.Entidad.ImpedirQueEntidadBaseSeaParteDeJuridica</class>
+        <class>Dominio.Entidad.BloquearAgregarEntidadBaseAJuridica</class>
+        <class>Dominio.Entidad.BloquearNuevosEgresos</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
 
             <!-- <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/prueba" /> 
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/gesoc" /> 
             <property name="hibernate.connection.username" value="root" /> 
-            <property name="hibernate.connection.password" value="mysql" /> -->
+            <property name="hibernate.connection.password" value="" />-->
 
             <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
             <property name="hibernate.connection.url" value="jdbc:hsqldb:file:app-db"/>
