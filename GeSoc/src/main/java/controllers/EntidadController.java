@@ -2,7 +2,6 @@ package controllers;
 
 import Dominio.Entidad.*;
 import Dominio.Usuario.Usuario;
-
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import spark.ModelAndView;
@@ -22,6 +21,15 @@ public class EntidadController implements WithGlobalEntityManager, Transactional
         String categoriaBuscada = request.queryParams("filtro");
 
         Map<String, Object> parametros = new HashMap<String, Object>();
+
+        Optional<Usuario> usuarioLogueado = UsuariosController.getUsuarioLogueado(request);
+
+        if(!usuarioLogueado.isPresent()) {
+            response.redirect("/login");
+            return null;
+        }
+
+        parametros.put("usuario", usuarioLogueado.get());
 
         List<EntidadOrganizacional> entidadesOrganizacionales =
                 categoriaBuscada != null ?
