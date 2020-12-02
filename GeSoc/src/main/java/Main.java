@@ -32,7 +32,7 @@ public class Main {
         //init();
 
         // Configuramos la tarea programada:
-        try {
+        /*try {
             JobDetail tarea = JobBuilder.newJob(TareaValidar.class).build();
             Trigger activador = TriggerBuilder.newTrigger().withIdentity("cronTrigger","group1").withSchedule(CronScheduleBuilder.cronSchedule("0 * * ? * * *")).build();
             Scheduler planificador = new StdSchedulerFactory().getScheduler();
@@ -41,14 +41,16 @@ public class Main {
         }
         catch(Exception e){
             e.printStackTrace();
-        }
+        }*/
 
-        //new Bootstrap().run(); // Deberia estar comemntado en el final
+        new Bootstrap().run(); // Deberia estar comemntado en el final
 
         System.out.println("Iniciando servidor spark");
 
-        Spark.port(8080);
+        Spark.port(getHerokuAssignedPort());
+        //Spark.port(8080);
         Spark.staticFileLocation("/public");
+
 
         after((request, response) -> {
             PerThreadEntityManagers.getEntityManager();
@@ -131,5 +133,13 @@ public class Main {
         Spark.get("ubicacion/ciudades", "aplicacion/json", (request, response) -> {
         	return ubicacionController.getCiudadesFromAPI(request.queryParams("pais"),request.queryParams("provincia"));        	
         }, new JsonTransformer());
+    }
+
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
     }
 }
