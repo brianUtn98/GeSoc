@@ -19,6 +19,9 @@ public class RepositorioOperacion implements WithGlobalEntityManager {
 
 
     public void agregar(Operacion operacion) {
+        operacion.getEtiquetas().forEach(etiqueta -> entityManager().persist(etiqueta));
+        operacion.getDetalle().forEach(item -> entityManager().persist(item));
+        entityManager().persist(operacion.getMedioPago());
         entityManager().persist(operacion);
     }
 }

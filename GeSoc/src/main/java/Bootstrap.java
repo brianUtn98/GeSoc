@@ -38,7 +38,7 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
         Provedor proveedorHomero = new Provedor("Homero", "Thompson", "Pato feliz", 29256328,  new DireccionPostal("Calle falsa 123","Argentina","Capital Federal", "Capital Federal"), TipoDocumento.DNI);
         Provedor proveedorBart = new Provedor("Bart", "Thompson", "Pato infeliz", 29256329,  new DireccionPostal("Calle falsa 123","Argentina","Capital Federal", "Capital Federal"), TipoDocumento.DNI);
 
-        Moneda unaMoneda = new Moneda("0", "ARS", "Peso", 2); // Tener un mock de moneda para esto y los tests seria genial
+        Moneda unaMoneda = new Moneda("ARS", "$", "Peso", 2); // Tener un mock de moneda para esto y los tests seria genial
 
         List<ItemOperacion> items1 = new ArrayList<>();
         items1.add(new ItemOperacion("UnProducto1", new ValorMonetario(unaMoneda, 1000)));

@@ -166,7 +166,7 @@ public class Operacion{
 	}
 	
 	public ValorMonetario getTotal() {
-		ValorMonetario total =new ValorMonetario(new Moneda("0", "ARS", "Peso", 2), 0); // Esto de crear una moneda aca adentro no esta tan bueno
+		ValorMonetario total =new ValorMonetario(new Moneda("ARS", "$", "Peso", 2), 0); // Esto de crear una moneda aca adentro no esta tan bueno
 		for(ItemOperacion i:detalle) {
 			total = total.sumar(i.getValorTotal());
 		}

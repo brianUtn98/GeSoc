@@ -23,40 +23,48 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class OperacionesController implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
-    public ModelAndView cargarOperacion(Request request, Response response){
-
-        // !! Empieza codigo cavernicola: !!
+    public List<ItemOperacion> parsearRequestItems(Request request){
         String[] detalles = request.queryMap("item").values();
-        String[] etiquetas = request.queryMap("etiqueta").values();
-        int[] montos = Arrays.stream(request.queryMap("monto").values()).mapToInt(str -> Integer.parseInt(str)).toArray();
-        String[] monedas = request.queryMap("monto").values();
-        List<Usuario> revisores = Arrays.stream(request.queryMap("revisores").values()).map(str -> RepositorioUsuarios.instancia.getById(Long.parseLong(str))).collect(Collectors.toCollection(ArrayList::new));
-
+        int[] montos = Arrays.stream(request.queryMap("monto").values())
+                .mapToInt(str -> Integer.parseInt(str)).toArray();
+        String[] monedas = request.queryMap("moneda").values();
         List<ItemOperacion> items = new ArrayList<>();
         for (int i = 0; i < detalles.length; i++) {
-            ValorMonetario valor = new ValorMonetario(new Moneda(monedas[i], "$", "", 2), montos[i]); // TODO: revisar esto hardcodeadp
+            ValorMonetario valor = new ValorMonetario(new Moneda(monedas[i], "$", "", 2), montos[i]); // TODO: revisar esto hardcodeado
             items.add(new ItemOperacion(detalles[i], valor));
         }
 
-        Provedor proveedor = RepositorioProveedor.instancia.getById(Long.parseLong(request.queryParams("proveedor")));
+        return items;
+    }
 
-        MedioDePago medioDePago = new Efectivo(); // TODO
+    public Operacion parsearRequestOperacion(Request request) {
         Integer numeroDocumento = Integer.parseInt(request.queryParams("numeroDocumento"));
+        Provedor proveedor = RepositorioProveedor.instancia.getById(Long.parseLong(request.queryParams("proveedor")));
+        MedioDePago medioDePago = new Efectivo(); // TODO
+        List<ItemOperacion> items = parsearRequestItems(request);
         DocumentoComercial documento = DocumentoComercial.valueOf(request.queryParams("documentoComercial"));
         boolean requierePresupuesto = Boolean.parseBoolean(request.queryParams("requierePresupuesto"));
         boolean criterioSeleccion = Boolean.parseBoolean(request.queryParams("criterioSeleccion"));
+
         Operacion operacion = new Operacion(numeroDocumento, proveedor, LocalDate.now(), medioDePago, items, documento, requierePresupuesto, criterioSeleccion);
+
+        List<Usuario> revisores = Arrays.stream(request.queryMap("revisores").values())
+                .map(str -> RepositorioUsuarios.instancia.getById(Long.parseLong(str)))
+                .collect(Collectors.toList());
         revisores.forEach(unRevisor -> operacion.altaRevisor(unRevisor));
-        withTransaction(() -> {
-            for(int i=0;i<etiquetas.length;i++) {
-                Etiqueta etiqueta = new Etiqueta(etiquetas[i]);
-                persist(etiqueta);
-                operacion.addEtiqueta(etiqueta);
-            }
-            items.forEach(item -> persist(item));
-            persist(medioDePago);
-            RepositorioOperacion.instancia.agregar(operacion);
-        });
+
+        List<Etiqueta> etiquetas = Arrays.stream(request.queryMap("etiqueta").values())
+                .map(str -> new Etiqueta(str))
+                .collect(Collectors.toList());
+        etiquetas.forEach(etiqueta -> operacion.addEtiqueta(etiqueta));
+
+        return operacion;
+    }
+
+    public ModelAndView cargarOperacion(Request request, Response response){
+        Operacion operacion = parsearRequestOperacion(request);
+
+        withTransaction(() -> RepositorioOperacion.instancia.agregar(operacion));
 
         response.redirect("/operaciones");
 
