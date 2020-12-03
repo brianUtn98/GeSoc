@@ -32,7 +32,7 @@ public class Main {
         //init();
 
         // Configuramos la tarea programada:
-        /*try {
+        try {
             JobDetail tarea = JobBuilder.newJob(TareaValidar.class).build();
             Trigger activador = TriggerBuilder.newTrigger().withIdentity("cronTrigger","group1").withSchedule(CronScheduleBuilder.cronSchedule("0 * * ? * * *")).build();
             Scheduler planificador = new StdSchedulerFactory().getScheduler();
@@ -41,7 +41,7 @@ public class Main {
         }
         catch(Exception e){
             e.printStackTrace();
-        }*/
+        }
 
         new Bootstrap().run(); // Deberia estar comemntado en el final
 
